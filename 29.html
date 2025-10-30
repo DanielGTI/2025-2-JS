@@ -5,12 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tópico 6</title>
     </head>
-    <body>
+    <body style="font-family: 'Courier New', Courier, monospace;">
         <div>Programação de Interfaces (aula 6)</div>
+        <br>
         <script type="text/javascript">
-            for (var l = 1; l <= 5; l++){
-                for (var c = 1; c <= 5; c++){
-                    document.write("+ ");
+            var N = 3;
+            for (var L = 1; L <= N; L++){
+                for (var C = 1; C <= (N*2)-1 ; C++){
+                    //document.write("L(" + (L+C) + ") ");
+                    //document.write("N(" + (N-1) + ") "); 
+                        
+                    
+                    if( (L+C) >= (N-1)   )
+                        document.write("X&nbsp");
+                    else
+                        document.write("&nbsp&nbsp");
                 }
                 document.write("<br>");
             }

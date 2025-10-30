@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Consulta de CEP - ViaCEP</title>
+</head>
+<body>
+  <h2>Consultar Endereço pelo CEP</h2>
+  <input type="text" id="cep" placeholder="Digite o CEP" maxlength="9">
+  <button onclick="buscarCEP()">Buscar</button>
+  <h3>Resultado:</h3><pre id="resultado"></pre>
+  <script>
+    async function buscarCEP() {
+      const cep = document.getElementById("cep").value.replace(/\D/g, ''); // remove caracteres não numéricos
+      if (cep.length !== 8) {
+        document.getElementById("resultado").innerText = "CEP inválido. Deve conter 8 dígitos.";
+        return;
+      }
+      try {
+        const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const dados = await resposta.json();
+        if (dados.erro) {
+          document.getElementById("resultado").innerText = "CEP não encontrado.";
+        } else {
+          document.getElementById("resultado").innerText = 
+`CEP: ${dados.cep}
+Logradouro: ${dados.logradouro}
+Bairro: ${dados.bairro}
+Cidade: ${dados.localidade}
+Estado: ${dados.uf}
+`;
+        }
+      } catch (erro) {
+        document.getElementById("resultado").innerText = "Erro ao buscar o CEP.";
+        console.error(erro);
+      }
+    }
+  </script>
+</body>
+</html>

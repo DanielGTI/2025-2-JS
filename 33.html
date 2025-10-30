@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tópico 7</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div>Programação de Interfaces (aula 7)</div>
+        <script type="text/javascript">
+            var x = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex"];
+	        document.write("<br>Lista Atual = " + x + ". ");
+            // Informa o tamanho de um array
+            document.write("<br>Tamanho = " + x.length + ". ");
+
+            // Adicionar ao final
+            x.push("Sab");                  
+            document.write("<br><br>Nova lista 1 = " + x + ". ");
+
+            // Adiciona entre os valores 
+            var novaLista = x.join(' - ');  
+            document.write("<br>Nova lista 2 = " + novaLista + ". ");
+
+            // Retirar do final
+            x.pop();                  
+            document.write("<br>Nova lista 3 = " + x + ". ");
+
+            // Retirar do inicio
+            x.shift();                  
+            document.write("<br>Nova lista 4 = " + x + ". ");
+
+            // Adiciona no inicio
+            x.unshift("Domingo");                  
+            document.write("<br>Nova lista 5 = " + x + ". ");
+
+            // Seleciona intervalo
+            var novaLista = x.slice(1,6);                 
+            document.write("<br>Nova lista 6 = " + novaLista + ". ");
+            
+            // Ordena crescente
+            var dias = [27,22,25,21,24,23,26];                 
+            document.write("<br>Nova lista 7 = " + dias + ". ");
+            document.write("<br>Nova lista 8 = " + dias.sort() + ". ");
+            
+            // Ordena decrescente
+            document.write("<br>Nova lista 9 = " + dias.reverse() + ". ");
+            
+            // Concatenar ou Juntar 
+            dias = dias.concat(20,19,18,17,16,15,14);
+            document.write("<br>Nova lista 10 = " + dias + ". ");
+            
+            // Exibir com FOR
+            dias.sort();
+            document.write("<br><br>Listar os dias do mes:<br>");
+            for (var i = 0; i < dias.length; i++){
+                document.write(dias[i] + "/09 ");
+            }
+
+        </script>
+   </body>
+</html>

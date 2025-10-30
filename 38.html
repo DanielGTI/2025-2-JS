@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tópico 7</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div>Programação de Interfaces (aula 10)</div>
+        <script type="text/javascript">
+           var carro = {
+               modelo: "Camarom",
+               marca: "GG",
+               potencia: 300,
+               cor: "Amarelo",
+               preco: 200000,
+               modeloMarca: function(){
+                   return this.modelo + " da marca " + this.marca;
+               }
+           };
+           
+           document.write("<br>Comprei um " + carro.modelo + ", da cor " + carro.cor + "!");
+           document.write("<br>Já tive outros veículos da " + carro.marca + 
+                          ". Investi mais de R$ " + carro.preco + "!");
+           document.write("<br>Todos querem ver o " + carro.modeloMarca() + "!");
+        </script>
+    </body>
+</html>

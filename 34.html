@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tópico 7</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div>Programação de Interfaces (aula 7)</div>
+        <script type="text/javascript">
+            function dobro(x){
+                return x*2;
+            } 
+            function somar(a,b){
+                return a+b;
+            } 
+            function nPar(n){
+                if (n%2==0) return true;
+                else        return false;
+            } 
+            function somaIntervalo(x, y){
+                var soma=0;
+                for(var i=x; i<=y; i++){
+                    soma += i;
+                }
+                return soma;
+            } 
+            var n = dobro(4);
+            document.write("<br>Dobro(4) = " + n);
+             var soma = somar(2,n);
+            document.write("<br>somar(2, n) = ", soma);
+ 
+            document.write("<br>nPar(2) = ", nPar(2));
+ 
+            var somatoria = somaIntervalo(1,5);
+            document.write("<br>somaIntervalo(1, 5) = " + somatoria);
+ 
+        </script>
+    </body>
+</html>

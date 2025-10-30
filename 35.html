@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tópico 7</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div>Programação de Interfaces (aula 8)</div>
+        <script type="text/javascript">
+            function fatorial(n){
+                if ((n == 0) || (n == 1))
+                    return 1;
+                else
+                    return (n * fatorial(n - 1));
+            }
+ 
+            document.write("<br>Fatorial(1) = " + fatorial(1));
+            document.write("<br>Fatorial(2) = " + fatorial(2));
+            document.write("<br>Fatorial(3) = " + fatorial(3));
+            document.write("<br>Fatorial(4) = " + fatorial(4));
+            document.write("<br>Fatorial(5) = " + fatorial(5));
+ 
+        </script>
+    </body>
+</html>

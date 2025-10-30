@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tópico 7</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div>Programação de Interfaces (aula 11)</div>
+        <script type="text/javascript">
+           var hoje = new Date();
+           var fimANO = new Date(2017, 11, 31, 23, 59, 59, 999); 
+           // Determina o ultimo segundo do ano
+            
+           var segundosRestantes = (fimANO.getTime() - hoje.getTime()) / 1000;  
+                // Milisegundos
+           var diasRestantes = (segundosRestantes / 60) / 60 / 24;
+            
+           document.write("<br> " + hoje);
+           document.write("<br> " + fimANO);
+           document.write("<br> Segundos: " + Math.floor(segundosRestantes));
+           document.write("<br> Dias: " + Math.floor(diasRestantes));
+           
+        </script>
+    </body>
+</html>
