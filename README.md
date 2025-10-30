@@ -1,11 +1,11 @@
-# 2024-2-T47-AULA
+# 2025-2-JS
 **Frontend JS**
 
-Link: [Aula 1 a 6](https://github.com/DanielGTI/2024-2-T47-AULA)
+Link: [Aula 1 a 12](https://github.com/DanielGTI/2025-2-JS)
 
 *Requisitos:*
 
-- VSCode 1.94 (Link: [download](https://code.visualstudio.com/) )
+- VSCode 1.105 (Link: [download](https://code.visualstudio.com/) )
 - vscode-preview-server (extension VSCode)
 
 
