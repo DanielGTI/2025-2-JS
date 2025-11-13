@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tópico 19</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <p>Video 01 explicativo: https://www.youtube.com/watch?v=sPQSGPrA0m4</p>
+    <p>Video 02 explicativo: https://www.youtube.com/watch?v=1_oxcJSUrRA</p>
+    <p>Video 03 explicativo: https://www.youtube.com/watch?v=c45RLJ7qgoA</p>
+    <script>
+        // Classe
+        function Carro(a, b, c, d){
+            this.cor = a;
+            this.ano = b;
+            this.portas = c;
+            this.modelo = d;
+            this.velocidadeAtual = 0;
+            this.ligado = false;
+        }
+ 
+        // Método
+        Carro.prototype.passear = function(){
+            this.ligado = true;
+            this.velocidadeAtual = 50;
+            return this.velocidadeAtual;
+        }
+ 
+        // Método
+        Carro.prototype.parar = function(){
+            this.velocidadeAtual = 0;
+        }
+ 
+        // Método
+        Carro.prototype.estacionar = function(){
+            this.parar();
+            this.ligado = false;
+        }
+ 
+        // Método
+        Carro.prototype.acelerar = function(){
+            this.velocidadeAtual += 10;
+        }
+ 
+        // Método
+        Carro.prototype.informacao = function(){
+            if(this.ligado) 
+                var motorLigado = 'ligado';
+            else
+                var motorLigado = 'desligado';
+ 
+            return 'Velocidade atual = ' + this.velocidadeAtual + ' km/h,' + 
+            ' o meu ' + this.modelo + ' ' + this.cor + ' está ' + motorLigado + '.';
+ 
+        }
+ 
+        // Instanciar objeto
+        var veiculo1 = new Carro('preto', 2017, 5, 'SUV');
+ 
+        // Exibir
+        console.log(veiculo1.informacao());
+        veiculo1.passear();
+ 
+        console.log(veiculo1.informacao());
+        veiculo1.parar();
+        console.log(veiculo1.informacao());
+        veiculo1.passear();
+        console.log(veiculo1.informacao());
+        veiculo1.estacionar();
+        console.log(veiculo1.informacao());
+        veiculo1.passear();
+        veiculo1.acelerar();
+        veiculo1.acelerar();
+        console.log(veiculo1.informacao());
+   
+   </script>
+</body>
+</html>
