@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tópico 17</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <br>
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <form class="form-horizontal">
+                <fieldset>
+                    <legend>Cadastro do Clientes</legend>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="idNome">Nome</label>
+                        <img src="pergunta.png" width="14" id="idProcurar" onclick="procurarCliente()">
+                        <div class="col-md-9">
+                            <input id="idNome" name="idNome" type="text" placeholder="Nome do cliente" class="form-control input-md" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="idCPF">CPF</label>  
+                        <div class="col-md-9">
+                            <input id="idCPF" name="idCPF" type="text" placeholder="Número do CPF" class="form-control input-md" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="idEndereco">Endereço</label>  
+                        <div class="col-md-9">
+                            <input id="idEndereco" name="idEndereco" type="text" placeholder="Endereço residêncial" class="form-control input-md" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="idCEP">CEP</label>  
+                        <div class="col-md-9">
+                            <input id="idCEP" name="idCEP" type="text" placeholder="CEP" class="form-control input-md" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="idBairro">Bairro</label>  
+                        <div class="col-md-9">
+                            <input id="idBairro" name="idBairro" type="text" placeholder="Bairro" class="form-control input-md" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="idEmail">e-mail</label>  
+                        <div class="col-md-9">
+                            <input id="idEmail" name="idEmail" type="email" placeholder="e-mail de contato" class="form-control input-md" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="idPlano">Plano</label>
+                        <div class="col-md-9">
+                            <select id="idPlano" name="idPlano" class="form-control">
+                                <option value="">Escolha uma opção</option>
+                                <option value="1">Normal</option>
+                                <option value="2">Express</option>
+                                <option value="3">VIP</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="idConfirmar"></label>
+                        <div class="col-md-9">
+                            <button type="submit" id="idConfirmar" name="idConfirmar" class="btn btn-primary">Cadastrar</button>
+                            <button type="reset" id="idCancelar" name="idCancelar" class="btn btn-danger">Cancelar</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+        <script>
+            function procurarCliente() {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var valor = "";
+                        var cliente_encontrado = false;
+                        myObj = JSON.parse(this.responseText);
+                        nomeProcura = document.getElementById("idNome");
+                        
+                        for (i in myObj.cliente) {
+                            if (myObj.cliente[i].nome == nomeProcura.value){
+                                document.getElementById("idCPF").value = myObj.cliente[i].cpf;
+                                document.getElementById("idEndereco").value = myObj.cliente[i].endereco;
+                                document.getElementById("idCEP").value = myObj.cliente[i].cep;
+                                document.getElementById("idBairro").value = myObj.cliente[i].bairro;
+                                document.getElementById("idEmail").value = myObj.cliente[i].email;
+                                document.getElementById("idPlano").focus();
+                                cliente_encontrado = true;
+                            }
+                        }
+                        if (cliente_encontrado == false){
+                                alert("Cliente não encontrado!");
+                        }
+                    }
+                };
+                xmlhttp.open("GET", "dados_cliente.json", true);
+                xmlhttp.send();
+            }
+        </script>
+    </body>
+</html>

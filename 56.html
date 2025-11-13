@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tópico 17</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div></div>
+        <div>
+            <form>
+                <fieldset>
+                    <legend>Cadastro do Clientes</legend>
+                    <div>
+                        <label>Nome</label>  
+                        <img src="pergunta.png" width="10" id="idProcurar" onclick="procurarCliente()">
+                        <div>
+                            <input id="idNome" name="idNome" type="text">
+                        </div>
+                    </div>
+                    <div>
+                        <label>CPF</label>  
+                        <div>
+                            <input id="idCPF" name="idCPF" type="text">
+                        </div>
+                    </div>
+                    <div>
+                        <label>Endereço</label>  
+                        <div>
+                            <input id="idEndereco" name="idEndereco" type="text">
+                        </div>
+                    </div>
+                    <div>
+                        <label>CEP</label>  
+                        <div>
+                            <input id="idCEP" name="idCEP" type="text">
+                        </div>
+                    </div>
+                    <div>
+                        <label>Bairro</label>  
+                        <div>
+                            <input id="idBairro" name="idBairro" type="text">
+                        </div>
+                    </div>
+                    <div>
+                        <label>e-mail</label>  
+                        <div>
+                            <input id="idEmail" name="idEmail" type="email">
+                        </div>
+                    </div>
+                    <div>
+                        <label>Plano</label>
+                        <div>
+                            <select id="idPlano" name="idPlano" class="form-control">
+                                <option value="">Escolha uma opção</option>
+                                <option value="1">Normal</option>
+                                <option value="2">Express</option>
+                                <option value="3">VIP</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <label></label>
+                        <div>
+                            <button id="idConfirmar" name="idConfirmar" class="btn btn-primary">Cadastrar</button>
+                            <button id="idCancelar" name="idCancelar" class="btn btn-danger">Cancelar</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div></div>
+        <script>
+            function procurarCliente() {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var valor = "";
+                        var cliente_encontrado = false;
+                        myObj = JSON.parse(this.responseText);
+                        nomeProcura = document.getElementById("idNome");
+                        
+                        for (i in myObj.cliente) {
+                            if (myObj.cliente[i].nome == nomeProcura.value){
+                                document.getElementById("idCPF").value = myObj.cliente[i].cpf;
+                                document.getElementById("idEndereco").value = myObj.cliente[i].endereco;
+                                document.getElementById("idCEP").value = myObj.cliente[i].cep;
+                                document.getElementById("idBairro").value = myObj.cliente[i].bairro;
+                                document.getElementById("idEmail").value = myObj.cliente[i].email;
+                                document.getElementById("idPlano").focus();
+                                cliente_encontrado = true;
+                            }
+                        }
+                        if (cliente_encontrado == false){
+                                alert("Cliente não encontrado!");
+                        }
+                    }
+                };
+                xmlhttp.open("GET", "dados_cliente.json", true);
+                xmlhttp.send();
+            }
+        </script>
+    </body>
+</html>

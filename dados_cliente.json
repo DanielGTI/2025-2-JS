@@ -1,0 +1,28 @@
+{
+  "cliente":[
+        {
+            "nome":"João",
+            "cpf":"0123654",
+            "endereco":"Av. Paulista, 1000",
+            "cep":"01234-001",
+            "bairro":"Vila Norte",
+            "email":"joao@gmail.com"
+        },
+        {
+            "nome":"Maria",
+            "cpf":"01231111",
+            "endereco":"Av. Nove de Julho, 1000",
+            "cep":"01789-001",
+            "bairro":"Vila Sul",
+            "email":"maria@gmail.com"
+        },
+        {
+            "nome":"Pedro",
+            "cpf":"45612343",
+            "endereco":"Av. Santo Amaro, 1000",
+            "cep":"01321-001",
+            "bairro":"Vila Leste",
+            "email":"pedro@gmail.com"
+        }
+    ]
+}
