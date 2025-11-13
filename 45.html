@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tópico 7</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <script type="text/javascript">
+            var magica = false;
+            function alterar_Bau(x){
+                var img_bau;
+                if (x == 1 && magica == false)
+                    img_bau = "bau_aberto.png";                    
+                else 
+                    if (x == 2 && magica == false)
+                        img_bau = "bau_fechado.png"
+                    else{
+                        img_bau = "";
+                        magica = true;
+                    }
+                document.getElementById("bau").src = img_bau;
+            }            
+        </script>
+    <img src="bau_fechado.png" id="bau" onMouseOver="alterar_Bau(1)" onMouseOut="alterar_Bau(2)" onClick="alterar_Bau(0)">
+        
+    </body>
+</html>

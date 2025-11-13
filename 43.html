@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tópico 7</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <script type="text/javascript">
+            function abrir_Bau(){
+                document.getElementById("bau").src = "bau_aberto.png";
+            }            
+            function fechar_Bau(){
+                document.getElementById("bau").src = "bau_fechado.png";
+            }
+        </script>
+    
+        <img src="bau_fechado.png" id="bau" onMouseOver="abrir_Bau()" onMouseOut="fechar_Bau()">
+        
+    </body>
+</html>

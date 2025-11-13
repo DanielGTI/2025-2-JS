@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tópico 7</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <script type="text/javascript">
+        function alterar_Bau(x){
+            var img_bau;
+            if (x == 1)
+                img_bau = "bau_aberto.png";
+            else 
+                img_bau = "bau_fechado.png"
+            
+            document.getElementById("bau").src = img_bau;
+        }            
+    </script>
+    <img src="bau_fechado.png" id="bau" onMouseOver="alterar_Bau(1)" onMouseOut="alterar_Bau(2)">
+        
+    </body>
+</html>
