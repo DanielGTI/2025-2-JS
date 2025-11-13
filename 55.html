@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <body>
+ 
+        <h2>Uso do XMLHttpRequest com JSON.</h2>
+        <h3>FILMES</h3>
+        <div id="dado"></div>
+        <script>
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var valor = "";
+                    myObj = JSON.parse(this.responseText);
+                    for (i in myObj.filme) {
+                        valor += "Titulo: " + myObj.filme[i].titulo + " | ";
+                        valor += "Ano: " + myObj.filme[i].ano;
+                        valor += "   ( " + myObj.filme[i].genero + " )<br>";
+                    }
+                    document.getElementById("dado").innerHTML = valor;
+                }
+            };
+            xmlhttp.open("GET", "json_dados.json", true);
+            xmlhttp.send();
+        </script>
+        <p>Abrir o arquivo <a href="json_dados.json" target="_blank">json_dados.json</a></p>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div>
+            <h2>Objeto XMLHttpRequest</h2>
+            <button type="button" onclick="carregarArquivo()">Carregar dados</button>
+            <p id="retorno"></p>
+        </div>
+ 
+        <script>
+            function carregarArquivo() {
+                var ajax = new XMLHttpRequest();
+                ajax.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("retorno").innerHTML =
+                                this.responseText;
+                    }
+                };
+                ajax.open("GET", "ajax_dados.txt", true);
+                ajax.send();
+            }
+        </script>
+    </body>
+</html>
