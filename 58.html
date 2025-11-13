@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <p>
+            <img id="exemploImg"
+                 src="pergunta.png"
+                 style="border: 5px solid gold;"
+                 alt="border_Img">
+        </p>
+        <form name="Form_01">
+            <input type="button" value="Alterar borda" onclick="alterarBordas(20);" />
+            <input type="button" value="Retornar borda"  onclick="alterarBordas(5);" />
+        </form>
+        <script>
+            function alterarBordas(medida) {
+                document.getElementById("exemploImg").style.borderWidth = medida + "px";
+            }
+        </script>
+    </body>
+</html>
