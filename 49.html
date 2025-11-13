@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <body>
+ 
+        <p>Selecione um novo treinamento a realizar.</p>
+ 
+        <select id="curso" onChange="alterarCurso()">
+            <option value="Java">Java
+            <option value="C#">C#
+            <option value="Linguagem C">Linguagem C
+            <option value="JavaScript">JavaScript
+        </select>
+ 
+        <p>Esperamos poder participar de mais um treinamento!</p>
+        <p id="texto"></p>
+ 
+        <script>
+            function alterarCurso() {
+                var x = document.getElementById("curso").value;
+                document.getElementById("texto").innerHTML = "Escolha: " + x;
+            }
+        </script>
+    </body>
+</html>

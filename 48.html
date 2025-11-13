@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tópico 7</title>
+        <meta charset="UTF-8">
+    </head>
+    <body onLoad="alert('Mensagem inicial!')">
+        <script type="text/javascript">
+            var aviso = false;
+            function clicar_Down(){
+                alert("Você clicou no botão");
+            }            
+            
+            function clicar_Up(){
+                alert("Você SOLTOU o botão");
+            }
+            
+            function focar_Elemento(){
+                if (aviso == false){
+                    alert("Você focou um elemento!");
+                    aviso = true;
+                }
+                document.getElementById("endereco").style.background = "yellow";
+            }
+        </script>
+        <form>
+            <b>Nome</b>
+            <input type="text" id="nome" onFocus="focar_Elemento()">
+            <b>Endereço</b>
+            <input type="text" id="endereco" >
+        
+            <input type="button" name="btn" value="Clique aqui" onMouseDown="clicar_Down()" onMouseUp="clicar_Up()">
+        </form>
+        
+    </body>
+</html>

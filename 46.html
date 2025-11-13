@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tópico 7</title>
+        <meta charset="UTF-8">
+    </head>
+    <body onLoad="alert('Mensagem inicial!')">
+        <script type="text/javascript">
+            function clicar_Down(){
+                alert("Você clicou no botão");
+            }            
+            
+            function clicar_Up(){
+                alert("Você SOLTOU o botão");
+            }            
+        </script>
+        <form>
+            <input type="button" value="Clique aqui" onMouseDown="clicar_Down()" onMouseUp="clicar_Up()">
+        </form>
+        
+    </body>
+</html>
