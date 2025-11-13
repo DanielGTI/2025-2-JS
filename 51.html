@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <body>
+ 
+        <p>Primeira linha.</p>
+        <p>Segunda linha.</p>
+        <p>Terceira linha.</p>
+        <p>Quarta linha.</p>
+        <p>Quinta linha de paragrafo.</p>
+        <p>Sexta linha de paragrafo.</p>
+        <div>
+            Elemento DIV.
+            <br>Primeira linha div.
+            <br>Segunda linha.
+            <br>Terceira linha.
+            <br>Quarta linha.
+        </div>
+ 
+        <button onclick="alterar()">Clique / alterar o (p)</button>
+        <button onclick="alterarDIV()">Clique / alterar a (div)</button>
+        <button onclick="alternar()">Clique / alternar linhas (p)</button>
+        <button onclick="limparTodas()">Clique limpar linhas (p)</button>
+ 
+        <script>
+            function limparTodas() {
+                var x = document.querySelectorAll("p");
+                for (var i = 0; x.length; i++) {
+                    x[i].style.backgroundColor = "";
+                }
+            }
+ 
+            function alterar() {
+                var x = document.querySelectorAll("p");
+                for (var i = 0; x.length; i++) {
+                    x[i].style.backgroundColor = "green";
+                }
+            }
+ 
+            function alterarDIV() {
+                document.querySelector("div").style.backgroundColor = "gray";
+            }
+ 
+            function alternar() {
+                var x = document.querySelectorAll("p");
+                for (var i = 0; x.length; i++) {
+                    if (i % 2 == 0)
+                        x[i].style.backgroundColor = "green";
+                    else
+                        x[i].style.backgroundColor = "blue";
+                }
+            }
+        </script>
+    </body>
+</html>

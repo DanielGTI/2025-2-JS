@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <p id="informativo">Valor?</p>
+        <button onclick="buscarMedidas()">Verifique as medidas da janela</button>
+        <script>
+            function buscarMedidas() {
+                var w = window.innerWidth;
+                var h = window.innerHeight;
+                doc = document.getElementById("informativo");
+                doc.innerHTML = "Largura: " + w + " | Altura: " + h;
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <body>
+ 
+        <p>Primeira linha.</p>
+        <p>Segunda linha.</p>
+        <p>Terceira linha.</p>
+        <p>Quarta linha.</p>
+ 
+        <div>
+            Elemento DIV.
+            <br>Primeira linha div.
+            <br>Segunda linha.
+            <br>Terceira linha.
+            <br>Quarta linha.
+ 
+        </div>
+ 
+        <p>Quinta linha de paragrafo.</p>
+ 
+        <button onclick="alterar()">Clique para alterar o p</button>
+ 
+        <button onclick="alterarDIV()">Clique para alterar a div</button>
+ 
+        <script>
+            function alterar() {
+                document.querySelector("p").style.backgroundColor = "green";
+            }
+ 
+            function alterarDIV() {
+                document.querySelector("div").style.backgroundColor = "gray";
+            }
+ 
+        </script>
+    </body>
+</html>

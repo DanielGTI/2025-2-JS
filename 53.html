@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <p id="informativo">Valor...</p>
+        <button onclick="buscarMedidas()">Verifique as medidas da janela</button>
+        <button onclick="imprimir()">Solicitar impressão</button>
+        <button onclick="voltar()">Voltar o histórico</button>
+        <button onclick="abrirGuia()">Abri uma nova guia</button>
+        <button onclick="abrirPagina()">Abri uma nova Página</button>
+        <script>
+            function buscarMedidas() {
+                var w = window.innerWidth;
+                var h = window.innerHeight;
+                doc = document.getElementById("informativo");
+                doc.innerHTML = "Largura: " + w + " | Altura: " + h;
+            }
+ 
+            function imprimir() {
+                window.print();
+            }
+            function voltar() {
+                history.back();
+            }
+ 
+            var windowObjectReference;
+            var strWindowFeaturesPAG = "menubar=no,location=no,resizable=no,scrollbars=no,status=no";
+ 
+            function abrirPagina() {
+                windowObjectReference = window.open("http://uninove.br/", "UNINOVE", strWindowFeaturesPAG);
+            }
+ 
+            var strWindowFeaturesGUIA = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
+            function abrirGuia() {
+                windowObjectReference = window.open("http://uninove.br/", "UNINOVE", strWindowFeaturesGUIA);
+            }
+ 
+        </script>
+    </body>
+</html>
