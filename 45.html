@@ -6,7 +6,10 @@
     </head>
     <body>
         <script type="text/javascript">
+            // Controla se o truque de "sumir" já aconteceu.
             var magica = false;
+
+            // Altera o estado do baú (abrir, fechar ou sumir).
             function alterar_Bau(x){
                 var img_bau;
                 if (x == 1 && magica == false)
@@ -15,6 +18,7 @@
                     if (x == 2 && magica == false)
                         img_bau = "bau_fechado.png"
                     else{
+                        // Clique: remove a imagem e ativa o modo mágico.
                         img_bau = "";
                         magica = true;
                     }

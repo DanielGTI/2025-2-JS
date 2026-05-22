@@ -4,9 +4,11 @@
         <p id="informativo">Valor?</p>
         <button onclick="buscarMedidas()">Verifique as medidas da janela</button>
         <script>
+            // Busca largura e altura visíveis da janela.
             function buscarMedidas() {
                 var w = window.innerWidth;
                 var h = window.innerHeight;
+                // Atualiza o texto com as medidas encontradas.
                 doc = document.getElementById("informativo");
                 doc.innerHTML = "Largura: " + w + " | Altura: " + h;
             }

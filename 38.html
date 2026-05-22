@@ -7,17 +7,20 @@
     <body>
         <div>Programação de Interfaces (aula 10)</div>
         <script type="text/javascript">
+           // Cria um objeto com dados e um método.
            var carro = {
                modelo: "Camarom",
                marca: "GG",
                potencia: 300,
                cor: "Amarelo",
                preco: 200000,
+               // Retorna um texto combinando modelo e marca.
                modeloMarca: function(){
                    return this.modelo + " da marca " + this.marca;
                }
            };
            
+           // Exibe os dados do carro e o resultado do método.
            document.write("<br>Comprei um " + carro.modelo + ", da cor " + carro.cor + "!");
            document.write("<br>Já tive outros veículos da " + carro.marca + 
                           ". Investi mais de R$ " + carro.preco + "!");

@@ -10,7 +10,7 @@
     <p>Video 02 explicativo: <a href="https://www.youtube.com/watch?v=1_oxcJSUrRA" target="_blank" >Video 2</a> </p>
     <p>Video 01 explicativo: <a href="https://www.youtube.com/watch?v=c45RLJ7qgoA" target="_blank" >Video 3</a> </p>
     <script>
-        // Classe
+        // Função construtora do objeto Carro.
         function Carro(a, b, c, d){
             this.cor = a;
             this.ano = b;
@@ -20,30 +20,30 @@
             this.ligado = false;
         }
  
-        // Método
+        // Liga o carro e define velocidade inicial.
         Carro.prototype.passear = function(){
             this.ligado = true;
             this.velocidadeAtual = 50;
             return this.velocidadeAtual;
         }
  
-        // Método
+        // Para o carro.
         Carro.prototype.parar = function(){
             this.velocidadeAtual = 0;
         }
  
-        // Método
+        // Estaciona: para e desliga o carro.
         Carro.prototype.estacionar = function(){
             this.parar();
             this.ligado = false;
         }
  
-        // Método
+        // Aumenta a velocidade em 10 km/h.
         Carro.prototype.acelerar = function(){
             this.velocidadeAtual += 10;
         }
  
-        // Método
+        // Retorna um texto com o estado atual do carro.
         Carro.prototype.informacao = function(){
             if(this.ligado) 
                 var motorLigado = 'ligado';
@@ -55,10 +55,10 @@
  
         }
  
-        // Instanciar objeto
+        // Cria um objeto a partir da função construtora.
         var veiculo1 = new Carro('preto', 2017, 5, 'SUV');
  
-        // Exibir
+        // Executa ações e mostra os resultados no console.
         console.log(veiculo1.informacao());
         veiculo1.passear();
  

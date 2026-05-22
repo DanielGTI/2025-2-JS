@@ -9,13 +9,18 @@
         <div>Programação de Interfaces (aula 6)</div>
         <br>
         <script type="text/javascript">
+            // Define o tamanho da figura.
             var N = 3;
+
+            // Loop das linhas.
             for (var L = 1; L <= N; L++){
+                // Loop das colunas.
                 for (var C = 1; C <= (N*2)-1 ; C++){
                     //document.write("L(" + (L+C) + ") ");
                     //document.write("N(" + (N-1) + ") "); 
                         
                     
+                    // Decide entre desenhar "X" ou espaço.
                     if( (L+C) >= (N-1)   )
                         document.write("X&nbsp");
                     else

@@ -10,18 +10,27 @@
   <button onclick="buscarCEP()">Buscar</button>
   <h3>Resultado:</h3><pre id="resultado"></pre>
   <script>
+    // Busca os dados do CEP digitado usando a API ViaCEP.
     async function buscarCEP() {
-      const cep = document.getElementById("cep").value.replace(/\D/g, ''); // remove caracteres não numéricos
+      // Pega o CEP e remove pontos, traços e letras.
+      const cep = document.getElementById("cep").value.replace(/\D/g, '');
+
+      // Valida se o CEP tem 8 dígitos.
       if (cep.length !== 8) {
         document.getElementById("resultado").innerText = "CEP inválido. Deve conter 8 dígitos.";
         return;
       }
+
       try {
+        // Faz a requisição para o serviço de CEP.
         const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
         const dados = await resposta.json();
+
+        // Mostra a mensagem se o CEP não existir.
         if (dados.erro) {
           document.getElementById("resultado").innerText = "CEP não encontrado.";
         } else {
+          // Exibe os dados retornados pela API.
           document.getElementById("resultado").innerText = 
 `CEP: ${dados.cep}
 Logradouro: ${dados.logradouro}
@@ -31,6 +40,7 @@ Estado: ${dados.uf}
 `;
         }
       } catch (erro) {
+        // Trata erro de conexão ou de resposta da API.
         document.getElementById("resultado").innerText = "Erro ao buscar o CEP.";
         console.error(erro);
       }

@@ -8,6 +8,7 @@
         <button onclick="abrirGuia()">Abri uma nova guia</button>
         <button onclick="abrirPagina()">Abri uma nova Página</button>
         <script>
+            // Mostra as medidas da janela no parágrafo.
             function buscarMedidas() {
                 var w = window.innerWidth;
                 var h = window.innerHeight;
@@ -15,20 +16,25 @@
                 doc.innerHTML = "Largura: " + w + " | Altura: " + h;
             }
  
+            // Abre a caixa de impressão do navegador.
             function imprimir() {
                 window.print();
             }
+
+            // Volta para a página anterior do histórico.
             function voltar() {
                 history.back();
             }
  
             var windowObjectReference;
+            // Configurações para abrir como nova janela.
             var strWindowFeaturesPAG = "menubar=no,location=no,resizable=no,scrollbars=no,status=no";
  
             function abrirPagina() {
                 windowObjectReference = window.open("http://uninove.br/", "UNINOVE", strWindowFeaturesPAG);
             }
  
+            // Configurações para abrir como guia com recursos liberados.
             var strWindowFeaturesGUIA = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
             function abrirGuia() {
                 windowObjectReference = window.open("http://uninove.br/", "UNINOVE", strWindowFeaturesGUIA);

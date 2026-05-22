@@ -8,9 +8,12 @@
         </div>
  
         <script>
+            // Faz uma requisição AJAX para ler um arquivo de texto.
             function carregarArquivo() {
                 var ajax = new XMLHttpRequest();
+                // Executa quando o estado da requisição muda.
                 ajax.onreadystatechange = function () {
+                    // readyState 4 = finalizado, status 200 = sucesso.
                     if (this.readyState == 4 && this.status == 200) {
                         document.getElementById("retorno").innerHTML =
                                 this.responseText;

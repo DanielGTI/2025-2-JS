@@ -75,15 +75,18 @@
         </div>
         <div class="col-md-3"></div>
         <script>
+            // Procura um cliente no JSON pelo nome digitado.
             function procurarCliente() {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
-                        var valor = "";
+                        // Marca se encontrou algum cliente.
                         var cliente_encontrado = false;
+                        // Converte o retorno JSON em objeto.
                         myObj = JSON.parse(this.responseText);
                         nomeProcura = document.getElementById("idNome");
                         
+                        // Percorre a lista e preenche os campos quando achar.
                         for (i in myObj.cliente) {
                             if (myObj.cliente[i].nome == nomeProcura.value){
                                 document.getElementById("idCPF").value = myObj.cliente[i].cpf;
@@ -95,6 +98,7 @@
                                 cliente_encontrado = true;
                             }
                         }
+                        // Exibe aviso se não encontrar o cliente.
                         if (cliente_encontrado == false){
                                 alert("Cliente não encontrado!");
                         }

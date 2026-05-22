@@ -7,16 +7,23 @@
     <body>
         <div>Programação de Interfaces (aula 7)</div>
         <script type="text/javascript">
+            // Retorna o dobro do valor recebido.
             function dobro(x){
                 return x*2;
             } 
+
+            // Retorna a soma de dois números.
             function somar(a,b){
                 return a+b;
             } 
+
+            // Verifica se o número é par.
             function nPar(n){
                 if (n%2==0) return true;
                 else        return false;
             } 
+
+            // Soma todos os números do intervalo de x até y (inclusive).
             function somaIntervalo(x, y){
                 var soma=0;
                 for(var i=x; i<=y; i++){
@@ -24,16 +31,22 @@
                 }
                 return soma;
             } 
+
+            // Chama a função dobro e guarda o resultado.
             var n = dobro(4);
             document.write("<br>Dobro(4) = " + n);
+
+            // Soma 2 com o valor de n.
              var soma = somar(2,n);
             document.write("<br>somar(2, n) = ", soma);
- 
+
+            // Mostra se 2 é par (true) ou não (false).
             document.write("<br>nPar(2) = ", nPar(2));
- 
+
+            // Soma os números de 1 até 5.
             var somatoria = somaIntervalo(1,5);
             document.write("<br>somaIntervalo(1, 5) = " + somatoria);
- 
+
         </script>
     </body>
 </html>

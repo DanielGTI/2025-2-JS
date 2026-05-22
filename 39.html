@@ -7,14 +7,17 @@
     <body>
         <div>Programação de Interfaces (aula 11)</div>
         <script type="text/javascript">
+              // Data e hora atual.
            var hoje = new Date();
+              // Define o último instante de 2017.
            var fimANO = new Date(2017, 11, 31, 23, 59, 59, 999); 
-           // Determina o ultimo segundo do ano
             
+              // Diferença em segundos entre as duas datas.
            var segundosRestantes = (fimANO.getTime() - hoje.getTime()) / 1000;  
-                // Milisegundos
+              // Converte segundos para dias.
            var diasRestantes = (segundosRestantes / 60) / 60 / 24;
             
+              // Exibe os valores na página.
            document.write("<br> " + hoje);
            document.write("<br> " + fimANO);
            document.write("<br> Segundos: " + Math.floor(segundosRestantes));

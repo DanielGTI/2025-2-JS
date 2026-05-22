@@ -6,13 +6,16 @@
     </head>
     <body>
     <script type="text/javascript">
+        // Altera a imagem do baú conforme o valor recebido.
         function alterar_Bau(x){
             var img_bau;
+            // x = 1 abre o baú, qualquer outro valor fecha.
             if (x == 1)
                 img_bau = "bau_aberto.png";
             else 
                 img_bau = "bau_fechado.png"
             
+            // Atualiza a imagem na tela.
             document.getElementById("bau").src = img_bau;
         }            
     </script>

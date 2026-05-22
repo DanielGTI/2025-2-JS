@@ -6,15 +6,20 @@
     </head>
     <body onLoad="alert('Mensagem inicial!')">
         <script type="text/javascript">
+            // Controla se o aviso já apareceu.
             var aviso = false;
+
+            // Executa quando o botão é pressionado.
             function clicar_Down(){
                 alert("Você clicou no botão");
             }            
             
+            // Executa quando o botão é solto.
             function clicar_Up(){
                 alert("Você SOLTOU o botão");
             }
             
+            // Mostra aviso ao focar e destaca o campo de endereço.
             function focar_Elemento(){
                 if (aviso == false){
                     alert("Você focou um elemento!");

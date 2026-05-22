@@ -8,12 +8,16 @@
     <body>
         <div>Programação de Interfaces (aula 3)</div>
         <script type="text/javascript">
+            // Strings com valores numéricos misturados com texto.
             var produto_1 = "30.50 por cada Mouse";
             var produto_2 = "Cada Mouse por R$ 30.50";
+
+            // Converte string para número inteiro ou real.
             var mouse_1 = parseInt(produto_1);
             var mouse_2 = parseInt(produto_2);
             var mouse_3 = parseFloat(produto_1);
             
+            // Exibe os resultados da conversão.
             document.write("<br>Mouse (Inteiro) = R$ " + mouse_1 );     
             document.write("<br>Mouse (Inteiro) = R$ " + mouse_2 ); 
             document.write("<br>Mouse (Real) = R$ " + mouse_3 ); 

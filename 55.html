@@ -6,11 +6,15 @@
         <h3>FILMES</h3>
         <div id="dado"></div>
         <script>
+            // Cria a requisição AJAX para ler o arquivo JSON.
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
+                // Processa apenas quando a leitura terminar com sucesso.
                 if (this.readyState == 4 && this.status == 200) {
                     var valor = "";
+                    // Converte texto JSON em objeto JavaScript.
                     myObj = JSON.parse(this.responseText);
+                    // Monta o texto com os filmes retornados.
                     for (i in myObj.filme) {
                         valor += "Titulo: " + myObj.filme[i].titulo + " | ";
                         valor += "Ano: " + myObj.filme[i].ano;
