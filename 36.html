@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 36.html
+    AULA / TEMA: consumo de API na web (fetch + async/await) - consulta de CEP (este arquivo não traz rótulo de aula)
+    OBJETIVO: ler o CEP digitado, pedir o endereço a um serviço na internet (ViaCEP)
+              e mostrar o resultado na página.
+    CONCEITOS-CHAVE: fetch, async/await, Promise, JSON, expressão regular (/\D/g),
+                     template literal (crases), try/catch, getElementById, innerText.
+    COMO TESTAR: abra a página (precisa de internet), digite 01310100 (ou 01310-100)
+                 e clique em Buscar. O endereço aparece em "Resultado". Teste também
+                 um CEP com menos de 8 dígitos e um CEP que não existe, como 99999999.
+-->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -6,31 +17,67 @@
 </head>
 <body>
   <h2>Consultar Endereço pelo CEP</h2>
+  <!-- Campo de texto onde a pessoa digita o CEP.
+       id="cep" é o nome que o JavaScript usa para achar este campo (getElementById).
+       maxlength="9" limita a 9 caracteres: cabe o formato 01310-100, com o traço. -->
   <input type="text" id="cep" placeholder="Digite o CEP" maxlength="9">
+  <!-- onclick = evento "ao clicar". Chama a função buscarCEP(), definida no script abaixo. -->
   <button onclick="buscarCEP()">Buscar</button>
+  <!-- A tag pre preserva as quebras de linha do texto, por isso o endereço aparece em várias
+       linhas. É aqui que o JavaScript escreve a resposta (id="resultado"). -->
   <h3>Resultado:</h3><pre id="resultado"></pre>
   <script>
-    // Busca os dados do CEP digitado usando a API ViaCEP.
+    /*
+      API = serviço na internet que responde pedidos de outros programas. A ViaCEP recebe
+      um CEP na URL e devolve os dados do endereço em formato JSON.
+          Pedido:    https://viacep.com.br/ws/01310100/json/
+          Resposta:  {"cep":"01310-100","logradouro":"Avenida Paulista","bairro":"Bela Vista",
+                      "localidade":"São Paulo","uf":"SP", ...}
+
+      Por que async/await? Pedir dados na internet DEMORA. Com "async" a função pode usar
+      "await", que espera a resposta chegar sem travar a página inteira.
+      fetch(...) devolve uma Promise (uma "promessa de resposta futura"); o await aguarda ela.
+      VEJA TAMBÉM: 54.html e 55.html (a forma mais antiga, com XMLHttpRequest).
+    */
     async function buscarCEP() {
-      // Pega o CEP e remove pontos, traços e letras.
+      // Pega o texto do campo e remove tudo que NÃO é número.
+      // Expressão regular /\D/g :  \D = qualquer caractere que não seja dígito;  g = em todo o texto.
+      // EXEMPLO:  "01310-100".replace(/\D/g, '')  ->  "01310100"
+      // const: a variável não pode receber outro valor depois (forma moderna; no lugar de var).
       const cep = document.getElementById("cep").value.replace(/\D/g, '');
 
-      // Valida se o CEP tem 8 dígitos.
+      // Validação: um CEP válido tem 8 dígitos. Se não tiver, mostra o aviso e usa "return"
+      // para sair da função AGORA, sem fazer o pedido à internet (isso é chamado de "retorno antecipado").
+      // !== significa "diferente" (compara valor e tipo). innerText escreve texto puro (sem interpretar HTML).
+      // EXEMPLO:  "0131".length  ->  4  (inválido)   |   "01310100".length  ->  8  (válido)
       if (cep.length !== 8) {
         document.getElementById("resultado").innerText = "CEP inválido. Deve conter 8 dígitos.";
         return;
       }
 
+      // try { ... } catch { ... }: tenta executar o bloco; se der erro (ex.: sem internet),
+      // o programa NÃO quebra: pula para o catch, lá embaixo.
       try {
-        // Faz a requisição para o serviço de CEP.
+        // await fetch(url): envia o pedido e ESPERA a resposta chegar.
+        // Os acentos graves (crases) criam um "template literal": dentro dele, ${cep} é trocado
+        // pelo valor da variável. Com cep = "01310100", a URL final é
+        //   https://viacep.com.br/ws/01310100/json/
+        // Forma antiga, equivalente:  "https://viacep.com.br/ws/" + cep + "/json/"
         const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        // resposta.json() também é assíncrona: lê o corpo da resposta e converte o texto JSON
+        // em um objeto JavaScript. Agora dá para usar dados.cep, dados.bairro, etc.
+        // DICA: fetch só dá erro em falha de rede. Para erros HTTP (404, 500), confira resposta.ok.
         const dados = await resposta.json();
 
-        // Mostra a mensagem se o CEP não existir.
+        // Para um CEP com 8 dígitos que não existe, a ViaCEP responde normalmente (sem erro de
+        // rede), mas o JSON traz a propriedade "erro". Por isso testamos dados.erro.
         if (dados.erro) {
           document.getElementById("resultado").innerText = "CEP não encontrado.";
         } else {
-          // Exibe os dados retornados pela API.
+          // O texto abaixo é um template literal de VÁRIAS linhas: as quebras de linha digitadas
+          // entram no texto, e o elemento pre as mostra. Campos usados: cep, logradouro, bairro,
+          // localidade (cidade) e uf (estado).
+          // (Cuidado: tudo entre as crases, inclusive espaços no início das linhas, vai para a tela.)
           document.getElementById("resultado").innerText = 
 `CEP: ${dados.cep}
 Logradouro: ${dados.logradouro}
@@ -40,7 +87,9 @@ Estado: ${dados.uf}
 `;
         }
       } catch (erro) {
-        // Trata erro de conexão ou de resposta da API.
+        // Executa quando algo dentro do try falha (internet fora do ar, resposta que não é JSON...).
+        // console.error escreve no Console do navegador (tecla F12) para o programador investigar,
+        // enquanto a pessoa usuária vê apenas a mensagem amigável.
         document.getElementById("resultado").innerText = "Erro ao buscar o CEP.";
         console.error(erro);
       }

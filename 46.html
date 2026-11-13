@@ -1,22 +1,45 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 46.html
+    AULA / TEMA: eventos - carregamento da página e botão do mouse (este arquivo não traz rótulo de aula)
+    OBJETIVO: conhecer os eventos onLoad, onMouseDown e onMouseUp e a caixa alert().
+    CONCEITOS-CHAVE: onLoad (página carregada), onMouseDown (apertar), onMouseUp (soltar),
+                     alert() que bloqueia a página até a pessoa clicar em OK.
+    COMO TESTAR: ao abrir, aparece "Mensagem inicial!". Aperte e solte o botão
+                 "Clique aqui": aparecem os alertas do clique e da soltura.
+-->
 <html>
     <head>
         <title>Tópico 7</title>
         <meta charset="UTF-8">
     </head>
+    <!-- onLoad na tag body: o navegador executa o código QUANDO A PÁGINA TERMINA DE CARREGAR
+         (HTML, imagens, etc.). Aqui, mostra um alert logo na abertura.
+         Aspas: o atributo usa aspas duplas, então o texto interno usa aspas SIMPLES.
+         Misturar aspas iguais quebraria o atributo. -->
     <body onLoad="alert('Mensagem inicial!')">
         <script type="text/javascript">
-            // Executa quando o botão é pressionado.
+            /*
+              Ciclo de um clique do mouse (3 eventos, nesta ordem):
+                  mousedown  (apertou o botão)  ->  mouseup  (soltou)  ->  click
+              Aqui usamos o primeiro e o segundo. Para a maioria dos casos basta o onClick.
+              alert("texto") abre uma caixa de aviso e PARALISA o JavaScript e a página até a pessoa
+              clicar em OK. Ótimo para testar, ruim para usuário: prefira console.log("texto"),
+              que escreve no Console do navegador (tecla F12) sem interromper nada.
+            */
             function clicar_Down(){
                 alert("Você clicou no botão");
             }            
             
-            // Executa quando o botão é solto.
+            // Evento onMouseUp: disparado quando o botão do mouse é SOLTO (depois do onMouseDown).
             function clicar_Up(){
                 alert("Você SOLTOU o botão");
             }            
         </script>
+        <!-- A tag form agrupa campos e botões. Aqui, o botão é type="button" (não envia nada); se fosse
+             type="submit", clicar nele enviaria o formulário e recarregaria a página. -->
         <form>
+            <!-- Dois eventos no mesmo botão: onMouseDown => clicar_Down()  |  onMouseUp => clicar_Up(). -->
             <input type="button" value="Clique aqui" onMouseDown="clicar_Down()" onMouseUp="clicar_Up()">
         </form>
         

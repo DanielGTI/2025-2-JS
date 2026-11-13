@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  AULA 4 - Resto da divisão (%) e incremento (++)
+  OBJETIVO: descobrir se um número é par/ímpar e entender pré e pós-incremento.
+  CONCEITOS-CHAVE: operador %, a++ (pós-incremento), ++a (pré-incremento).
+  COMO TESTAR: restos 0, 1, 0, 1; depois a++ = 5 e a = 6; depois ++b = 11 e b = 11.
+  VEJA TAMBÉM: 34.html (função nPar que usa % para testar paridade).
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,21 +15,40 @@
     <body>
         <div>Programação de Interfaces (aula 4)</div>
         <script type="text/javascript">
-            // Inicializa variáveis com valor 10.
-            var a =  b =  c = 10;
+            /*
+             * Declara a, b e c de uma vez, todas valendo 10. (Veja no 16.html por que NÃO se escreve
+             * var a = b = c = 10: só o a seria declarado, e b e c virariam globais implícitas.)
+             */
+            var a = 10, b = 10, c = 10;
             
-            // Verifica resto da divisão por 2.
+            /*
+             * % devolve o RESTO da divisão inteira.   EXEMPLO: 7 % 3  ->  1  (7 = 2*3 + 1)
+             * Par:   n % 2 == 0      Ímpar: n % 2 == 1
+             * Trace com a = 10:  10 % 2 = 0   |   11 % 2 = 1   |   12 % 2 = 0   |   13 % 2 = 1
+             * Os parênteses em (a + 1) % 2 importam: sem eles, a + 1 % 2 = a + (1 % 2) = 11.
+             * USOS: saber se é par, alternar cores de linhas (51.html), "dar a volta" em contagens
+             * (ex.: dia da semana: (dia + 1) % 7).
+             */
             document.write("<br><br>a % 2 = " + a % 2);       
             document.write("<br>(a + 1) % 2 = " + (a+1) % 2);       
             document.write("<br>(a + 2) % 2 = " + (a+2) % 2);       
             document.write("<br>(a + 3) % 2 = " + (a+3) % 2);       
             
             a = 5;
-            // Pós-incremento: mostra e só depois soma 1.
+            /*
+             * a++  (pós-incremento): USA o valor atual e SÓ DEPOIS soma 1.
+             * Com a = 5:  imprime 5 (valor antigo)  ->  em seguida a passa a valer 6.
+             * Por isso a linha seguinte mostra a = 6.
+             * Equivalentes: a++  <=>  a += 1  <=>  a = a + 1.   O decremento é a-- (menos menos).
+             */
             document.write("<br><br>a++ = " + a++);     
             document.write("<br>a = " + a);     
             
-            // Pré-incremento: soma 1 antes de mostrar.
+            /*
+             * ++b  (pré-incremento): soma 1 PRIMEIRO e depois usa o valor novo.
+             * Com b = 10:  b vira 11  ->  imprime 11. A linha seguinte também mostra b = 11.
+             * NA PROVA: x = 5; y = x++;  -> y = 5 e x = 6.     x = 5; y = ++x;  -> y = 6 e x = 6.
+             */
             document.write("<br><br>++b = " + ++b);     
             document.write("<br>b =  " + b);  
         </script>

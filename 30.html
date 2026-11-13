@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 30.html
+    AULA / TEMA: aula 7 - Arrays (vetores): criação e leitura
+    OBJETIVO: guardar vários valores em uma única variável e ler cada
+              valor pela sua posição (índice).
+    CONCEITOS-CHAVE: array, índice começando em 0, for para percorrer,
+                     duas formas de criar um array (colchetes e new Array).
+    COMO TESTAR: abra a página no navegador. Aparecem 5 linhas, no formato
+                 "x1 = 1   x2 = 1   x3 = 1", até chegar em "x1 = 5   x2 = 5   x3 = 5".
+-->
 <html>
     <head>
         <title>Tópico 7</title>
@@ -7,12 +17,45 @@
     <body>
         <div>Programação de Interfaces (aula 7)</div>
         <script type="text/javascript">
-            // Três formas de criar arrays.
+            /*
+              ARRAY (vetor) = uma variável que guarda VÁRIOS valores, organizados em fila.
+              Cada valor ocupa uma posição chamada ÍNDICE, e a contagem começa em ZERO.
+
+                  var frutas = ["maçã", "uva", "pera"];
+                  frutas[0]      ->  "maçã"      (primeiro elemento)
+                  frutas[2]      ->  "pera"      (último elemento = índice length - 1)
+                  frutas[3]      ->  undefined   (posição que não existe)
+                  frutas.length  ->  3           (quantidade de elementos)
+
+              Abaixo, três arrays com os números de 1 a 5: dois criados com colchetes e um com o construtor new Array(...).
+            */
+            // Forma 1 (a mais usada e recomendada): literal com colchetes [ ].
             var x1 = [1,2,3,4,5];
+            // Forma 2: construtor new Array(...). Funciona, mas é mais longo e tem uma pegadinha:
+            // new Array(5) (com UM único número) NÃO cria [5]; cria um array com 5 posições vazias.
+            // Já new Array(5,6) cria [5, 6]. Por isso, prefira os colchetes.
             var x2 = new Array(1,2,3,4,5);
-            var x3 = Array = [1,2,3,4,5];
+            // Forma 3: de novo o literal com colchetes, guardado em outra variável.
+            // ERRO CLÁSSICO (evite): escrever  var x3 = Array = [1,2,3,4,5];  com DOIS sinais de "=".
+            //   1) o array [1,2,3,4,5] seria guardado na variável chamada Array (a atribuição
+            //      é resolvida da direita para a esquerda);
+            //   2) o mesmo valor seria copiado para x3.
+            // O nome Array é o construtor nativo do JavaScript; ao atribuir um array comum a ele,
+            // o construtor é SOBRESCRITO. Depois dessa linha, new Array(...) deixaria de funcionar
+            // (erro "Array is not a constructor"). O x2 só funcionaria porque foi criado ANTES.
+            var x3 = [1,2,3,4,5];
             
-            // Exibe os valores dos três arrays.
+            /*
+              Percorrendo o array com for: o índice i vai de 0 até 4 (cinco voltas).
+                i = 0  ->  x1[0] vale 1
+                i = 1  ->  x1[1] vale 2
+                ...
+                i = 4  ->  x1[4] vale 5
+              DICA: em vez do 5 escrito à mão, use x1.length. Assim o laço continua certo
+              se o array ganhar mais elementos:
+                  for (var i = 0; i < x1.length; i++) { ... }
+              NA PROVA: erro clássico é escrever i <= 5. Com i = 5, x1[5] é undefined (não existe).
+            */
             for (var i = 0; i < 5; i++){
                 document.write("<br>x1 = " + x1[i]);
                 document.write("&emsp; x2 = " + x2[i]);

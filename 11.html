@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  AULA 3 - Strings e concatenação
+  OBJETIVO: juntar textos guardados em variáveis para montar frases.
+  CONCEITOS-CHAVE: string, concatenação com +, const, tags HTML dentro do texto.
+  COMO TESTAR: aparecem três linhas: "Piloto = AyrtonSenna", "Piloto = Ayrton Senna" e
+  a terceira em negrito: "Piloto = Ayrton Senna".
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,15 +15,34 @@
     <body>
         <div>Programação de Interfaces (aula 3)</div>
         <script type="text/javascript">
-            // Cria variáveis de texto.
+            /*
+             * var   -> variável que pode ser reatribuída depois.
+             * const -> constante: recebe o valor UMA vez. Tentar trocar depois gera
+             *          TypeError: Assignment to constant variable.
+             * EXEMPLO: const pi = 3.14;  pi = 3;   // ERRO no Console
+             * Use const para valores que não devem mudar (como a profissão do exemplo).
+             */
             var nome = "Ayrton";
             var sobrenome = "Senna";
             const profissao = "Piloto";
 
-            // Mostra formas de concatenar strings.
+            /*
+             * CONCATENAR = juntar textos com o operador +.
+             * O JavaScript NÃO coloca espaço automaticamente: nome + sobrenome  ->  "AyrtonSenna".
+             * Para separar, concatene um espaço: nome + " " + sobrenome  ->  "Ayrton Senna".
+             * EXEMPLO: "Bom" + " " + "dia"  ->  "Bom dia"
+             * DICA: a forma moderna é o template literal (com crases):
+             * `Piloto = ${nome} ${sobrenome}`   ->  "Piloto = Ayrton Senna"
+             */
             document.write("<p>1) Piloto = " + nome + sobrenome + "</p>");
             document.write("<p>2) Piloto = " + nome + " " + sobrenome + "</p>");
-            // Linha de comentário
+            /*
+             * COMENTÁRIOS são ignorados pelo navegador; servem para explicar o código a quem lê.
+             * //   comenta uma linha;   barra-asterisco ... asterisco-barra   comenta várias linhas (JavaScript).
+             * Em HTML o comentário é escrito com a sintaxe própria do HTML (abre com "menor, exclamação,
+             * dois hifens" e fecha com "dois hifens, maior").
+             * Use comentários para explicar o PORQUÊ do código, não o óbvio.
+             */
             document.write("<p><b>3) " + profissao + " = " + nome + " " + sobrenome + "</b></p>");
        </script>
     </body>

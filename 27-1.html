@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+  AULA 6 - Laço for gerando uma tabela HTML com cores alternadas
+  OBJETIVO: combinar for, operador ternário, resto da divisão e CSS para montar linhas
+  de tabela com document.write.
+  CONCEITOS-CHAVE: for, % (resto), operador ternário ( ? : ), classes CSS, concatenação de HTML.
+  COMO TESTAR: uma tabela com 10 linhas ("Contagem" | 1..10); linhas ímpares verdes e pares amarelas.
+-->
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tópico 6 - Tabela Estilizada</title>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                /*
+                 * collapse junta as bordas das células em uma só linha (sem espaço duplo entre elas).
+                 */
+                border-collapse: collapse;
+                padding: 8px;
+                text-align: center;
+            }
+
+            /*
+             * Classes CSS: regras de estilo reutilizáveis. O JavaScript escolhe qual classe aplicar
+             * a cada linha com class='...' (veja o laço abaixo).
+             */
+            .amarelo {
+                background-color: yellow;
+            }
+
+            .verde {
+                background-color: lightgreen;
+            }
+        </style>
+    </head>
+    <body>
+        <div>Programação de Interfaces (aula 6)</div>
+        <br>
+
+        <script type="text/javascript">
+            /*
+             * Estratégia: o laço gera o HTML em pedaços. Abre a tabela UMA vez (antes do for), escreve
+             * uma linha (tr) a cada volta e fecha a tabela UMA vez (depois do for).
+             * Se abrir/fechar a tabela dentro do laço, sairiam 10 tabelas pequenas em vez de uma.
+             */
+            document.write("<table>");
+            for (var x = 1; x <= 10; x++) {
+                /*
+                 * ATENÇÃO: a variável regressiva é calculada mas NUNCA é usada. Código "morto" é ruído.
+                 * Ela daria a contagem regressiva (x = 1 -> 10, x = 2 -> 9...). Poderia aparecer em outra
+                 * coluna: "<td>" + regressiva + "</td>".
+                 */
+                var regressiva = 11 - x;
+                
+                /*
+                 * OPERADOR TERNÁRIO:  condição ? valorSeTrue : valorSeFalse   (um if/else em uma linha)
+                 * x % 2 === 0 é verdadeiro nas linhas pares:
+                 *   x = 1 -> 1 % 2 = 1 -> false -> "verde"
+                 *   x = 2 -> 2 % 2 = 0 -> true  -> "amarelo"
+                 * Equivalente com if:  if (x % 2 === 0) { classeLinha = "amarelo"; } else { classeLinha = "verde"; }
+                 * === é a igualdade ESTRITA (compara valor e tipo); prefira-a a ==.
+                 */
+                var classeLinha = (x % 2 === 0) ? "amarelo" : "verde";
+                
+                /*
+                 * Aspas: o texto do JavaScript usa aspas duplas e o atributo HTML usa aspas simples,
+                 * para uma não encerrar a outra. Resultado gerado:  <tr class='verde'>
+                 */
+                document.write("<tr class='" + classeLinha + "'>");
+                document.write("<td>Contagem </td>");
+                document.write("<td>" + x  + "</td>");
+                document.write("</tr>");
+            }
+
+            document.write("</table>");
+        </script>
+    </body>
+</html>

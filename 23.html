@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  AULA 5 - switch / case
+  OBJETIVO: escolher entre várias opções fixas sem encadear muitos if/else.
+  CONCEITOS-CHAVE: switch, case, break, default, comparação estrita.
+  COMO TESTAR: com x = 5 aparece "QUINTA". Teste 1, 7 e 9 (dia inválido).
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,10 +14,22 @@
     <body>
         <div>Programação de Interfaces (aula 5)</div>
         <script type="text/javascript">
-            // Número usado para identificar o dia da semana.
+            /*
+             * Aqui 1 = domingo ... 7 = sábado.
+             * ATENÇÃO: o objeto Date do JavaScript usa outra convenção (0 = domingo; veja getDay em 40.html).
+             */
             var x = 5;
 
-            // Escolhe um bloco de código com base no valor de x.
+            /*
+             * switch(x) compara x com cada "case", de cima para baixo, usando igualdade ESTRITA (===).
+             * Quando acha, executa as instruções até encontrar um break.
+             * Trace com x = 5: case 1..4 não batem; case 5 bate -> escreve "QUINTA" -> break sai do switch.
+             * default: roda quando nenhum case bate (equivale ao else final). Aqui, x = 9 -> "Dia inválido!".
+             * NA PROVA 1: sem break o código "cai" no case seguinte (fall-through).
+             *    Sem o break do case 5, a saída seria "QUINTA" e também "SEXTA".
+             * NA PROVA 2: como a comparação é estrita, x = "5" (texto) NÃO bate com case 5 -> cai no default.
+             * USE switch para comparar UMA variável com vários valores fixos; use if para intervalos (x > 10).
+             */
             switch(x){
                 case 1: document.write("<br> DOMINGO");     break;
                 case 2: document.write("<br> SEGUNDA");     break;

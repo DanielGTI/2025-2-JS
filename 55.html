@@ -1,21 +1,63 @@
 <!DOCTYPE html>
+<!--
+  TEMA: AJAX com XMLHttpRequest + JSON (JSON.parse).
+  OBJETIVO: ler um arquivo JSON com uma lista de filmes e montar o texto na página com um laço.
+  CONCEITOS-CHAVE:
+    - JSON: formato de texto para trocar dados (objetos {} e arrays []);
+    - JSON.parse() converte o texto JSON em objeto JavaScript;
+    - laço for...in (percorre os ÍNDICES do array);
+    - acesso a propriedades: myObj.filme[i].titulo.
+  COMO TESTAR: abra pelo servidor (Live Preview); a página lista 3 filmes, por exemplo:
+    Titulo: Titulo do seu filme 1 | Ano: 2015   ( Terror )
+  ATENÇÃO: não funciona abrindo o arquivo direto do disco (file:///), por causa do CORS (veja 54.html).
+  VEJA TAMBÉM: 54.html (AJAX básico) e 56.html (JSON usado para preencher um formulário).
+-->
 <html>
     <body>
  
         <h2>Uso do XMLHttpRequest com JSON.</h2>
         <h3>FILMES</h3>
+        <!--
+          Área de resultado: o JavaScript escreve aqui os filmes lidos do arquivo json_dados.json.
+        -->
         <div id="dado"></div>
         <script>
-            // Cria a requisição AJAX para ler o arquivo JSON.
+            /*
+             * Mesmo esquema do 54.html (XMLHttpRequest), mas agora o arquivo é JSON.
+             * JSON tem regras mais rígidas que um objeto JavaScript: chaves entre aspas duplas, sem vírgula sobrando no final e sem comentários.
+             * Estrutura de json_dados.json:
+             *   { "filme": [ { "titulo": "...", "ano": "2015", "genero": "Terror" }, { ... }, { ... } ] }
+             *   => um OBJETO com a propriedade "filme", que é um ARRAY com 3 objetos.
+             * Depois do JSON.parse, acessamos assim:
+             *   myObj.filme[0].titulo   => "Titulo do seu filme 1"
+             *   myObj.filme.length      => 3
+             * Obs.: "ano" está entre aspas no arquivo, então é string ("2015") e não número.
+             */
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
-                // Processa apenas quando a leitura terminar com sucesso.
+                // readyState 4 (concluído) e status 200 (OK), como no 54.html.
                 if (this.readyState == 4 && this.status == 200) {
                     var valor = "";
-                    // Converte texto JSON em objeto JavaScript.
-                    myObj = JSON.parse(this.responseText);
-                    // Monta o texto com os filmes retornados.
-                    for (i in myObj.filme) {
+                    /*
+                     * this.responseText é apenas uma STRING. JSON.parse() a transforma em objeto/array de verdade.
+                     * Sem o parse, myObj.filme seria undefined (string não tem a propriedade "filme").
+                     * O inverso é JSON.stringify(objeto), que gera o texto JSON.
+                     * JSON inválido (vírgula sobrando, aspas simples) gera SyntaxError; use try/catch se não confiar na origem.
+                     * myObj é declarado com var: sem a declaração ele viraria uma variável GLOBAL implícita (má prática, e erro em modo estrito).
+                     */
+                    var myObj = JSON.parse(this.responseText);
+                    /*
+                     * for (var i in myObj.filme): o for...in percorre os ÍNDICES (chaves) do array, como TEXTO: "0", "1", "2".
+                     * Então myObj.filme[i] é o filme da vez. Já o for...of percorre os VALORES (veja 60.html).
+                     * O "i" também é declarado com var, para não virar uma variável global implícita.
+                     * Trace (acumulando em valor com +=):
+                     *   i = "0" => "Titulo: Titulo do seu filme 1 | Ano: 2015   ( Terror )<br>"
+                     *   i = "1" => acrescenta a linha do filme 2;  i = "2" => acrescenta a linha do filme 3.
+                     * O <br> quebra a linha na página. No fim, innerHTML recebe as 3 linhas de uma só vez.
+                     * Alternativa moderna:
+                     *   myObj.filme.forEach(function (f) { valor += f.titulo + " (" + f.ano + ")<br>"; });
+                     */
+                    for (var i in myObj.filme) {
                         valor += "Titulo: " + myObj.filme[i].titulo + " | ";
                         valor += "Ano: " + myObj.filme[i].ano;
                         valor += "   ( " + myObj.filme[i].genero + " )<br>";
@@ -23,9 +65,13 @@
                     document.getElementById("dado").innerHTML = valor;
                 }
             };
+            // Pede o arquivo json_dados.json (caminho relativo) de forma assíncrona; send() em seguida dispara o pedido (veja 54.html).
             xmlhttp.open("GET", "json_dados.json", true);
             xmlhttp.send();
         </script>
+        <!--
+          Link para ver o JSON "cru" em outra guia (target="_blank" abre em nova aba).
+        -->
         <p>Abrir o arquivo <a href="json_dados.json" target="_blank">json_dados.json</a></p>
     </body>
 </html>

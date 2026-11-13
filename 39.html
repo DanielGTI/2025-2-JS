@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 39.html
+    AULA / TEMA: aula 11 - Objeto Date (datas e horas): quanto tempo falta para uma data
+    OBJETIVO: calcular a diferença entre duas datas em segundos e em dias.
+    CONCEITOS-CHAVE: new Date(), getTime() (milissegundos), conversão de unidades, Math.floor.
+    COMO TESTAR: abra a página. Aparecem a data de hoje, o último instante do ANO ATUAL
+                 (31/12 às 23:59:59.999) e os segundos/dias que faltam até lá.
+                 DICA: se trocar o ano por um que já passou (ex.: 2017), Segundos e Dias saem NEGATIVOS.
+-->
 <html>
     <head>
         <title>Tópico 7</title>
@@ -7,17 +16,38 @@
     <body>
         <div>Programação de Interfaces (aula 11)</div>
         <script type="text/javascript">
-              // Data e hora atual.
+              // new Date() sem argumentos = o instante atual (data e hora do computador de quem abriu a página).
            var hoje = new Date();
-              // Define o último instante de 2017.
-           var fimANO = new Date(2017, 11, 31, 23, 59, 59, 999); 
+              /*
+                new Date(ano, mês, dia, hora, minuto, segundo, milissegundo)
+                ATENÇÃO: os MESES começam em 0!   0 = janeiro, 1 = fevereiro, ..., 11 = dezembro.
+                Por isso new Date(2017, 11, 31, 23, 59, 59, 999) é 31/12/2017 às 23:59:59.999.
+                Aqui o ano vem de hoje.getFullYear(), então o código serve para qualquer ano, sem editar.
+                EXEMPLO:  new Date(2025, 0, 15)  ->  15 de JANEIRO de 2025
+                Já o DIA do mês começa em 1 (31 é o dia 31 mesmo).
+              */
+           var fimANO = new Date(hoje.getFullYear(), 11, 31, 23, 59, 59, 999); 
             
-              // Diferença em segundos entre as duas datas.
+              /*
+                getTime() devolve a data como um número: os MILISSEGUNDOS desde 01/01/1970 (a "época" Unix).
+                Subtrair dois instantes dá a diferença em milissegundos; dividir por 1000 dá segundos.
+                Fim (futuro) menos hoje  ->  positivo.   Fim (passado) menos hoje  ->  NEGATIVO.
+                Como o fim do ano atual ainda não chegou, o resultado desta página é positivo.
+              */
            var segundosRestantes = (fimANO.getTime() - hoje.getTime()) / 1000;  
-              // Converte segundos para dias.
+              /*
+                Conversão de unidades:  1 minuto = 60 s  |  1 hora = 3600 s  |  1 dia = 86400 s (24*60*60)
+                Aqui: segundos / 60 = minutos;  / 60 = horas;  / 24 = dias.
+                EXEMPLO:  172800 segundos  ->  172800/60 = 2880 min  ->  /60 = 48 h  ->  /24 = 2 dias
+                NOTA: como o código usa hoje.getFullYear(), ele conta até o fim do ano atual sem precisar
+                ser editado a cada ano. Para contar até uma data fixa, escreva o ano:
+                    var fimANO = new Date(2030, 11, 31, 23, 59, 59, 999);
+              */
            var diasRestantes = (segundosRestantes / 60) / 60 / 24;
             
-              // Exibe os valores na página.
+              // Nas linhas de Segundos e Dias abaixo usa-se Math.floor, que arredonda PARA BAIXO, descartando as casas decimais (ex.: 5,9 -> 5).
+              // ATENÇÃO com números negativos: Math.floor(-1.5) é -2 (e não -1), pois -2 está "mais abaixo".
+              // VEJA TAMBÉM: 40.html (usa Math.round) e 42.html (outros métodos de Math).
            document.write("<br> " + hoje);
            document.write("<br> " + fimANO);
            document.write("<br> Segundos: " + Math.floor(segundosRestantes));

@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 44.html
+    AULA / TEMA: eventos e DOM - função com parâmetro (este arquivo não traz rótulo de aula)
+    OBJETIVO: reduzir duas funções em uma só, usando um parâmetro para dizer
+              QUAL imagem mostrar (versão melhorada do 43.html).
+    CONCEITOS-CHAVE: parâmetro de função, if/else, variável local, atualização do src.
+    COMO TESTAR: igual ao 43.html. Mouse sobre o baú = abre; mouse fora = fecha.
+-->
 <html>
     <head>
         <title>Tópico 7</title>
@@ -6,19 +14,32 @@
     </head>
     <body>
     <script type="text/javascript">
-        // Altera a imagem do baú conforme o valor recebido.
+        /*
+          Uma única função que recebe um parâmetro (x) e decide o que fazer:
+              alterar_Bau(1)  ->  mostra o baú ABERTO
+              alterar_Bau(2)  ->  mostra o baú FECHADO (qualquer valor diferente de 1 também fecha)
+          É o princípio de não repetir código (DRY): em vez de duas funções quase iguais, uma só.
+        */
         function alterar_Bau(x){
             var img_bau;
-            // x = 1 abre o baú, qualquer outro valor fecha.
+            // Trace:  alterar_Bau(1) -> x == 1 é verdadeiro -> img_bau = "bau_aberto.png"
+            //         alterar_Bau(2) -> x == 1 é falso      -> img_bau = "bau_fechado.png"
+            // Os números 1 e 2 são uma "convenção" que combinamos (código). Pode ser outra, como "abrir"/"fechar".
+            // DICA: a linha img_bau = "bau_fechado.png" ficou sem ponto e vírgula; o JavaScript perdoa,
+            // mas escreva SEMPRE o ; no fim das instruções, para evitar surpresas.
+            // Versão curta equivalente, com operador ternário (veja 27-1.html):
+            //   var img_bau = (x == 1) ? "bau_aberto.png" : "bau_fechado.png";
             if (x == 1)
                 img_bau = "bau_aberto.png";
             else 
                 img_bau = "bau_fechado.png"
             
-            // Atualiza a imagem na tela.
+            // Só aqui a imagem muda de fato: o if/else apenas escolheu o NOME do arquivo (variável local img_bau).
             document.getElementById("bau").src = img_bau;
         }            
     </script>
+    <!-- Os dois eventos chamam a MESMA função; o que muda é o argumento enviado:
+         onMouseOver => alterar_Bau(1) (abrir)   |   onMouseOut => alterar_Bau(2) (fechar). -->
     <img src="bau_fechado.png" id="bau" onMouseOver="alterar_Bau(1)" onMouseOut="alterar_Bau(2)">
         
     </body>

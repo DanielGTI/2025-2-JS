@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  AULA 5 - if aninhado (positivo, negativo ou zero)
+  OBJETIVO: tratar TRÊS situações colocando um if dentro de outro else.
+  CONCEITOS-CHAVE: if/else aninhado, condições mutuamente exclusivas.
+  COMO TESTAR: com x = 0 aparece "NULO" (zero). Troque x por 7 e por -4.
+  VEJA TAMBÉM: 22.html (mesmo código, com x = 5).
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,9 +15,21 @@
     <body>
         <div>Programação de Interfaces (aula 5)</div>
         <script type="text/javascript">
-            // Valor para classificação (positivo, negativo ou zero).
+            /*
+             * Para exercitar bem, teste os TRÊS caminhos: x = 7 (positivo), x = -4 (negativo), x = 0 (nulo).
+             */
             var x = 0;
             
+            /*
+             * Trace com x = 0:
+             * 1) x > 0 ?  0 > 0 é false  -> vai para o else externo
+             * 2) x < 0 ?  0 < 0 é false  -> vai para o else interno
+             * 3) escreve "NULO"
+             * Sempre que há mais de duas possibilidades, encadeamos novos testes dentro do else.
+             * FORMA MAIS LEGÍVEL (sem aninhar demais): else if
+             * if (x > 0) { ... } else if (x < 0) { ... } else { ... }
+             * NA PROVA: o zero não é positivo nem negativo; por isso precisa de um terceiro caminho.
+             */
             if (x > 0){
                 document.write("<br> positivo");     
             }

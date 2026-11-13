@@ -1,25 +1,77 @@
 <!DOCTYPE html>
+<!--
+  TEMA: AJAX com XMLHttpRequest - carregar um arquivo de texto sem recarregar a página.
+  OBJETIVO: pedir dados ao servidor em segundo plano e exibi-los na página.
+  CONCEITOS-CHAVE:
+    - AJAX = obter/enviar dados ao servidor SEM recarregar a página;
+    - objeto XMLHttpRequest e seus métodos open() e send();
+    - evento onreadystatechange, propriedades readyState (0 a 4) e status (200 = OK);
+    - responseText (resposta como texto).
+  COMO TESTAR: abra a página PELO SERVIDOR (Live Preview / vscode-preview-server, endereço http://localhost...) e clique em "Carregar dados".
+  Deve aparecer: [ "SP", "RJ", "MG", "ES"] (o conteúdo do arquivo ajax_dados.txt).
+  ATENÇÃO: abrindo o arquivo direto do disco (endereço file:///...) o navegador bloqueia a leitura (CORS) e nada aparece; veja o erro no Console (F12).
+  VEJA TAMBÉM: 55.html (mesmo esquema, mas com JSON) e 36.html (forma moderna com fetch).
+-->
 <html>
     <body>
         <div>
             <h2>Objeto XMLHttpRequest</h2>
+            <!--
+              O clique chama carregarArquivo(); o resultado será escrito dentro do <p id="retorno"> logo abaixo.
+              type="button" evita que o botão tente enviar um formulário.
+            -->
             <button type="button" onclick="carregarArquivo()">Carregar dados</button>
             <p id="retorno"></p>
         </div>
  
         <script>
-            // Faz uma requisição AJAX para ler um arquivo de texto.
+            /*
+             * AJAX com XMLHttpRequest (forma CLÁSSICA). Os 4 passos:
+             *   1) criar o objeto:                               new XMLHttpRequest()
+             *   2) dizer o que fazer quando a resposta chegar:   onreadystatechange = function () { ... }
+             *   3) configurar o pedido:                          open(método, url, assíncrono)
+             *   4) enviar:                                       send()
+             * ORDEM DE EXECUÇÃO (é assíncrono):
+             *   open() e send() rodam primeiro; a função carregarArquivo() termina logo em seguida;
+             *   só DEPOIS, quando o servidor responde, a função de onreadystatechange é chamada e atualiza a tela.
+             *   O JavaScript não fica "parado" esperando a resposta.
+             * Forma moderna (veja 36.html):
+             *   fetch("ajax_dados.txt").then(r => r.text()).then(t => { document.getElementById("retorno").innerHTML = t; });
+             */
             function carregarArquivo() {
+                // Cria o objeto responsável por conversar com o servidor.
                 var ajax = new XMLHttpRequest();
-                // Executa quando o estado da requisição muda.
+                /*
+                 * onreadystatechange é chamado a cada mudança de readyState:
+                 *   0 = não inicializado | 1 = open() foi chamado | 2 = cabeçalhos recebidos | 3 = baixando a resposta | 4 = CONCLUÍDO.
+                 * Por isso a função roda várias vezes por requisição (estados 1, 2, 3 e 4); o if abaixo filtra só o que interessa.
+                 * Dentro dela, "this" é o próprio XMLHttpRequest (o mesmo que ajax).
+                 * ATENÇÃO: se trocar function por arrow function (=>), "this" deixa de apontar para o ajax; use ajax.readyState.
+                 */
                 ajax.onreadystatechange = function () {
-                    // readyState 4 = finalizado, status 200 = sucesso.
+                    /*
+                     * readyState == 4  => a requisição terminou (com sucesso ou com erro);
+                     * status == 200    => código HTTP "OK". Outros códigos comuns: 404 (arquivo não encontrado, nome errado), 403 (proibido), 500 (erro no servidor).
+                     * Os dois juntos significam: "terminou E deu certo".
+                     * this.responseText é o corpo da resposta como TEXTO. Aqui é: [ "SP", "RJ", "MG", "ES"]
+                     * Como é só um texto, aparece exatamente assim na tela. Para usar como array de verdade:
+                     *   var estados = JSON.parse(this.responseText);   // ["SP", "RJ", "MG", "ES"]
+                     *   estados[0];                                    // "SP"   (veja 55.html)
+                     */
                     if (this.readyState == 4 && this.status == 200) {
                         document.getElementById("retorno").innerHTML =
                                 this.responseText;
                     }
                 };
+                /*
+                 * open(método, url, assíncrono) apenas CONFIGURA o pedido; ainda não envia nada.
+                 *   "GET"            => pedir dados ao servidor ("POST" é usado para enviar dados);
+                 *   "ajax_dados.txt" => caminho do arquivo, relativo a esta página;
+                 *   true             => assíncrono (a página continua funcionando durante o pedido; false trava a página e é desaconselhado).
+                 */
                 ajax.open("GET", "ajax_dados.txt", true);
+                // send() dispara o pedido. Se o arquivo não existir, o status será 404, o if acima falha e nada é exibido (sem mensagem de erro).
+                // DICA: acrescente um else para avisar o usuário quando algo der errado.
                 ajax.send();
             }
         </script>

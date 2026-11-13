@@ -1,24 +1,69 @@
 <!DOCTYPE html>
+<!--
+  TEMA: o mesmo formulário do 56.html, agora com o framework visual Bootstrap 3.
+  OBJETIVO: mostrar como classes CSS prontas (grid de 12 colunas, form-group, form-control, btn) deixam o formulário organizado e responsivo, sem escrever CSS.
+  CONCEITOS-CHAVE:
+    - CDN: carregar CSS/JS de um servidor externo por link;
+    - grid do Bootstrap (col-md-N) e classes de formulário e botão;
+    - atributos required, placeholder e type do botão (submit x reset);
+    - o JavaScript é igual ao do 56.html (AJAX + JSON + preenchimento de campos).
+  COMO TESTAR: precisa de INTERNET (para baixar o Bootstrap) e de servidor local (Live Preview). Digite Maria, clique no ícone "?" e os campos são preenchidos.
+  ATENÇÃO: sem internet o formulário aparece sem estilo (só HTML puro).
+  VEJA TAMBÉM: 56.html (explicação passo a passo do script e do formato de dados_cliente.json).
+-->
 <html>
     <head>
         <title>Tópico 17</title>
         <meta charset="UTF-8">
+        <!--
+          viewport: faz a página se ajustar à largura da tela do celular (design responsivo). Sem isso o celular mostra a página "encolhida".
+        -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <!--
+          CSS do Bootstrap 3.3.4 carregado de uma CDN (rede de servidores públicos), sem baixar nada.
+          NOTA: o endereço usa https (conexão segura). Evite http (sem "s"): em uma página servida por https o navegador bloqueia (conteúdo misto). Esta é uma versão antiga; hoje o Bootstrap está na versão 5.
+        -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <!--
+          jQuery 1.11.1: o Bootstrap 3 exige o jQuery para seus componentes dinâmicos (menus, modais...).
+          Neste arquivo o script de página NÃO usa jQuery (usa XMLHttpRequest puro); o jQuery está aqui apenas porque o Bootstrap 3 depende dele.
+          A ORDEM importa: jQuery primeiro, depois o bootstrap.js.
+        -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     </head>
     <body>
         <br>
+        <!--
+          Grid do Bootstrap: a linha tem 12 colunas. col-md-N ocupa N dessas 12 colunas em telas médias ou maiores (a partir de 992px); em telas menores as colunas empilham.
+          Aqui: 3 colunas vazias + 6 do formulário + 3 vazias = 12, o que CENTRALIZA o formulário.
+        -->
         <div class="col-md-3"></div>
         <div class="col-md-6">
+            <!--
+              form-horizontal: rótulo e campo ficam lado a lado, cada par em uma linha.
+            -->
             <form class="form-horizontal">
                 <fieldset>
                     <legend>Cadastro do Clientes</legend>
+                    <!--
+                      form-group: agrupa rótulo + campo e dá o espaçamento padrão entre as linhas do formulário.
+                    -->
                     <div class="form-group">
+                        <!--
+                          col-md-2: o rótulo ocupa 2 das 12 colunas; control-label alinha o texto do rótulo.
+                          for="idNome" liga o rótulo ao campo de mesmo id: clicar no texto "Nome" coloca o cursor no campo (acessibilidade).
+                        -->
                         <label class="col-md-2 control-label" for="idNome">Nome</label>
+                        <!--
+                          Mesmo ícone de busca do 56.html: onclick chama procurarCliente().
+                        -->
                         <img src="pergunta.png" width="14" id="idProcurar" onclick="procurarCliente()">
                         <div class="col-md-9">
+                            <!--
+                              form-control: campo com largura de 100% e visual do Bootstrap; input-md: tamanho médio.
+                              placeholder: texto de dica que some ao digitar. required: campo obrigatório; o navegador impede o envio se estiver vazio.
+                            -->
                             <input id="idNome" name="idNome" type="text" placeholder="Nome do cliente" class="form-control input-md" required="">
                         </div>
                     </div>
@@ -55,6 +100,9 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="idPlano">Plano</label>
                         <div class="col-md-9">
+                            <!--
+                              form-control também estiliza o <select>. Valores 1, 2 e 3 são os códigos dos planos (veja 56.html).
+                            -->
                             <select id="idPlano" name="idPlano" class="form-control">
                                 <option value="">Escolha uma opção</option>
                                 <option value="1">Normal</option>
@@ -66,6 +114,11 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="idConfirmar"></label>
                         <div class="col-md-9">
+                            <!--
+                              btn btn-primary: botão azul do Bootstrap; btn btn-danger: botão vermelho.
+                              type="submit" envia o formulário (e valida os campos required); type="reset" devolve todos os campos ao estado inicial, por isso funciona como "Cancelar".
+                              DICA: aqui o type está explícito; no 56.html a falta do type faz a página recarregar.
+                            -->
                             <button type="submit" id="idConfirmar" name="idConfirmar" class="btn btn-primary">Cadastrar</button>
                             <button type="reset" id="idCancelar" name="idCancelar" class="btn btn-danger">Cancelar</button>
                         </div>
@@ -73,9 +126,17 @@
                 </fieldset>
             </form>
         </div>
+        <!--
+          Coluna vazia da direita (3 colunas), que equilibra a da esquerda e centraliza o formulário.
+        -->
         <div class="col-md-3"></div>
         <script>
-            // Procura um cliente no JSON pelo nome digitado.
+            /*
+             * Mesma função do 56.html (veja lá o passo a passo). Resumo:
+             *   AJAX busca dados_cliente.json => JSON.parse => laço for...in compara cada nome com o digitado
+             *   => se achar, preenche os campos com .value e dá focus() no Plano; se não achar, alert("Cliente não encontrado!").
+             * Exemplo: digitar "Pedro" preenche CPF 45612343, Endereço "Av. Santo Amaro, 1000", CEP 01321-001 e Bairro "Vila Leste".
+             */
             function procurarCliente() {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function () {
@@ -83,11 +144,12 @@
                         // Marca se encontrou algum cliente.
                         var cliente_encontrado = false;
                         // Converte o retorno JSON em objeto.
-                        myObj = JSON.parse(this.responseText);
-                        nomeProcura = document.getElementById("idNome");
+                        var myObj = JSON.parse(this.responseText);
+                        var nomeProcura = document.getElementById("idNome");
                         
                         // Percorre a lista e preenche os campos quando achar.
-                        for (i in myObj.cliente) {
+                        for (var i in myObj.cliente) {
+                            // Compara o nome do JSON com o digitado: diferencia maiúsculas e acentos. Prefira === a == (sem conversão de tipos).
                             if (myObj.cliente[i].nome == nomeProcura.value){
                                 document.getElementById("idCPF").value = myObj.cliente[i].cpf;
                                 document.getElementById("idEndereco").value = myObj.cliente[i].endereco;
@@ -95,7 +157,9 @@
                                 document.getElementById("idBairro").value = myObj.cliente[i].bairro;
                                 document.getElementById("idEmail").value = myObj.cliente[i].email;
                                 document.getElementById("idPlano").focus();
+                                // break encerra o laço assim que o cliente é encontrado (veja o comentário no 56.html).
                                 cliente_encontrado = true;
+                                break;
                             }
                         }
                         // Exibe aviso se não encontrar o cliente.

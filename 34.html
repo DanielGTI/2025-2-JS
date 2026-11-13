@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 34.html
+    AULA / TEMA: aula 7 - Funções (parâmetros e retorno)
+    OBJETIVO: criar funções reutilizáveis, passar valores por parâmetro e
+              receber um resultado com return.
+    CONCEITOS-CHAVE: function, parâmetros x argumentos, return, escopo local,
+                     chamada de função e uso do resultado.
+    COMO TESTAR: abra a página. Devem aparecer 4 linhas:
+                 Dobro(4) = 8 | somar(2, n) = 10 | nPar(2) = true | somaIntervalo(1, 5) = 15
+-->
 <html>
     <head>
         <title>Tópico 7</title>
@@ -7,23 +17,42 @@
     <body>
         <div>Programação de Interfaces (aula 7)</div>
         <script type="text/javascript">
-            // Retorna o dobro do valor recebido.
+            /*
+              FUNÇÃO = bloco de código com nome, que pode ser usado várias vezes.
+                  function nome(parametro1, parametro2){
+                      ...
+                      return resultado;      // devolve o valor para quem chamou e ENCERRA a função
+                  }
+              - Parâmetros: variáveis que a função recebe (x, a, b ...).
+              - Argumentos: os valores reais passados na chamada, como o 4 em dobro(4).
+              - Sem return, a função devolve undefined.
+            */
+            // Retorna o dobro do valor recebido.   EXEMPLO:  dobro(4) -> 8   |   dobro(10) -> 20
             function dobro(x){
                 return x*2;
             } 
 
-            // Retorna a soma de dois números.
+            // Retorna a soma de dois números.   EXEMPLO:  somar(2, 3) -> 5
+            // NA PROVA: com texto, o + concatena:  somar("2", 3) -> "23"  (veja 13.html e 12.html)
             function somar(a,b){
                 return a+b;
             } 
 
-            // Verifica se o número é par.
+            // Verifica se o número é par (resto da divisão por 2 igual a zero) e devolve true ou false.
+            // EXEMPLO:  nPar(7): 7 % 2 = 1, que é diferente de 0, então devolve false.
+            // Versão mais curta e equivalente:  return n % 2 == 0;
             function nPar(n){
                 if (n%2==0) return true;
                 else        return false;
             } 
 
             // Soma todos os números do intervalo de x até y (inclusive).
+            // Trace de somaIntervalo(1, 3):  soma = 0
+            //   i = 1  ->  soma = 0 + 1 = 1
+            //   i = 2  ->  soma = 1 + 2 = 3
+            //   i = 3  ->  soma = 3 + 3 = 6      (i = 4 não entra: 4 <= 3 é falso)  ->  return 6
+            // ESCOPO: a variável soma criada AQUI dentro só existe dentro da função (variável local).
+            // Ela não tem relação com a variável soma criada mais abaixo, fora da função.
             function somaIntervalo(x, y){
                 var soma=0;
                 for(var i=x; i<=y; i++){
@@ -32,18 +61,23 @@
                 return soma;
             } 
 
-            // Chama a função dobro e guarda o resultado.
+            // Chamada de função: dobro(4) devolve 8, e esse valor é guardado em n.
+            // Uma função só "trabalha" quando é CHAMADA; apenas declará-la não executa nada.
+            // Obs.: as declarações com function podem ser chamadas até antes de aparecerem no código (hoisting).
             var n = dobro(4);
             document.write("<br>Dobro(4) = " + n);
 
-            // Soma 2 com o valor de n.
+            // Soma 2 com o valor de n:  somar(2, 8)  ->  10   (esta variável soma é GLOBAL e não tem relação com a soma local da função).
+            // Repare no document.write com VÍRGULA: ele aceita vários argumentos e escreve todos em sequência.
+            // document.write("a", "b") escreve "ab", como "a" + "b". (Mas, como pede texto, prefira o +.)
              var soma = somar(2,n);
             document.write("<br>somar(2, n) = ", soma);
 
-            // Mostra se 2 é par (true) ou não (false).
+            // A função devolve um valor lógico (boolean): true se for par, false se for ímpar.
+            // Resultado: nPar(2) -> true
             document.write("<br>nPar(2) = ", nPar(2));
 
-            // Soma os números de 1 até 5.
+            // Soma os números de 1 até 5:  1 + 2 + 3 + 4 + 5  ->  15.
             var somatoria = somaIntervalo(1,5);
             document.write("<br>somaIntervalo(1, 5) = " + somatoria);
 

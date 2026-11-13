@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  AULA 3 - Cálculo com percentual (salário com comissão)
+  OBJETIVO: aplicar operadores aritméticos em um problema do dia a dia.
+  CONCEITOS-CHAVE: variáveis numéricas, porcentagem como decimal (15% = 0.15), parênteses.
+  COMO TESTAR: aparece "Valor a receber = R$ 4500.075".
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,11 +14,23 @@
     <body>
         <div>Programação de Interfaces (aula 3)</div>
         <script type="text/javascript">
-            // Valores base do cálculo.
+            /*
+             * Nomes de variáveis devem dizer o que guardam (vendas, salario_Fixo). Facilita a leitura.
+             * Valores decimais usam PONTO: 10000.50 (a vírgula daria erro de sintaxe).
+             */
             var vendas = 10000.50;
             var salario_Fixo = 3000.00;
 
-            // Calcula salário com comissão de 15%.
+            /*
+             * Porcentagem: 15% = 15 / 100 = 0.15
+             * Trace:  vendas * 0.15  = 10000.50 * 0.15 = 1500.075
+             *         3000.00 + 1500.075 = 4500.075
+             * EXEMPLO: desconto de 10% sobre 200  ->  200 - (200 * 0.10)  ->  180
+             * DICA: para mostrar só 2 casas decimais use toFixed(2).
+             * EXEMPLO: (3.14159).toFixed(2)  ->  "3.14"
+             * ATENÇÃO: números decimais em computador podem ter pequenos erros de precisão.
+             * EXEMPLO: 0.1 + 0.2  ->  0.30000000000000004
+             */
             var salario_Final = salario_Fixo + (vendas * 0.15); 
             document.write("Valor a receber = R$ " + salario_Final );     
         </script>

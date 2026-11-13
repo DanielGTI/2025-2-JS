@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 40.html
+    AULA / TEMA: aula 11 - Objeto Date: diferença entre datas e métodos de leitura
+    OBJETIVO: repetir o cálculo do 39.html mostrando também as horas e conhecer
+              métodos úteis do Date (getDay, getHours, toUTCString).
+    CONCEITOS-CHAVE: new Date(), getTime(), Math.round, getDay (0 = domingo), getHours.
+    COMO TESTAR: abra a página. Aparecem os Segundos, Dias e Horas que faltam até o fim do
+                 ano atual. Depois aparecem a data em formato UTC,
+                 o dia da semana (0 a 6) e a hora atual (0 a 23).
+-->
 <html>
     <head>
         <title>Tópico 7</title>
@@ -7,25 +17,48 @@
     <body>
         <div>Programação de Interfaces (aula 11)</div>
         <script type="text/javascript">
-           // Data e hora atual.
+           // new Date() sem argumentos = instante atual. VEJA TAMBÉM: 39.html (explicação do cálculo completo).
            var hoje = new Date();
-           // Define o último instante de 2017.
-           var fimANO = new Date(2017, 11, 31, 23, 59, 59, 999);
+           // Mês 11 = dezembro, porque os meses de Date começam em 0 (janeiro = 0). Dia do mês começa em 1.
+           // O ano vem de hoje.getFullYear(): o código sempre conta até o fim do ANO ATUAL.
+           var fimANO = new Date(hoje.getFullYear(), 11, 31, 23, 59, 59, 999);
             
-           // Diferença entre datas em segundos.
+           // getTime() = milissegundos desde 01/01/1970. (fim - hoje) / 1000 = diferença em segundos.
+           // Fim do ano (futuro) menos hoje = positivo. (Com uma data que já passou, o resultado seria NEGATIVO.)
            var segundosRestantes = (fimANO.getTime() - hoje.getTime()) / 1000;
-           // Conversões para dias e horas.
+           /*
+             1 dia  = 24 * 60 * 60 = 86400 segundos       ->  dias  = segundos / 86400
+             1 hora = 60 * 60      = 3600 segundos        ->  horas = segundos / 3600
+             EXEMPLO:  7200 segundos  ->  7200 / 3600 = 2 horas
+           */
            var r_dias = segundosRestantes / (24 * 60 * 60);
            var r_horas = segundosRestantes / (60 * 60);
             
-           // Exibe data e cálculos.
+           /*
+             Math.round arredonda para o inteiro MAIS PRÓXIMO (diferente do Math.floor do 39.html,
+             que sempre arredonda para baixo).
+                 Math.round(2.4)  ->  2        Math.round(2.5)  ->  3        Math.round(2.6)  ->  3
+                 Math.floor(2.9)  ->  2        Math.ceil(2.1)   ->  3
+             Detalhe: Math.round(-2.5) é -2 (o meio-termo é arredondado em direção ao +infinito).
+           */
            document.write("<br> " + hoje);
            document.write("<br> " + fimANO);
            document.write("<br>Segundos: " + Math.round(segundosRestantes));
            document.write("<br>Dias: " + Math.round(r_dias));
            document.write("<br>Horas: " + Math.round(r_horas));
 
-            // Mostra alguns métodos úteis do objeto Date.
+            /*
+              Métodos "get" do Date (leem uma parte da data):
+                  getFullYear()  ->  ano com 4 dígitos (2025)
+                  getMonth()     ->  mês de 0 a 11 (janeiro = 0)
+                  getDate()      ->  dia do mês, de 1 a 31
+                  getDay()       ->  dia da SEMANA, de 0 a 6 (0 = domingo, 1 = segunda, ... 6 = sábado)
+                  getHours()     ->  hora de 0 a 23 (no fuso horário do computador)
+                  getMinutes() / getSeconds()  ->  minutos e segundos
+                  toUTCString()  ->  texto da data no horário universal (UTC/GMT)
+              EXEMPLO:  new Date(2017, 11, 31).getDay()  ->  0   (31/12/2017 foi um domingo)
+              EXEMPLO:  new Date(2025, 0, 15).getMonth() ->  0   (janeiro)
+            */
             var x = new Date();
             document.write("<br>toUTCString: " + x.toUTCString());
             document.write("<br>getDay: " + x.getDay());

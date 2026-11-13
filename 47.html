@@ -1,9 +1,19 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 47.html
+    AULA / TEMA: eventos - foco em campos de formulário (este arquivo não traz rótulo de aula)
+    OBJETIVO: acrescentar o evento onFocus (campo "ativado") ao exemplo do 46.html.
+    CONCEITOS-CHAVE: onFocus, campos de texto (input), id de cada elemento, alert().
+    COMO TESTAR: ao abrir, aparece "Mensagem inicial!". Clique no campo Nome (ou chegue nele
+                 com a tecla Tab): aparece "Você focou um elemento!". Os botões repetem o 46.html.
+                 Repare: o alerta aparece a CADA vez que se volta ao campo (o 48.html corrige isso).
+-->
 <html>
     <head>
         <title>Tópico 7</title>
         <meta charset="UTF-8">
     </head>
+    <!-- onLoad: executa ao terminar de carregar a página (veja o 46.html). -->
     <body onLoad="alert('Mensagem inicial!')">
         <script type="text/javascript">
             // Executa quando o botão é pressionado.
@@ -16,7 +26,13 @@
                 alert("Você SOLTOU o botão");
             }
             
-            // Executa quando o campo recebe foco.
+            /*
+              FOCO = o campo está "ativo", pronto para receber digitação (o cursor pisca nele).
+              Acontece ao clicar no campo ou ao chegar nele com a tecla Tab. O evento oposto
+              é onBlur (o campo PERDE o foco).
+              Nesta versão a função não lembra se já avisou, então o alert reaparece toda vez que a
+              pessoa volta ao campo Nome. Veja a solução com uma "flag" no 48.html.
+            */
             function focar_Elemento(){
                 alert("Você focou um elemento!");
             }
@@ -24,10 +40,13 @@
         </script>
         <form>
             <b>Nome</b>
+            <!-- id: identifica cada campo (nome, endereco), para o JavaScript conseguir encontrá-los depois.
+                 onFocus: chama focar_Elemento() quando este campo recebe o foco. -->
             <input type="text" id="nome" onFocus="focar_Elemento()">
             <b>Endereço</b>
             <input type="text" id ="endereco" >
         
+            <!-- Botão com os eventos de apertar e soltar o mouse (iguais ao 46.html). -->
             <input type="button" name="btn" value="Clique aqui" onMouseDown="clicar_Down()" onMouseUp="clicar_Up()">
         </form>
         

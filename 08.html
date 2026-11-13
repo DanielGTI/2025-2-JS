@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  AULA 2 - document.write
+  OBJETIVO: escrever texto diretamente na página com JavaScript.
+  CONCEITOS-CHAVE: document.write, strings entre aspas.
+  COMO TESTAR: aparece "OLÁ MUNDO!" logo abaixo do título da aula.
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,7 +14,14 @@
     <body>
         <div>Programação de Interfaces (aula 2)</div>
         <script type="text/javascript">
-            // Escreve uma mensagem diretamente na página.
+            /*
+             * document.write(...) insere o texto no ponto da página onde o script está.
+             * O texto vai entre aspas (duplas ou simples): isso é uma STRING.
+             * ATENÇÃO: se document.write for chamado DEPOIS da página carregar (por exemplo, dentro
+             * de um botão), ele apaga a página inteira e escreve só o novo texto. Por isso ele
+             * serve para estudar, e não para sistemas reais.
+             * EXEMPLO: document.write("<h1>Título</h1>");   // o texto pode conter HTML
+             */
             document.write("OLÁ MUNDO!");
         </script>
  

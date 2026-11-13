@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  AULA 3 - Soma de números
+  OBJETIVO: somar duas variáveis do tipo number e mostrar o resultado.
+  CONCEITOS-CHAVE: operador +, tipo number, document.write.
+  COMO TESTAR: aparece o número 3 abaixo do título.
+  VEJA TAMBÉM: 13.html (o que acontece quando um dos valores é texto).
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,11 +15,19 @@
     <body>
         <div>Programação de Interfaces (aula 3)</div>
         <script type="text/javascript">
-            // Define dois valores numéricos.
+            /*
+             * Sem aspas, 1 e 2 são números; por isso o + realiza SOMA matemática.
+             * EXEMPLO: var a = "1"; var b = "2"; a + b  ->  "12"  (aspas = texto, o + junta os textos)
+             */
             var a = 1;
             var b = 2;
 
-            // Exibe a soma na página.
+            /*
+             * A expressão a + b é calculada primeiro (1 + 2 = 3) e só depois o resultado é escrito.
+             * RESULTADO: 3
+             * Compare com document.write("a + b = " + a + b), que escreveria "a + b = 12":
+             * aqui o + vira concatenação, porque o primeiro operando já é um texto. Veja 13.html.
+             */
             document.write(a + b);     
         </script>
     </body>

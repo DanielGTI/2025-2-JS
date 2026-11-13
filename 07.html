@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<!--
+  AULA 2 - Arquivo JavaScript externo por URL
+  OBJETIVO: carregar um script hospedado em OUTRO site, informando a URL completa.
+  CONCEITOS-CHAVE: script src com URL absoluta, CDN, dependência externa.
+  COMO TESTAR: o script é carregado de uma URL real (o mesmo arquivo js/exemplos_1.js do
+  06.html, publicado no GitHub e entregue por uma CDN). Precisa de INTERNET. Clique no botão:
+  "Inicio.." vira "Alterado.". Sem internet, o Console (F12) mostra o erro de carga.
+  VEJA TAMBÉM: 57.html (carrega jQuery e Bootstrap de CDNs reais).
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -11,7 +20,17 @@
         <h2>JavaScript criado arquivo externo (URL)</h2>
         <p id="demo">Inicio..</p>
         <button type="button" onclick="myFunction()">Clique aqui</button>
-        <script src="https://site.com.br/js/exemplos_7.js"></script>
+        <!--
+          URL ABSOLUTA: começa com https://. É assim que se carregam bibliotecas prontas
+          (jQuery, Bootstrap...) hospedadas em uma CDN (rede de entrega de conteúdo).
+          EXEMPLO (real): script src="https://code.jquery.com/jquery-3.7.1.min.js"
+          Aqui usamos o jsDelivr, uma CDN que serve arquivos de repositórios do GitHub, no padrão
+          https://cdn.jsdelivr.net/gh/USUARIO/REPOSITORIO@BRANCH/CAMINHO. A página não tem o arquivo
+          na pasta local: ele é buscado pela internet.
+          ATENÇÃO: só carregue scripts de fontes confiáveis, pois o código roda com os mesmos
+          poderes da sua página. Se o outro site sair do ar, sua página quebra junto.
+        -->
+        <script src="https://cdn.jsdelivr.net/gh/DanielGTI/2025-2-JS@main/js/exemplos_1.js"></script>
  
     </body>
 </html>

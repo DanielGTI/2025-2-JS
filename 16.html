@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  AULA 4 - Operadores de atribuição
+  OBJETIVO: usar atalhos como +=, -=, *=, /= e %= para atualizar uma variável.
+  CONCEITOS-CHAVE: atribuição (=), atribuição composta, resto da divisão.
+  COMO TESTAR: aparecem 20, 100, 10, 1 e 0 (nessa ordem).
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,10 +14,27 @@
     <body>
         <div>Programação de Interfaces (aula 4)</div>
         <script type="text/javascript">
-            // Inicializa três variáveis com o mesmo valor.
-            var a =  b =  c = 10;
+            /*
+             * Declara três variáveis de uma vez, separadas por vírgula: a, b e c valem 10.
+             * É o mesmo que:  var a = 10;  var b = 10;  var c = 10;
+             * DICA: existe também a ATRIBUIÇÃO ENCADEADA  var a = b = c = 10;  (resolvida da DIREITA
+             * para a ESQUERDA: c = 10, depois b = c, depois a = b), mas ela é uma armadilha: só o a é
+             * declarado pelo var. As variáveis b e c viram GLOBAIS IMPLÍCITAS (criadas sem declaração),
+             * e em modo estrito ("use strict") isso gera ReferenceError. Por isso se declara cada uma.
+             */
+            var a = 10, b = 10, c = 10;
             
-            // Exemplos de operadores de atribuição.
+            /*
+             * Atribuição composta: variável OP= valor  equivale a  variável = variável OP valor.
+             * a += b  ->  a = a + b
+             * Trace (cada linha usa o valor atualizado pela anterior):
+             * a += b   ->  a = 10 + 10  = 20
+             * b *= c   ->  b = 10 * 10  = 100
+             * a -= c   ->  a = 20 - 10  = 10
+             * a /= c   ->  a = 10 / 10  = 1
+             * b %= 2   ->  b = 100 % 2  = 0     (100 é par, resto 0)
+             * EXEMPLO: x = 5; x += 3; -> 8     x *= 2; -> 16
+             */
             a += b;
             document.write("<br>a = a + b :  " + a);     
             

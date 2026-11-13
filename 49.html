@@ -1,10 +1,33 @@
 <!DOCTYPE html>
+<!--
+  TEMA: DOM e eventos - lista suspensa (select) e o evento onchange.
+  OBJETIVO: ler a opção escolhida pelo usuário em uma lista e mostrá-la em outro ponto da página, sem recarregar a página.
+  CONCEITOS-CHAVE:
+    - <select> e <option> (atributo value x texto visível);
+    - evento onchange (dispara quando o usuário TROCA a opção);
+    - document.getElementById() para localizar elementos pelo id;
+    - propriedade .value (ler) e .innerHTML (escrever).
+  COMO TESTAR: abra a página, escolha um curso na lista; logo abaixo deve aparecer "Escolha: <curso>".
+  ATENÇÃO: ao abrir a página nada aparece abaixo, mesmo com "Java" já selecionado (o evento só ocorre na troca).
+-->
 <html>
     <body>
  
         <p>Selecione um novo treinamento a realizar.</p>
  
+        <!--
+          <select> = caixa de seleção (lista suspensa). Cada <option> é uma escolha possível.
+          id="curso": identifica o elemento para o JavaScript (getElementById).
+          onChange="alterarCurso()": quando o usuário ESCOLHE OUTRA opção, o navegador executa a função alterarCurso().
+          DICA: em HTML os nomes de atributos não diferenciam maiúsculas de minúsculas; onChange e onchange são iguais (o mais comum é escrever onchange).
+        -->
         <select id="curso" onChange="alterarCurso()">
+            <!--
+              value="..." é o que o JavaScript lê (select.value). O texto depois da tag é o que o usuário vê.
+              EXEMPLO: <option value="1">Java</option> mostra "Java" mas select.value devolve "1".
+              Se não houver o atributo value, select.value devolve o próprio texto da opção.
+              ATENÇÃO: aqui as tags <option> NÃO têm </option> de fechamento. O HTML tolera (o navegador fecha sozinho ao encontrar o próximo <option>), mas o recomendado é sempre fechar a tag.
+            -->
             <option value="Java">Java
             <option value="C#">C#
             <option value="Linguagem C">Linguagem C
@@ -12,10 +35,27 @@
         </select>
  
         <p>Esperamos poder participar de mais um treinamento!</p>
+        <!--
+          Área de resultado: começa vazia e será preenchida pelo JavaScript (via innerHTML) quando o usuário trocar de curso.
+        -->
         <p id="texto"></p>
  
         <script>
-            // Atualiza o texto com o curso selecionado.
+            /*
+             * alterarCurso(): lê a opção escolhida e a mostra na página.
+             * Passo a passo:
+             *   1) getElementById("curso") localiza o <select>;
+             *   2) .value devolve o value da opção selecionada (ex.: "JavaScript");
+             *   3) o innerHTML do <p id="texto"> recebe "Escolha: " + valor.
+             * EXEMPLO: usuário escolhe "Linguagem C"  =>  na tela: Escolha: Linguagem C
+             * EXEMPLO: usuário escolhe "C#"           =>  na tela: Escolha: C#
+             * Outras propriedades úteis do select (não usadas aqui):
+             *   select.selectedIndex                       => posição da opção escolhida (0 = primeira);
+             *   select.options[select.selectedIndex].text  => texto visível da opção escolhida.
+             * DICA: para inserir apenas texto (sem interpretar HTML) prefira textContent no lugar de innerHTML; é mais seguro.
+             * Forma moderna (este arquivo usa a clássica, com onChange no HTML):
+             *   document.getElementById("curso").addEventListener("change", alterarCurso);
+             */
             function alterarCurso() {
                 var x = document.getElementById("curso").value;
                 document.getElementById("texto").innerHTML = "Escolha: " + x;

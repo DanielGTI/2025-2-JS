@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 43.html
+    AULA / TEMA: eventos e DOM - trocar uma imagem com o mouse (este arquivo não traz rótulo de aula)
+    OBJETIVO: reagir a ações da pessoa (mouse sobre/fora da imagem) e alterar a
+              página com JavaScript.
+    CONCEITOS-CHAVE: evento (onMouseOver, onMouseOut), função chamada por evento,
+                     DOM, getElementById, propriedade src.
+    COMO TESTAR: abra a página (as imagens bau_fechado.png e bau_aberto.png devem estar na
+                 mesma pasta). Passe o mouse sobre o baú: ele abre. Tire o mouse: ele fecha.
+-->
 <html>
     <head>
         <title>Tópico 7</title>
@@ -6,17 +16,34 @@
     </head>
     <body>
         <script type="text/javascript">
-            // Troca a imagem para o baú aberto.
+            /*
+              DOM (Document Object Model) = a página HTML vista pelo JavaScript como uma árvore de
+              objetos. Com document.getElementById("bau") pegamos o elemento cujo id é "bau"
+              (a tag img lá embaixo) e, com .src, lemos ou alteramos o arquivo da imagem.
+              O navegador atualiza a tela na hora em que o src muda.
+
+              EVENTO = algo que acontece na página (clique, mouse passando, tecla, foco...).
+              Ligamos um evento a uma função: quando o evento ocorre, a função é executada.
+              Esta função só roda quando o evento acontece, e nesse momento a imagem já existe na página
+              (por isso não há problema de o script estar escrito antes da tag img).
+            */
             function abrir_Bau(){
                 document.getElementById("bau").src = "bau_aberto.png";
             }            
 
-            // Troca a imagem para o baú fechado.
+            // Mesma ideia, com o outro arquivo. Repare que são DUAS funções quase iguais:
+            // o 44.html resolve isso com uma única função que recebe um parâmetro.
             function fechar_Bau(){
                 document.getElementById("bau").src = "bau_fechado.png";
             }
         </script>
     
+        <!-- id="bau": nome único usado pelo JavaScript para encontrar esta imagem.
+             onMouseOver: evento "mouse ENTROU sobre o elemento"  =>  chama abrir_Bau().
+             onMouseOut:  evento "mouse SAIU do elemento"         =>  chama fechar_Bau().
+             Os parênteses na chamada são obrigatórios: onMouseOver="abrir_Bau()".
+             Forma moderna (sem escrever JavaScript dentro do HTML):
+                imagem.addEventListener("mouseover", abrir_Bau);   (os nomes dos eventos ficam em minúsculas) -->
         <img src="bau_fechado.png" id="bau" onMouseOver="abrir_Bau()" onMouseOut="fechar_Bau()">
         
     </body>

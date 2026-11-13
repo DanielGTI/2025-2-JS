@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  AULA 2 - Onde colocar o JavaScript (4/5): script no BODY
+  OBJETIVO: mesmo comportamento do 04.html, mas com o script escrito no final do body.
+  CONCEITOS-CHAVE: script no body, função ligada a um botão, innerHTML.
+  COMO TESTAR: clique no botão para o texto "Inicio.." virar "Alterado.".
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -15,7 +21,14 @@
         <button type="button" onclick="myFunction()">Clique aqui</button>
  
         <script>
-            // Altera o conteúdo do parágrafo quando clicar no botão.
+            /*
+             * O script no final do body garante que o parágrafo "demo" já existe quando o código
+             * roda. Aqui, como a função só é chamada no clique, funcionaria também no head (04.html);
+             * a posição do script passa a ser decisiva quando o código executa imediatamente
+             * (veja 03.html e 10.html).
+             * Observe que a tag script aqui não tem type="text/javascript": é opcional, pois
+             * JavaScript é a linguagem padrão do HTML5.
+             */
             function myFunction() {
                 document.getElementById("demo").innerHTML = "Alterado.";
             }

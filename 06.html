@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<!--
+  AULA 2 - Onde colocar o JavaScript (5/5): arquivo EXTERNO local
+  OBJETIVO: separar o código JavaScript em um arquivo .js e carregá-lo com src.
+  CONCEITOS-CHAVE: script src, arquivo .js externo, reutilização de código, caminho relativo.
+  COMO TESTAR: clique no botão: "Inicio.." vira "Alterado.". A função myFunction vem do
+  arquivo externo js/exemplos_1.js. Se o caminho do src estiver errado, nada acontece e o
+  Console (F12) mostra erro 404 e "myFunction is not defined".
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -9,6 +17,19 @@
         <h2>JavaScript criado arquivo externo</h2>
         <p id="demo">Inicio..</p>
         <button type="button" onclick="myFunction()">Clique aqui</button>
-        <script src="/js/exemplos_1.1.js"></script>
+        <!--
+          EXTERNO: o código fica em um arquivo .js (aqui, a função myFunction). Vantagens:
+          a mesma biblioteca pode ser usada por várias páginas, o HTML fica mais limpo e o
+          navegador guarda o arquivo em cache.
+          CAMINHO: o arquivo se chama js/exemplos_1.js e fica na pasta js, ao lado desta página.
+          O src precisa ter EXATAMENTE esse nome. Um caractere a mais (por exemplo,
+          exemplos_1.1.js) faz o navegador não encontrar o arquivo (erro 404 no Console), e a
+          função myFunction nunca é carregada.
+          Sem barra inicial (js/...) o caminho é relativo à página atual; com barra (/js/...)
+          significa "a partir da raiz do servidor". Para testar arquivos externos use um servidor
+          (Live Preview do VSCode) em vez de abrir o HTML direto pelo disco.
+          NA PROVA: a tag script com src não deve ter código dentro dela.
+        -->
+        <script src="js/exemplos_1.js"></script>
     </body>
 </html>

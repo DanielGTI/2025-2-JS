@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  AULA 3 - A armadilha do operador + (soma x concatenação)
+  OBJETIVO: entender por que "5" + 1 + 2 não é 8, e como corrigir com parseInt.
+  CONCEITOS-CHAVE: conversão automática de tipos, ordem de avaliação, parênteses, parseInt.
+  COMO TESTAR: aparecem x = 512, y = 53 e y (parse) = 8.
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,19 +14,38 @@
     <body>
         <div>Programação de Interfaces (aula 3)</div>
         <script type="text/javascript">
-            // Exemplo de string numérica.
+            /*
+             * a é o TEXTO "5" (tem aspas). Esta variável é a causa de todas as surpresas abaixo.
+             */
             var a = "5";
 
-            // Concatenação de string com números.
+            /*
+             * O + é avaliado da ESQUERDA para a DIREITA. Se um dos lados é texto, vira concatenação.
+             * Trace de a + 1 + 2:
+             * "5" + 1  ->  "51"      (texto + número = texto)
+             * "51" + 2 ->  "512"
+             * RESULTADO: x = "512" (e não 8!)
+             */
             var x = a + 1 + 2;
             document.write("<br>x = " + x );     
             
-            // Soma dentro de parênteses antes da concatenação.
+            /*
+             * Parênteses são resolvidos primeiro: (1 + 2) = 3, depois "5" + 3 -> "53".
+             * RESULTADO: y = "53"
+             */
             var y = a + (1 + 2);
             document.write("<br>y = " + y );     
  
-            // Converte para número e depois soma.
-            var y = parseInt(a) + (1 + 2);
+            /*
+             * Aqui y é apenas REATRIBUÍDO (sem var), pois já foi declarado acima. Declarar a mesma
+             * variável duas vezes com var é permitido (só sobrescreve), mas com let ou const daria
+             * erro: não é uma boa prática.
+             * parseInt("5") vira o número 5; então 5 + 3 = 8.
+             * RESULTADO: y = 8
+             * NA PROVA: só o + tem esse duplo papel. Os outros operadores convertem o texto em número:
+             * "10" - 3  ->  7        "5" * 2  ->  10        "10" / 2  ->  5
+             */
+            y = parseInt(a) + (1 + 2);
             document.write("<br>y (parse) = " + y );     
         </script>
     </body>

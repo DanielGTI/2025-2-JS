@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+<!--
+  TEMA: DOM - selecionando VÁRIOS elementos com querySelectorAll e percorrendo-os com um laço for.
+  OBJETIVO: aplicar um estilo em todos os parágrafos de uma vez e alternar cores (efeito "zebra").
+  CONCEITOS-CHAVE:
+    - document.querySelectorAll("p") devolve uma NodeList (lista parecida com array);
+    - laço for com índice e x.length;
+    - operador % (resto da divisão) para separar pares e ímpares;
+    - style.backgroundColor = "" remove a cor aplicada pelo JS.
+  COMO TESTAR: clique em cada botão e observe os parágrafos (são 6) e a div.
+  NA PROVA: a condição do for deve ser uma COMPARAÇÃO (i < x.length). Veja o comentário no primeiro for sobre o erro clássico de escrever só x.length.
+  VEJA TAMBÉM: 50.html (querySelector devolve só o primeiro elemento).
+-->
 <html>
     <body>
  
@@ -16,37 +28,66 @@
             <br>Quarta linha.
         </div>
  
+        <!--
+          Quatro botões, quatro funções (todas no <script> abaixo):
+            alterar()      => pinta TODOS os <p> de verde;
+            alterarDIV()   => pinta a <div> de cinza;
+            alternar()     => parágrafos de posição par ficam verdes e os de posição ímpar ficam azuis;
+            limparTodas()  => remove a cor de todos os <p>.
+        -->
         <button onclick="alterar()">Clique / alterar o (p)</button>
         <button onclick="alterarDIV()">Clique / alterar a (div)</button>
         <button onclick="alternar()">Clique / alternar linhas (p)</button>
         <button onclick="limparTodas()">Clique limpar linhas (p)</button>
  
         <script>
-            // Limpa a cor de fundo de todos os parágrafos.
+            /*
+             * document.querySelectorAll("p") devolve uma NodeList com TODOS os <p>: aqui são 6 elementos, nos índices 0 a 5.
+             * Uma NodeList tem .length e acesso por índice (x[0], x[1]...), e aceita forEach e for...of.
+             * Ela NÃO é um array de verdade: não tem map nem filter (converta com Array.from(x) se precisar).
+             * style.backgroundColor = "" remove a cor que o JS tinha colocado (o parágrafo volta ao visual padrão).
+             */
             function limparTodas() {
                 var x = document.querySelectorAll("p");
-                for (var i = 0; x.length; i++) {
+                /*
+                 * CONDIÇÃO DO LAÇO: i < x.length repete enquanto i for menor que a quantidade de parágrafos.
+                 * Trace: i = 0, 1, 2, 3, 4, 5 pintam os 6 parágrafos; com i = 6 a condição (6 < 6) é falsa e o laço termina.
+                 * ERRO CLÁSSICO: escrever só "x.length" no lugar de "i < x.length". Como x.length vale 6 (sempre verdadeiro),
+                 * o laço nunca para por conta própria: com i = 6, x[6] é undefined e x[6].style lança
+                 * TypeError: Cannot read properties of undefined (reading 'style'). O resultado visual parece certo
+                 * (todos já foram alterados antes do erro), mas o erro aparece no Console (F12).
+                 * Moderno:  x.forEach(function (p) { p.style.backgroundColor = ""; });
+                 * NA PROVA: a condição do for deve ser uma COMPARAÇÃO (i < x.length) e não só um número.
+                 */
+                for (var i = 0; i < x.length; i++) {
                     x[i].style.backgroundColor = "";
                 }
             }
  
-            // Pinta todos os parágrafos de verde.
+            // Mesma estrutura de limparTodas(): pega todos os <p> e define a cor verde em cada um.
             function alterar() {
                 var x = document.querySelectorAll("p");
-                for (var i = 0; x.length; i++) {
+                // Mesma estrutura: a condição do for é i < x.length (veja o comentário em limparTodas()).
+                for (var i = 0; i < x.length; i++) {
                     x[i].style.backgroundColor = "green";
                 }
             }
  
-            // Pinta a div de cinza.
+            // querySelector (no singular) devolve só a primeira <div>, que aqui é a única; por isso não precisa de laço.
             function alterarDIV() {
                 document.querySelector("div").style.backgroundColor = "gray";
             }
  
-            // Alterna as cores dos parágrafos (verde e azul).
+            /*
+             * Efeito "zebra" usando o resto da divisão por 2 (veja 18.html):
+             *   i % 2 == 0  => posição par (0, 2, 4)    => verde  (1ª, 3ª e 5ª linhas);
+             *   senão       => posição ímpar (1, 3, 5)  => azul   (2ª, 4ª e 6ª linhas).
+             * Lembre-se: o índice começa em 0, então a "Primeira linha." (índice 0) é par.
+             */
             function alternar() {
                 var x = document.querySelectorAll("p");
-                for (var i = 0; x.length; i++) {
+                // Mesma condição de parada: i < x.length (veja o comentário em limparTodas()).
+                for (var i = 0; i < x.length; i++) {
                     if (i % 2 == 0)
                         x[i].style.backgroundColor = "green";
                     else

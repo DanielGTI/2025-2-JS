@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 37.html
+    AULA / TEMA: aula 10 - Objetos em JavaScript (propriedades)
+    OBJETIVO: agrupar dados relacionados (um carro) em uma única variável
+              e acessar cada dado pelo nome.
+    CONCEITOS-CHAVE: objeto literal { }, propriedade chave: valor, notação de ponto.
+    COMO TESTAR: abra a página. Aparecem duas frases usando os dados do carro:
+                 "Comprei uma Ferrari, da cor Vermelha!" e a linha sobre a marca F60 e o preço.
+-->
 <html>
     <head>
         <title>Tópico 7</title>
@@ -7,7 +16,15 @@
     <body>
         <div>Programação de Interfaces (aula 10)</div>
         <script type="text/javascript">
-           // Cria um objeto com dados de um carro.
+           /*
+             OBJETO = coleção de pares  nome: valor  (chamados PROPRIEDADES), entre chaves { }.
+             Enquanto um array identifica os itens por NÚMERO (x[0]), o objeto identifica por NOME.
+             Regras: use dois-pontos entre nome e valor e vírgula entre as propriedades
+             (sem vírgula depois da última, em código antigo).
+             Texto vai entre aspas; número e true/false, sem aspas.
+             Curiosidade: neste exemplo modelo e marca parecem trocados ("Ferrari" como modelo e
+             "F60" como marca). O JavaScript não se importa: quem dá sentido aos dados é o programador.
+           */
            var carro = {
                modelo: "Ferrari",
                marca: "F60",
@@ -16,7 +33,19 @@
                preco: 750000
            };
            
-           // Mostra algumas propriedades do objeto na página.
+           /*
+             Acesso às propriedades:
+                 carro.modelo        ->  "Ferrari"      (notação de ponto, a mais usada)
+                 carro["modelo"]     ->  "Ferrari"      (notação de colchetes; útil quando o nome vem de uma variável)
+             Alterar, criar e remover:
+                 carro.cor = "Azul";      // altera uma propriedade existente
+                 carro.ano = 2024;        // cria uma propriedade nova (ela ainda não existia)
+                 delete carro.preco;      // remove a propriedade
+                 carro.portas             // -> undefined (propriedade que não existe)
+             Resultado desta página: "Comprei uma Ferrari, da cor Vermelha!"
+             O preço sai como R$ 750000 porque o JavaScript não formata número como moeda.
+             VEJA TAMBÉM: 38.html (objeto com método) e 59.html (criar vários objetos iguais).
+           */
            document.write("<br>Comprei uma " + carro.modelo + ", da cor " + carro.cor + "!");
            document.write("<br>Já tive outros veículos da " + carro.marca 
                             + ". Investi mais de R$ " + carro.preco + "!");

@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  AULA 3 - Conversão de texto para número (parseInt e parseFloat)
+  OBJETIVO: extrair números de dentro de textos.
+  CONCEITOS-CHAVE: parseInt, parseFloat, NaN (Not a Number), leitura da esquerda para a direita.
+  COMO TESTAR: aparecem "R$ 30", "R$ NaN" e "R$ 30.5" nas três linhas.
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,11 +14,26 @@
     <body>
         <div>Programação de Interfaces (aula 3)</div>
         <script type="text/javascript">
-            // Strings com valores numéricos misturados com texto.
+            /*
+             * Os valores abaixo são TEXTOS. Um texto, mesmo parecido com número, não serve para contas.
+             */
             var produto_1 = "30.50 por cada Mouse";
             var produto_2 = "Cada Mouse por R$ 30.50";
 
-            // Converte string para número inteiro ou real.
+            /*
+             * parseInt(texto)   -> lê da esquerda para a direita até achar um caractere que não é
+             *                      dígito; devolve só a parte INTEIRA.
+             * parseFloat(texto) -> igual, mas aceita o ponto decimal.
+             * Se o texto COMEÇAR com algo que não é número, o resultado é NaN (Not a Number).
+             * Trace:
+             * parseInt("30.50 por cada Mouse")    -> lê "30", para no ponto          -> 30
+             * parseInt("Cada Mouse por R$ 30.50") -> começa com "C", não é número    -> NaN
+             * parseFloat("30.50 por cada Mouse")  -> lê "30.50", para no espaço      -> 30.5
+             * EXEMPLOS: parseInt("42px") -> 42      parseFloat("3.14abc") -> 3.14      parseInt("abc") -> NaN
+             * Number("42px") -> NaN (Number é mais rigoroso: o texto inteiro precisa ser numérico)
+             * NA PROVA: NaN não é igual a nada, nem a ele mesmo (NaN === NaN é false). Para testar use isNaN(valor).
+             * VEJA TAMBÉM: 13.html (conversão antes de somar).
+             */
             var mouse_1 = parseInt(produto_1);
             var mouse_2 = parseInt(produto_2);
             var mouse_3 = parseFloat(produto_1);

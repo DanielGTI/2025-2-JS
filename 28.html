@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  AULA 6 - for com if (múltiplos de 2 e de 5)
+  OBJETIVO: percorrer uma sequência e destacar apenas os valores que atendem a uma regra.
+  CONCEITOS-CHAVE: for, if/else dentro do laço, resto da divisão, operador &&, tag b (negrito).
+  COMO TESTAR: de 1 a 50, ficam em NEGRITO apenas 10, 20, 30, 40 e 50.
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,9 +14,20 @@
     <body>
         <div>Programação de Interfaces (aula 6)</div>
         <script type="text/javascript">
-            // Percorre números de 1 até 50.
+            /*
+             * Dentro do laço, o if/else decide o que escrever em cada volta.
+             */
             for (var x = 1; x <= 50; x++){
-                // Destaca números divisíveis por 2 e 5.
+                /*
+                 * Um número é divisível por n quando o resto da divisão por n é 0.
+                 * Divisível por 2 E por 5 é o mesmo que divisível por 10 (múltiplos de 10).
+                 * Trace:  x = 4  -> 4 % 2 = 0 (true)  e 4 % 5 = 4 (false) -> false -> linha normal
+                 *         x = 5  -> 5 % 2 = 1 (false) -> false -> linha normal
+                 *         x = 10 -> 10 % 2 = 0 e 10 % 5 = 0 -> true -> NEGRITO
+                 * EXEMPLO: trocando && por || ficariam em negrito todos os múltiplos de 2 OU de 5.
+                 * DICA: aqui o if e o else não têm chaves; só a PRIMEIRA instrução seguinte pertence ao if.
+                 * Se precisar de duas instruções, use chaves { }.
+                 */
                 if ( (x % 2 == 0) && (x % 5 == 0))
                     document.write("<br><b> Contagem:  " + x + "</b>");
                else

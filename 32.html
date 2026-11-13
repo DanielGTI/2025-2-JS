@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 32.html
+    AULA / TEMA: aula 7 - Array de textos percorrido com for
+    OBJETIVO: guardar os dias da semana em um array e mostrar cada
+              um com o seu número (1º, 2º, ...).
+    CONCEITOS-CHAVE: array de strings, índice x número "humano" (i+1),
+                     concatenação de texto com números.
+    COMO TESTAR: abra a página. Aparecem 7 linhas, de "DOMINGO é o 1º dia!"
+                 até "SÁBADO é o 7º dia!".
+-->
 <html>
     <head>
         <title>Tópico 7</title>
@@ -7,10 +17,24 @@
     <body>
         <div>Programação de Interfaces (aula 7)</div>
         <script type="text/javascript">
-            // Array com os dias da semana.
+            // Array de TEXTOS (strings). Cada posição guarda um dia da semana:
+            //   índice:  0          1          2         3          4          5         6
+            //   valor:   "DOMINGO"  "SEGUNDA"  "TERÇA"   "QUARTA"   "QUINTA"   "SEXTA"   "SÁBADO"
+            // EXEMPLO:  x[0] -> "DOMINGO"   |   x[6] -> "SÁBADO"   |   x[7] -> undefined
             var x = ["DOMINGO", "SEGUNDA", "TERÇA", "QUARTA", "QUINTA", "SEXTA", "SÁBADO"];
 
-            // Percorre o array e mostra cada dia com sua posição.
+            /*
+              O índice i começa em 0, mas o "número do dia" que a pessoa entende começa em 1.
+              Por isso mostramos (i+1).
+                i = 0  ->  "DOMINGO é o 1º dia!"
+                i = 6  ->  "SÁBADO é o 7º dia!"
+              NA PROVA: os parênteses de (i+1) são obrigatórios. Dentro de uma concatenação de
+              texto, sem eles o JavaScript junta os números como TEXTO:
+                  "o " + i + 1    ->  "o 01"    (errado)
+                  "o " + (i+1)    ->  "o 1"     (certo)
+              DICA: use x.length no lugar do 7 fixo. Forma moderna de percorrer:
+                  x.forEach(function(dia, i){ ... });
+            */
             for (var i = 0; i < 7; i++){
                 document.write(x[i] + " é o " + (i+1) + "º dia!<br>");
             }

@@ -1,4 +1,19 @@
 <!DOCTYPE html>
+<!--
+  TEMA: Formulário HTML + AJAX + JSON - busca de cliente pelo nome e preenchimento automático dos campos.
+  OBJETIVO: digitar um nome, clicar no ícone de interrogação e ter os demais campos preenchidos a partir de um arquivo JSON.
+  CONCEITOS-CHAVE:
+    - formulário: form, fieldset, legend, label, input, select, button;
+    - XMLHttpRequest + JSON.parse (veja 54.html e 55.html);
+    - for...in para percorrer o array de clientes e comparar nomes;
+    - escrever em campos com .value e mover o cursor com .focus();
+    - alert() para avisar o usuário.
+  FORMATO de dados_cliente.json: um objeto com o array "cliente"; cada cliente tem nome, cpf, endereco, cep, bairro e email.
+    Clientes cadastrados: João, Maria e Pedro.
+  COMO TESTAR: abra pelo servidor (Live Preview), digite Maria no campo Nome e clique no ícone "?": CPF, Endereço, CEP, Bairro e e-mail são preenchidos e o cursor vai para o campo Plano.
+  Digite um nome inexistente (ex.: Ana): aparece o alerta "Cliente não encontrado!".
+  VEJA TAMBÉM: 57.html (mesmo formulário com Bootstrap).
+-->
 <html>
     <head>
         <title>Tópico 17</title>
@@ -7,11 +22,20 @@
     <body>
         <div></div>
         <div>
+            <!--
+              Formulário de cadastro de cliente. <fieldset> agrupa campos relacionados e <legend> é o título do grupo.
+              Cada campo é um <label> (texto) + <input> (digitação). O JavaScript usa os ids (idNome, idCPF, ...) para ler e preencher os campos com getElementById.
+              O id deve ser ÚNICO na página. O name é o nome do campo quando o formulário é enviado ao servidor.
+            -->
             <form>
                 <fieldset>
                     <legend>Cadastro do Clientes</legend>
                     <div>
                         <label>Nome</label>  
+                        <!--
+                          O ícone de interrogação funciona como botão "procurar": onclick chama procurarCliente().
+                          Qualquer elemento pode ter onclick, não só <button>. (Para acessibilidade, o ideal seria usar um <button>.)
+                        -->
                         <img src="pergunta.png" width="10" id="idProcurar" onclick="procurarCliente()">
                         <div>
                             <input id="idNome" name="idNome" type="text">
@@ -44,12 +68,19 @@
                     <div>
                         <label>e-mail</label>  
                         <div>
+                            <!--
+                              type="email" faz o navegador validar o formato (algo@dominio) ao ENVIAR o formulário. O type também muda o teclado exibido em celulares.
+                            -->
                             <input id="idEmail" name="idEmail" type="email">
                         </div>
                     </div>
                     <div>
                         <label>Plano</label>
                         <div>
+                            <!--
+                              value é o código que o JavaScript lê (1, 2 ou 3); o texto é o que o usuário vê (Normal, Express, VIP).
+                              A primeira opção tem value="" (vazio): serve como "nenhum escolhido". Depois de achar o cliente, o JS dá focus() neste campo.
+                            -->
                             <select id="idPlano" name="idPlano" class="form-control">
                                 <option value="">Escolha uma opção</option>
                                 <option value="1">Normal</option>
@@ -62,8 +93,13 @@
                     <div>
                         <label></label>
                         <div>
-                            <button id="idConfirmar" name="idConfirmar" class="btn btn-primary">Cadastrar</button>
-                            <button id="idCancelar" name="idCancelar" class="btn btn-danger">Cancelar</button>
+                            <!--
+                              O type do botão define o que ele faz DENTRO de um <form>. Sem o atributo type, o botão é "submit": clicar nele (ou apertar Enter em um campo de texto) ENVIA o formulário e a página recarrega, apagando o que foi digitado.
+                              Opções: type="button" (só aciona um onclick), type="submit" (envia) ou type="reset" (limpa os campos).
+                              Aqui: "Cadastrar" é type="button" (ainda não tem ação) e "Cancelar" é type="reset" (limpa o formulário). O 57.html usa type="submit" no Cadastrar.
+                            -->
+                            <button type="button" id="idConfirmar" name="idConfirmar" class="btn btn-primary">Cadastrar</button>
+                            <button type="reset" id="idCancelar" name="idCancelar" class="btn btn-danger">Cancelar</button>
                         </div>
                     </div>
                 </fieldset>
@@ -71,35 +107,73 @@
         </div>
         <div></div>
         <script>
-            // Procura um cliente no JSON pelo nome digitado.
+            /*
+             * procurarCliente(): fluxo completo:
+             *   1. o usuário digita o nome e clica no ícone "?";
+             *   2. o AJAX (XMLHttpRequest, veja 54.html) busca o arquivo dados_cliente.json;
+             *   3. quando a resposta chega (readyState 4 e status 200) o texto é convertido com JSON.parse (veja 55.html);
+             *   4. o laço percorre os clientes comparando cada nome com o digitado;
+             *   5. achou: preenche os campos; não achou: mostra um alert.
+             * Observe que a função só lê dados: ela NÃO grava nada no servidor.
+             */
             function procurarCliente() {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
-                        // Marca se encontrou algum cliente.
+                        // "Flag" (bandeira): variável booleana que começa false e vira true se um cliente for encontrado. Depois do laço ela decide se o aviso aparece.
                         var cliente_encontrado = false;
-                        // Converte o retorno JSON em objeto.
-                        myObj = JSON.parse(this.responseText);
-                        nomeProcura = document.getElementById("idNome");
+                        /*
+                         * Depois do JSON.parse: myObj.cliente é um ARRAY com 3 objetos.
+                         *   myObj.cliente[0].nome   => "João"
+                         *   myObj.cliente[1].cpf    => "01231111"   (Maria; o CPF é string, por isso mantém o zero à esquerda)
+                         * DICA: myObj, nomeProcura e i são declarados com var. Sem a declaração viram variáveis GLOBAIS implícitas (má prática, e erro em modo estrito).
+                         */
+                        var myObj = JSON.parse(this.responseText);
+                        // nomeProcura guarda o ELEMENTO <input>, e não o texto. O texto digitado é nomeProcura.value.
+                        var nomeProcura = document.getElementById("idNome");
                         
-                        // Percorre a lista e preenche os campos quando achar.
-                        for (i in myObj.cliente) {
+                        /*
+                         * for (var i in myObj.cliente): i vale "0", "1", "2" (índices do array, como texto).
+                         * Trace digitando "Maria":
+                         *   i = "0": "João"  == "Maria"? não;
+                         *   i = "1": "Maria" == "Maria"? SIM => preenche CPF 01231111, Endereço "Av. Nove de Julho, 1000", CEP 01789-001, Bairro "Vila Sul" e e-mail maria@gmail.com;
+                         *   i = "2": "Pedro" == "Maria"? não.
+                         */
+                        for (var i in myObj.cliente) {
+                            /*
+                             * Comparação de textos: a busca diferencia maiúsculas/minúsculas e acentos. "maria" ou "Joao" NÃO encontram "Maria" e "João".
+                             * DICA: para ignorar maiúsculas, compare em minúsculas: nome.toLowerCase() == digitado.toLowerCase().
+                             * == x ===: == converte tipos antes de comparar (0 == "0" é true); === não converte (0 === "0" é false).
+                             * Aqui os dois lados são strings, então funciona; mesmo assim prefira === por segurança.
+                             */
                             if (myObj.cliente[i].nome == nomeProcura.value){
+                                // Em campos de formulário (input, select) usa-se .value para ler/escrever; innerHTML é para elementos como <p> e <div>.
                                 document.getElementById("idCPF").value = myObj.cliente[i].cpf;
                                 document.getElementById("idEndereco").value = myObj.cliente[i].endereco;
                                 document.getElementById("idCEP").value = myObj.cliente[i].cep;
                                 document.getElementById("idBairro").value = myObj.cliente[i].bairro;
                                 document.getElementById("idEmail").value = myObj.cliente[i].email;
+                                // focus() move o cursor para o campo Plano: o usuário já continua o cadastro dali.
                                 document.getElementById("idPlano").focus();
+                                /*
+                                 * Marca que o cliente foi encontrado, e o break; encerra o laço: não é preciso ler o resto da lista (mais eficiente).
+                                 * Sem o break, o laço continuaria até o fim e, se houvesse dois clientes com o mesmo nome, prevaleceriam os dados do ÚLTIMO.
+                                 */
                                 cliente_encontrado = true;
+                                break;
                             }
                         }
-                        // Exibe aviso se não encontrar o cliente.
+                        // Se a flag continuou false depois do laço, ninguém tinha aquele nome: alert() mostra uma janela de aviso.
                         if (cliente_encontrado == false){
                                 alert("Cliente não encontrado!");
                         }
                     }
                 };
+                /*
+                 * O arquivo é baixado de novo a cada clique no ícone (simples, mas não é o mais eficiente: poderia ser guardado em uma variável).
+                 * Lembre-se: precisa rodar pelo servidor (Live Preview), e não por file:///, por causa do CORS.
+                 * Forma moderna: fetch("dados_cliente.json").then(r => r.json()).then(dados => { ... }); veja 36.html.
+                 */
                 xmlhttp.open("GET", "dados_cliente.json", true);
                 xmlhttp.send();
             }

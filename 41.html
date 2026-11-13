@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 41.html
+    AULA / TEMA: aula 11 - Objeto String (métodos de texto)
+    OBJETIVO: conhecer métodos para medir, buscar, recortar e trocar partes de um texto.
+    CONCEITOS-CHAVE: length, toLowerCase/toUpperCase, indexOf/lastIndexOf/search,
+                     slice, replace (com e sem /g), aspas escapadas com barra invertida.
+    COMO TESTAR: abra a página. Cada linha mostra o resultado de um método aplicado
+                 ao texto: 'Objeto "String" - Programação de Interfaces com String'.
+-->
 <html>
     <head>
         <title>Tópico 7</title>
@@ -8,18 +17,49 @@
         <div>Programação de Interfaces (aula 11)</div>
 
         <script>
-            // String inicial e tamanho da string.
+            // length conta TODOS os caracteres, inclusive os espaços. "Objeto String".length -> 13
+            // (6 letras de "Objeto" + 1 espaço + 6 letras de "String"). length é propriedade: sem parênteses.
             var valor = "Objeto String";
             document.write("<br> " + valor.length);
             
-            // Exemplo de string com aspas internas.
+            /*
+              Para escrever aspas DENTRO de um texto delimitado por aspas, "escapamos" com barra invertida:
+                  "Objeto \"String\""       ->  Objeto "String"
+              Alternativa sem escape: alternar os tipos de aspas:   'Objeto "String"'
+              Obs.: var permite declarar o mesmo nome de novo (valor, nas linhas abaixo). Com let/const
+              isso dá erro de sintaxe ("already been declared").
+            */
             var valor = "Objeto \"String\"";
             document.write("<br> " + valor);
             
-            // String base para testar métodos de texto.
+            /*
+              Texto usado nos testes seguintes (54 caracteres):
+                  Objeto "String" - Programação de Interfaces com String
+              Posições (índice começa em 0):  O=0 b=1 j=2 e=3 t=4 o=5 espaço=6 "=7 S=8 t=9 r=10 i=11 n=12 g=13 ...
+              Importante: os métodos de String NÃO alteram o texto original (strings são imutáveis);
+              eles devolvem um NOVO texto. Para guardar, atribua o resultado:
+                  var s = "abc";  s.toUpperCase();      // s continua "abc"
+                  s = s.toUpperCase();                  // agora s é "ABC"
+            */
             var valor = "Objeto \"String\" - Programação de Interfaces com String";
 
-            // Métodos de manipulação e busca em strings.
+            /*
+              Resultados para o texto acima:
+                toLowerCase()            ->  tudo em minúsculas:  objeto "string" - programação de interfaces com string
+                toUpperCase()            ->  tudo em MAIÚSCULAS
+                indexOf("String")        ->  8    (posição da PRIMEIRA ocorrência; -1 se não existir)
+                lastIndexOf("String")    ->  48   (posição da ÚLTIMA ocorrência)
+                search("String")         ->  8    (parecido com indexOf, mas aceita expressão regular)
+                slice(8, 14)             ->  "String"   (do índice 8 até o 13; o índice final NÃO entra)
+                replace("String","DATE") ->  troca só a PRIMEIRA ocorrência:  Objeto "DATE" - ... com String
+                replace(/String/g,"DATE")->  o /g (global) troca TODAS:        Objeto "DATE" - ... com DATE
+              Mais exemplos (não usados no arquivo):
+                  "abc".indexOf("z")          ->  -1        (não encontrou)
+                  "  oi  ".trim()             ->  "oi"      (remove espaços das pontas)
+                  "a,b,c".split(",")          ->  ["a","b","c"]   (quebra o texto em um array)
+                  "abc".includes("b")         ->  true      (forma moderna de perguntar "contém?")
+              NA PROVA: indexOf devolve -1 quando não acha; esquecer o /g no replace troca só a primeira.
+            */
             document.write("<br> " + valor.toLowerCase());
             document.write("<br> " + valor.toUpperCase());
             document.write("<br> " + valor.indexOf("String"));

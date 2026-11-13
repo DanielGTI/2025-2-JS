@@ -1,15 +1,36 @@
 <!DOCTYPE html>
+<!--
+  TEMA: objeto window - medidas da janela do navegador.
+  OBJETIVO: ler a largura e a altura da área visível da janela e mostrá-las em um parágrafo.
+  CONCEITOS-CHAVE:
+    - window.innerWidth e window.innerHeight (em pixels);
+    - getElementById + innerHTML para escrever na página;
+    - concatenação de textos com +.
+  COMO TESTAR: clique no botão; aparece algo como "Largura: 1280 | Altura: 720" (os números dependem do tamanho da sua janela).
+  Redimensione a janela e clique de novo: os valores mudam, pois são lidos no momento do clique.
+  VEJA TAMBÉM: 53.html (mais recursos do objeto window).
+-->
 <html>
     <body>
         <p id="informativo">Valor?</p>
         <button onclick="buscarMedidas()">Verifique as medidas da janela</button>
         <script>
-            // Busca largura e altura visíveis da janela.
+            /*
+             * window representa a janela (aba) do navegador. É o objeto global: escrever window.innerWidth ou só innerWidth dá no mesmo.
+             *   innerWidth / innerHeight => tamanho da área onde a página aparece (viewport), em pixels;
+             *   (outerWidth / outerHeight => tamanho da janela inteira, com barras e bordas).
+             * Os valores são lidos UMA vez, no clique. Para acompanhar ao redimensionar, use um evento:
+             *   window.addEventListener("resize", buscarMedidas);
+             */
             function buscarMedidas() {
                 var w = window.innerWidth;
                 var h = window.innerHeight;
-                // Atualiza o texto com as medidas encontradas.
-                doc = document.getElementById("informativo");
+                // A seguir, innerHTML substitui o conteúdo do <p id="informativo"> ("Valor?") pelo texto montado: "Largura: " + w + " | Altura: " + h.
+                /*
+                 * Toda variável deve ser declarada com var (ou let / const), como w, h e doc. Sem a declaração,
+                 * "doc = ..." criaria uma variável GLOBAL implícita (má prática, e erro em modo estrito "use strict").
+                 */
+                var doc = document.getElementById("informativo");
                 doc.innerHTML = "Largura: " + w + " | Altura: " + h;
             }
         </script>

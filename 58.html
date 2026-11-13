@@ -1,18 +1,43 @@
 <!DOCTYPE html>
+<!--
+  TEMA: DOM - alterando estilos CSS com JavaScript (element.style) e passando parâmetros a uma função.
+  OBJETIVO: mudar a largura da borda de uma imagem com dois botões que reutilizam a mesma função.
+  CONCEITOS-CHAVE:
+    - element.style.propriedade = valor;
+    - CSS com hífen vira camelCase no JS (border-width => borderWidth);
+    - unidade obrigatória: número + "px";
+    - função com parâmetro chamada direto no onclick: alterarBordas(20).
+  COMO TESTAR: clique em "Alterar borda": a borda dourada passa de 5px para 20px; "Retornar borda" volta a 5px.
+-->
 <html>
     <body>
+        <!--
+          A imagem tem id para o JavaScript localizá-la e um estilo inline (style="...") com borda dourada de 5px.
+        -->
         <p>
             <img id="exemploImg"
                  src="pergunta.png"
                  style="border: 5px solid gold;"
                  alt="border_Img">
         </p>
+        <!--
+          Botões do tipo button (não enviam formulário). Cada um chama a MESMA função, mudando apenas o argumento:
+            alterarBordas(20) => borda grossa;  alterarBordas(5) => volta ao tamanho original.
+        -->
         <form name="Form_01">
             <input type="button" value="Alterar borda" onclick="alterarBordas(20);" />
             <input type="button" value="Retornar borda"  onclick="alterarBordas(5);" />
         </form>
         <script>
-            // Altera a largura da borda da imagem.
+            /*
+             * alterarBordas(medida): recebe um NÚMERO e o aplica como largura da borda.
+             * medida + "px": número + texto resulta em texto; 20 + "px" vira "20px". O CSS exige a unidade; atribuir só o número (20) normalmente é ignorado.
+             * EXEMPLO: alterarBordas(20) => style.borderWidth = "20px";   alterarBordas(5) => "5px".
+             * Regra do camelCase (CSS com hífen vira camelCase no JavaScript):
+             *   border-width => borderWidth  |  background-color => backgroundColor  |  font-size => fontSize  |  margin-top => marginTop
+             * Outros exemplos: img.style.borderColor = "red";   img.style.border = "3px dashed blue";
+             * DICA: element.style só enxerga estilos definidos INLINE (no atributo style ou pelo próprio JS); para ler o estilo final aplicado use getComputedStyle(elemento).
+             */
             function alterarBordas(medida) {
                 document.getElementById("exemploImg").style.borderWidth = medida + "px";
             }

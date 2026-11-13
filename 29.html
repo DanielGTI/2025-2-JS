@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  AULA 6 - Laços aninhados (for dentro de for)
+  OBJETIVO: desenhar uma figura de caracteres com linhas (laço externo) e colunas (laço interno).
+  CONCEITOS-CHAVE: for aninhado, linha x coluna, if/else para decidir "X" ou espaço, entidade &nbsp.
+  COMO TESTAR: desenha uma PIRÂMIDE de X com 3 linhas e 5 colunas (1, 3 e 5 X por linha),
+  em fonte monoespaçada. Troque N por 5 e recarregue: a pirâmide cresce para 5 linhas.
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -9,19 +16,47 @@
         <div>Programação de Interfaces (aula 6)</div>
         <br>
         <script type="text/javascript">
-            // Define o tamanho da figura.
+            /*
+             * N é a "altura" da figura (3 linhas). A largura será (N * 2) - 1 = 5 colunas.
+             */
             var N = 3;
 
-            // Loop das linhas.
+            /*
+             * LAÇOS ANINHADOS: para CADA volta do laço externo (linha L), o laço interno
+             * roda por completo (todas as colunas C). Total de passos: 3 x 5 = 15.
+             * Trace da ordem: (L=1,C=1) (L=1,C=2) ... (L=1,C=5) -> quebra de linha -> (L=2,C=1) ...
+             */
             for (var L = 1; L <= N; L++){
-                // Loop das colunas.
+                /*
+                 * O laço interno desenha UMA linha da figura; depois dele, o document.write("<br>")
+                 * muda de linha.
+                 */
                 for (var C = 1; C <= (N*2)-1 ; C++){
+                    /*
+                     * As duas linhas abaixo estão comentadas: são uma técnica de DEPURAÇÃO (debug) usada para
+                     * imprimir valores intermediários na tela e entender o que o programa faz.
+                     * Alternativa melhor hoje: console.log(L + C) e ver no Console (F12).
+                     */
                     //document.write("L(" + (L+C) + ") ");
                     //document.write("N(" + (N-1) + ") "); 
                         
                     
-                    // Decide entre desenhar "X" ou espaço.
-                    if( (L+C) >= (N-1)   )
+                    /*
+                     * CONDIÇÃO DA PIRÂMIDE: na linha L, desenha X nas colunas de N - L + 1 até N + L - 1:
+                     *    (C >= N - L + 1) && (C <= N + L - 1)
+                     * Trace com N = 3 (5 colunas; X = desenhado, . = espaço):
+                     *    L=1: colunas 3 a 3  ->  ..X..   (1 X)
+                     *    L=2: colunas 2 a 4  ->  .XXX.   (3 X)
+                     *    L=3: colunas 1 a 5  ->  XXXXX   (5 X)
+                     * A cada linha a faixa de X cresce 1 coluna para cada lado: por isso 1, 3 e 5 X.
+                     * NA PROVA: com N = 5 são 9 colunas e 1, 3, 5, 7 e 9 X por linha.
+                     * ATENÇÃO (erro comum): uma condição como (L + C) >= (N - 1) é SEMPRE verdadeira aqui
+                     * (o menor valor de L + C é 2, e N - 1 também vale 2), e desenharia um retângulo cheio de X.
+                     * Teste a condição com alguns valores de L e C antes de rodar.
+                     * &nbsp é a entidade HTML do "espaço que não some": o HTML junta vários espaços em um só,
+                     * mas vários &nbsp aparecem todos. (O ponto e vírgula final é recomendado: &nbsp;)
+                     */
+                    if( (C >= N - L + 1) && (C <= N + L - 1) )
                         document.write("X&nbsp");
                     else
                         document.write("&nbsp&nbsp");

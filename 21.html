@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  AULA 5 - Expressões lógicas combinadas (&&, ||) e precedência
+  OBJETIVO: avaliar uma condição composta passo a passo.
+  CONCEITOS-CHAVE: && (E), || (OU), precedência, parênteses, resto da divisão.
+  COMO TESTAR: aparece "verdadeiro". Troque os valores de a, b, c, d e preveja o resultado antes de recarregar.
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,10 +14,27 @@
     <body>
         <div>Programação de Interfaces (aula 5)</div>
         <script type="text/javascript">
-            // Valores usados na expressão lógica.
+            /*
+             * Com estes valores: a = 1, b = 5, c = 3, d = 1.
+             */
             var a = 1, b = 5, c = 3, d = 1;
             
-            // Exemplo de combinação entre AND, OR e operações.
+            /*
+             * PRECEDÊNCIA: && é resolvido ANTES de ||. A expressão abaixo é lida como
+             *    ( (a < b) && (c + d > 0) )  ||  (c % 2 == 0)
+             * Trace:
+             * (a < b)      ->  1 < 5       ->  true
+             * (c + d > 0)  ->  3 + 1 > 0   ->  true
+             * true && true                 ->  true
+             * (c % 2 == 0) ->  3 % 2 == 0  ->  1 == 0 -> false
+             * true || false                ->  true   -> imprime "verdadeiro"
+             * CURTO-CIRCUITO: se o lado esquerdo de || já é true, o direito nem é avaliado;
+             * se o lado esquerdo de && já é false, o direito também é ignorado.
+             * EXEMPLO onde a precedência faz diferença:
+             * true || false && false      ->  true   (equivale a true || (false && false))
+             * (true || false) && false    ->  false
+             * DICA: na dúvida, use parênteses extras para deixar a intenção clara.
+             */
             if ( (a < b) && (c + d > 0) || (c % 2 == 0) ){
                 document.write("<br> verdadeiro");          
             }

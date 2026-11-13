@@ -1,11 +1,38 @@
 <!DOCTYPE html>
+<!--
+  TEMA: modelo (esqueleto) de uma página HTML5 em branco, para testes rápidos.
+  Use este arquivo para experimentar códigos HTML e JavaScript sem mexer nos exemplos das aulas.
+  ESTRUTURA, de fora para dentro:
+    - doctype            => informa ao navegador que a página usa HTML5;
+    - html (atributo lang) => raiz do documento; lang indica o idioma (pt-BR para português do Brasil);
+    - head               => informações sobre a página (não aparecem na tela);
+    - body               => tudo o que o usuário VÊ; é aqui que entram textos, botões e o <script>.
+-->
+<!--
+  lang="en" declara a página em inglês. Para páginas em português o recomendado é lang="pt-BR" (ajuda leitores de tela e corretores ortográficos).
+-->
 <html lang="en">
 <head>
+    <!--
+      charset="UTF-8": codificação dos caracteres; garante que acentos e ç apareçam corretamente. Deve ser salvo igual no arquivo (UTF-8).
+    -->
     <meta charset="UTF-8">
+    <!--
+      viewport: faz a página se ajustar à largura da tela do celular (design responsivo). initial-scale=1.0 = sem zoom inicial.
+    -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--
+      title: texto exibido na aba do navegador. Troque "Document" por um nome descritivo.
+    -->
     <title>Document</title>
 </head>
 <body>
+<!--
+  Conteúdo da página. Dica: coloque o <script> no FINAL do body, depois dos elementos, para que getElementById já encontre os elementos.
+  EXEMPLO de uso (comentado, não é executado):
+    <p id="msg">Olá</p>
+    <script> document.getElementById("msg").innerHTML = "Mudou!"; </script>
+-->
     
 </body>
 </html>

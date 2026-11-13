@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  AULA 4 - += com textos
+  OBJETIVO: acumular texto em uma variável usando +=.
+  CONCEITOS-CHAVE: concatenação, +=, mistura de string e number.
+  COMO TESTAR: aparecem "a = Bom dia" e depois "a = Bom dia10".
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,12 +14,20 @@
     <body>
         <div>Programação de Interfaces (aula 4)</div>
         <script type="text/javascript">
-            // Exemplo de concatenação de texto.
+            /*
+             * a += "dia" equivale a a = a + "dia". Com textos, o + junta (concatena).
+             * Por isso o texto original já termina com um espaço: "Bom " + "dia" -> "Bom dia".
+             * EXEMPLO: var frase = ""; frase += "Olá, "; frase += "mundo!";   ->  "Olá, mundo!"
+             * USO COMUM: montar HTML aos poucos dentro de um laço (veja 27-1.html e 36.html).
+             */
             var a = "Bom ";
             a += "dia";
             document.write("<br>a = " + a);     
             
-            // String + número também gera concatenação.
+            /*
+             * a é texto, então a += 10 NÃO soma: concatena "10" ao final -> "Bom dia10".
+             * Se a fosse número (a = 5), a += 10 daria 15. O TIPO da variável decide o que o + faz.
+             */
             a += 10;
             document.write("<br>a = " + a);     
         </script>

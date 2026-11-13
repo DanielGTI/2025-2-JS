@@ -1,41 +1,85 @@
 <!DOCTYPE html>
+<!--
+  TEMA: objeto window e objeto history - medidas, impressão, voltar página e abrir nova janela/guia.
+  OBJETIVO: conhecer recursos do navegador acessíveis por JavaScript (BOM - Browser Object Model).
+  CONCEITOS-CHAVE:
+    - window.innerWidth / window.innerHeight;
+    - window.print() abre a caixa de impressão;
+    - history.back() volta uma página no histórico;
+    - window.open(url, nome, recursos) abre outra janela ou guia.
+  COMO TESTAR: clique em cada botão. "Abri uma nova guia" e "Abri uma nova Página" abrem o site http://uninove.br/.
+  ATENÇÃO: o navegador pode BLOQUEAR pop-ups; se nada abrir, procure o aviso de pop-up bloqueado na barra de endereço e permita.
+  VEJA TAMBÉM: 52.html (mesma função de medidas, explicada com mais detalhes).
+-->
 <html>
     <body>
         <p id="informativo">Valor...</p>
+        <!--
+          Cinco botões, cada um chama uma função diferente definida no <script> abaixo.
+        -->
         <button onclick="buscarMedidas()">Verifique as medidas da janela</button>
         <button onclick="imprimir()">Solicitar impressão</button>
         <button onclick="voltar()">Voltar o histórico</button>
         <button onclick="abrirGuia()">Abri uma nova guia</button>
         <button onclick="abrirPagina()">Abri uma nova Página</button>
         <script>
-            // Mostra as medidas da janela no parágrafo.
+            // Mesma função do 52.html: lê innerWidth/innerHeight e escreve no <p id="informativo">.
             function buscarMedidas() {
                 var w = window.innerWidth;
                 var h = window.innerHeight;
-                doc = document.getElementById("informativo");
+                /*
+                 * Toda variável deve ser declarada com var (ou let / const), como w, h e doc. Sem a declaração,
+                 * "doc = ..." criaria uma variável GLOBAL implícita (má prática, e erro em modo estrito).
+                 */
+                var doc = document.getElementById("informativo");
                 doc.innerHTML = "Largura: " + w + " | Altura: " + h;
             }
  
-            // Abre a caixa de impressão do navegador.
+            // window.print() abre o diálogo de impressão (equivale a Ctrl+P). Não precisa de parâmetros.
             function imprimir() {
                 window.print();
             }
 
-            // Volta para a página anterior do histórico.
+            /*
+             * history.back() faz o mesmo que o botão "Voltar" do navegador.
+             * Outros métodos do objeto history:
+             *   history.forward()  => avança uma página;
+             *   history.go(-2)     => volta duas páginas (número positivo avança);
+             *   history.length     => quantidade de páginas no histórico desta aba.
+             * Se não houver página anterior, nada acontece.
+             */
             function voltar() {
                 history.back();
             }
  
+            /*
+             * windowObjectReference guarda a referência da janela aberta por window.open(). Com ela dá para controlar a janela depois:
+             *   windowObjectReference.close()  => fecha a janela;
+             *   windowObjectReference.focus()  => traz a janela para frente.
+             * Sintaxe: window.open(url, nome, recursos)
+             *   url      => endereço a abrir (aqui, http://uninove.br/);
+             *   nome     => nome da janela; se já existir uma janela com esse nome ("UNINOVE") ela é reaproveitada, em vez de abrir outra;
+             *   recursos => texto com opções separadas por vírgula, como "menubar=no,resizable=no".
+             */
             var windowObjectReference;
-            // Configurações para abrir como nova janela.
+            /*
+             * Opções com "no" (sem barra de menus, sem barra de endereço, sem rolagem...) pedem uma janela enxuta, tipo pop-up.
+             * Navegadores modernos ignoram parte dessas opções por segurança, mas costumam abrir uma janela separada.
+             */
             var strWindowFeaturesPAG = "menubar=no,location=no,resizable=no,scrollbars=no,status=no";
  
+            // Botão "Abri uma nova Página": usa a lista de recursos acima (janela enxuta).
             function abrirPagina() {
                 windowObjectReference = window.open("http://uninove.br/", "UNINOVE", strWindowFeaturesPAG);
             }
  
-            // Configurações para abrir como guia com recursos liberados.
+            /*
+             * Com todas as opções "yes", o navegador normalmente abre uma GUIA (aba) comum, com todos os recursos.
+             * Sem o terceiro parâmetro, window.open(url) também abre uma guia.
+             * Forma alternativa para links: <a href="http://uninove.br/" target="_blank">Abrir</a>.
+             */
             var strWindowFeaturesGUIA = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
+            // Botão "Abri uma nova guia": usa a lista de recursos liberados.
             function abrirGuia() {
                 windowObjectReference = window.open("http://uninove.br/", "UNINOVE", strWindowFeaturesGUIA);
             }

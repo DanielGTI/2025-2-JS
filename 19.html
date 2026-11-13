@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  AULA 5 - Estrutura condicional: if / else e operador lógico &&
+  OBJETIVO: executar um bloco ou outro dependendo de uma condição.
+  CONCEITOS-CHAVE: if, else, operadores relacionais (>, >=, <, <=, ==), operador lógico && (E).
+  COMO TESTAR: com x = 5 aparece "dentro do intervalo (0 a 10)". Troque x por 15 ou -3 e
+  recarregue: aparece "fora do intervalo".
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,17 +15,35 @@
     <body>
         <div>Programação de Interfaces (aula 5)</div>
         <script type="text/javascript">
-            // Valor para teste de condição.
+            /*
+             * Altere este valor e recarregue a página para testar os dois caminhos do if.
+             */
             var x = 5;
             
-            // Verifica se x está entre 0 e 10.
+            /*
+             * if (condição) { ... } else { ... }  -> a condição vira true ou false (boolean).
+             * Operadores relacionais: >  >=  <  <=  ==  (igual)  !=  (diferente)
+             * Operadores lógicos:     &&  (E: os DOIS lados true)   ||  (OU: pelo menos um true)   !  (NÃO: inverte)
+             * Trace com x = 5:   x >= 0 -> true    x <= 10 -> true    true && true -> true  -> bloco "VERDADEIRO"
+             * EXEMPLOS:  x = 15:  true && false -> false (cai no else)
+             *            x = -3:  false && true -> false (cai no else)
+             * ATENÇÃO: para testar um intervalo, escreva as DUAS comparações (x >= 0 && x <= 10).
+             * Escrever 0 <= x <= 10 não faz o que parece em JavaScript.
+             * NA PROVA: = atribui, == compara. Escrever if (x = 5) é um erro clássico de iniciante.
+             * DICA: prefira === (igualdade estrita, compara valor E tipo): 5 == "5" é true, 5 === "5" é false.
+             */
             if (x >= 0 && x <= 10){
-                // VERDADEIRO
-                document.write("<br> positivo");     
+                /*
+                 * Este bloco só roda quando a condição é true.
+                 * DICA: a mensagem deve combinar com o que a condição testa. Aqui se testa "entre 0 e 10",
+                 * por isso o texto é "dentro do intervalo" / "fora do intervalo". (Escrever "positivo" e
+                 * "negativo" seria enganoso: x = 50 é positivo, mas cairia no else.)
+                 */
+                document.write("<br> dentro do intervalo (0 a 10)");     
             }
             else{
                 // FALSO
-                document.write("<br> negativo");     
+                document.write("<br> fora do intervalo");     
             }        
         </script>
     </body>

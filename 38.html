@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 38.html
+    AULA / TEMA: aula 10 - Objetos com métodos e a palavra this
+    OBJETIVO: além de dados, o objeto também pode ter AÇÕES (funções dentro dele).
+    CONCEITOS-CHAVE: método (função dentro de objeto), this, chamada com parênteses.
+    COMO TESTAR: abra a página. A última linha mostra o resultado do método:
+                 "Todos querem ver o Camarom da marca GG!".
+-->
 <html>
     <head>
         <title>Tópico 7</title>
@@ -7,20 +15,32 @@
     <body>
         <div>Programação de Interfaces (aula 10)</div>
         <script type="text/javascript">
-           // Cria um objeto com dados e um método.
+           /*
+             Objeto = PROPRIEDADES (dados) + MÉTODOS (funções guardadas como propriedade).
+             Neste objeto, modeloMarca é um método: seu valor é uma função.
+           */
            var carro = {
                modelo: "Camarom",
                marca: "GG",
                potencia: 300,
                cor: "Amarelo",
                preco: 200000,
-               // Retorna um texto combinando modelo e marca.
+               // this = "o objeto que está chamando o método". Em carro.modeloMarca(), this é o carro.
+               // Então this.modelo é "Camarom" e this.marca é "GG".
+               // Sem o this, o JavaScript procuraria variáveis soltas chamadas modelo e marca
+               // (que não existem) e daria erro.
+               // EXEMPLO:  carro.modelo = "Opala";  carro.modeloMarca()  ->  "Opala da marca GG"
+               // Forma moderna (ES6) de escrever o método:  modeloMarca(){ return ...; }
+               // ATENÇÃO: arrow functions ( () => ... ) NÃO têm this próprio; por isso não servem como método aqui.
                modeloMarca: function(){
                    return this.modelo + " da marca " + this.marca;
                }
            };
            
-           // Exibe os dados do carro e o resultado do método.
+           // Para EXECUTAR o método, use parênteses:  carro.modeloMarca()  ->  "Camarom da marca GG".
+           // NA PROVA: sem os parênteses, carro.modeloMarca é só a referência da função (aparece o
+           // código dela como texto), e ela não é executada.
+           // Propriedade = substantivo (carro.cor). Método = verbo, com parênteses (carro.modeloMarca()).
            document.write("<br>Comprei um " + carro.modelo + ", da cor " + carro.cor + "!");
            document.write("<br>Já tive outros veículos da " + carro.marca + 
                           ". Investi mais de R$ " + carro.preco + "!");

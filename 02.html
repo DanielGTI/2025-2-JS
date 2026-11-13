@@ -1,11 +1,24 @@
 <!DOCTYPE html>
+<!--
+  AULA 2 - Onde colocar o JavaScript (1/5): script dentro do HEAD
+  OBJETIVO: ver o primeiro comando JavaScript (alert) escrito na tag head.
+  CONCEITOS-CHAVE: tag script, alert, ordem de carregamento da página.
+  COMO TESTAR: ao abrir, a caixa "Olá mundo!" aparece ANTES do texto da página,
+  porque o head é lido primeiro. Só depois de clicar em OK o body é desenhado.
+  VEJA TAMBÉM: 03.html (mesmo alert, mas no final do body).
+-->
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tópico 2</title>
         <script type="text/javascript">
-            // Mostra uma mensagem simples ao abrir a página.
+            /*
+             * alert(texto) abre uma janelinha modal: o navegador PARA tudo até o usuário clicar em OK.
+             * O JavaScript solto dentro de script executa assim que o navegador chega nele, de cima
+             * para baixo. No head, o body ainda não existe, então este código não consegue
+             * mexer em elementos da página (ex.: document.getElementById devolveria null).
+             */
             alert("Olá mundo!");
         </script>
  

@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  AULA 4 - Operadores aritméticos (revisão e precedência)
+  OBJETIVO: praticar +, -, *, / e a ordem das operações (mesmo conteúdo do 01.html).
+  CONCEITOS-CHAVE: operadores aritméticos, precedência, parênteses.
+  COMO TESTAR: a linha com a, b e c e depois 30, -10, 200, 0.5, 0.25 e 5.
+  VEJA TAMBÉM: 01.html (primeira versão), 16.html (atribuição composta), 18.html (resto e incremento).
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -11,7 +18,18 @@
             // Define valores iniciais.
             var a = 10, b = 20, c = 30;
 
-            // Realiza operações matemáticas básicas.
+            /*
+             * Tabela de operadores aritméticos (com a = 10 e b = 20):
+             * +   soma              a + b   ->  30
+             * -   subtração         a - b   ->  -10
+             * *   multiplicação     a * b   ->  200
+             * /   divisão           a / b   ->  0.5
+             * %   resto da divisão  20 % 6  ->  2       (veja 18.html)
+             * **  potência          2 ** 3  ->  8       (equivale a Math.pow(2, 3); veja 42.html)
+             * Ordem: primeiro parênteses, depois multiplicação, divisão e resto, por fim soma e subtração.
+             * Em caso de empate, da esquerda para a direita.
+             * EXEMPLO: 2 + 3 * 4  ->  14       (2 + 3) * 4  ->  20       20 / 5 * 2  ->  8
+             */
             var somar = a + b;
             var subtrair = a - b;
             var mult = a * b;

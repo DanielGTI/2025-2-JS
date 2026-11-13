@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  AULA 6 - Laço while (contagem crescente)
+  OBJETIVO: repetir um bloco enquanto uma condição for verdadeira.
+  CONCEITOS-CHAVE: while, contador, incremento (x++), condição de parada.
+  COMO TESTAR: aparecem as linhas "Contagem: 1" até "Contagem: 10".
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,10 +14,22 @@
     <body>
         <div>Programação de Interfaces (aula 6)</div>
         <script type="text/javascript">
-            // Contador inicial.
+            /*
+             * Todo laço precisa de TRÊS coisas: (1) valor inicial, (2) condição de parada
+             * e (3) algo que mude o contador a cada volta. Aqui: (1) x = 1; (2) x <= 10; (3) x++.
+             */
             var x = 1;
 
-            // Repete enquanto a condição for verdadeira.
+            /*
+             * O while testa a condição ANTES de cada volta.
+             * Trace:  x = 1 -> 1 <= 10 true  -> escreve 1 -> x = 2
+             *         x = 2 -> true -> escreve 2 -> x = 3
+             *         ...
+             *         x = 10 -> true -> escreve 10 -> x = 11
+             *         x = 11 -> 11 <= 10 false -> o laço termina.
+             * ATENÇÃO (laço infinito): se esquecer o x++, a condição nunca fica false e a página trava.
+             * EXEMPLO (soma de 1 a 10):  var soma = 0, i = 1;  while (i <= 10) { soma += i; i++; }  ->  soma = 55
+             */
             while(x <= 10){
                 document.write("<br> Contagem:  " + x);
                 x++;

@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 31.html
+    AULA / TEMA: aula 7 - Preenchendo e lendo um array com laço for
+    OBJETIVO: criar um array vazio, preenchê-lo com um laço e depois
+              exibir cada posição.
+    CONCEITOS-CHAVE: array vazio [], atribuição por índice (x[i] = valor),
+                     relação entre índice (começa em 0) e valor (começa em 1).
+    COMO TESTAR: abra a página. Devem aparecer 10 linhas, de "x[0] = 1" até "x[9] = 10".
+-->
 <html>
     <head>
         <title>Tópico 7</title>
@@ -7,15 +16,31 @@
     <body>
         <div>Programação de Interfaces (aula 7)</div>
         <script type="text/javascript">
-            // Cria um array vazio.
+            // Cria um array vazio. Em JavaScript o array não tem tamanho fixo: ele CRESCE sozinho
+            // quando guardamos um valor em uma posição nova (diferente de C ou Java).
+            // EXEMPLO:  var v = [];  v[0] = "a";  v[1] = "b";   ->  v vale ["a", "b"] e v.length vale 2
+            // Alternativa equivalente: v.push("a");  (acrescenta no final)
+            // VEJA TAMBÉM: 33.html (métodos push, pop, shift...)
             var x = [];
 
-            // Preenche o array com valores de 1 a 10.
+            /*
+              Preenchimento: guardamos i+1 na posição i. Por quê? O índice começa em 0,
+              mas queremos os valores a partir de 1.
+              Trace das primeiras voltas:
+                i = 0  ->  x[0] = 0 + 1 = 1
+                i = 1  ->  x[1] = 1 + 1 = 2
+                ...
+                i = 9  ->  x[9] = 9 + 1 = 10     (última volta, pois a condição é i < 10)
+              Ao final: x vale [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] e x.length vale 10.
+            */
             for (var i = 0; i < 10; i++){
                 x[i] = i+1;
             }
             
-            // Exibe cada posição do array.
+            // Leitura: o segundo laço percorre as posições 0 a 9 e imprime índice e conteúdo.
+            // Repare na diferença: i é a POSIÇÃO (0 a 9) e x[i] é o VALOR (1 a 10).
+            // DICA: para não depender do 10 escrito à mão, use  i < x.length.
+            // NA PROVA: se o laço de leitura usar i <= 10, a última linha mostra "x[10] = undefined".
             for (var i = 0; i < 10; i++){
                 document.write("<br>x[" + i + "] = " + x[i]);
             }

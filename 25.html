@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  AULA 6 - Laço while (contagem regressiva)
+  OBJETIVO: contar de trás para frente usando decremento.
+  CONCEITOS-CHAVE: while, decremento (x menos menos), condição x > 0.
+  COMO TESTAR: aparecem "Contagem regressiva: 10" até "Contagem regressiva: 1" (o zero não aparece).
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,10 +14,18 @@
     <body>
         <div>Programação de Interfaces (aula 6)</div>
         <script type="text/javascript">
-            // Contador inicial para contagem regressiva.
+            /*
+             * Na contagem regressiva o valor inicial é o MAIOR e o contador diminui a cada volta.
+             */
             var x = 10;
 
-            // Repete enquanto x for maior que zero.
+            /*
+             * Trace: x = 10 -> escreve 10 -> x = 9 ... x = 1 -> escreve 1 -> x = 0
+             *        x = 0 -> 0 > 0 false -> termina.   O ZERO não aparece.
+             * EXEMPLO: para incluir o zero use a condição  x >= 0.
+             * EXEMPLO: contar de 2 em 2 de forma regressiva: x -= 2  ->  10, 8, 6, 4, 2.
+             * NA PROVA: x-- diminui 1 (decremento); se no lugar usar x++ o laço nunca para.
+             */
             while(x > 0){
                 document.write("<br> Contagem regressiva:  " + x);
                 x--;

@@ -1,4 +1,17 @@
 <!DOCTYPE html>
+<!--
+  TEMA: Programação Orientada a Objetos (POO) com função construtora e prototype.
+  OBJETIVO: criar um "molde" (Carro) e gerar objetos com estado (dados) e comportamento (métodos).
+  CONCEITOS-CHAVE:
+    - função construtora (nome com inicial maiúscula) + operador new;
+    - this: o objeto que está sendo criado/usado;
+    - propriedades (cor, ano, ...) e métodos (acelerar, parar, ...);
+    - prototype: onde ficam os métodos compartilhados por todos os objetos;
+    - console.log e o Console do navegador.
+  COMO TESTAR: abra a página e pressione F12 > aba Console. Aparecem 6 mensagens (veja o trace no comentário do script).
+  Nada é exibido na página: toda a saída vai para o Console.
+  VEJA TAMBÉM: 37.html e 38.html (objetos literais) e 60.html (herança).
+-->
 <html>
 <head>
     <title>Tópico 19</title>
@@ -6,11 +19,31 @@
 </head>
 <body>
 
+    <!--
+      Links para vídeos explicativos do tema (abrem em outra guia com target="_blank").
+    -->
     <p>Video 01 explicativo: <a href="https://www.youtube.com/watch?v=sPQSGPrA0m4" target="_blank" >Video 1</a> </p>
     <p>Video 02 explicativo: <a href="https://www.youtube.com/watch?v=1_oxcJSUrRA" target="_blank" >Video 2</a> </p>
     <p>Video 01 explicativo: <a href="https://www.youtube.com/watch?v=c45RLJ7qgoA" target="_blank" >Video 3</a> </p>
+    <!--
+      O código está no final do body, depois dos parágrafos. Sua saída aparece apenas no Console (F12).
+    -->
     <script>
-        // Função construtora do objeto Carro.
+        /*
+         * FUNÇÃO CONSTRUTORA = função usada com "new" para fabricar objetos do mesmo tipo (um "molde"). Convenção: nome com inicial maiúscula.
+         * Ao executar new Carro('preto', 2017, 5, 'SUV'):
+         *   1) é criado um objeto vazio;
+         *   2) dentro da função, "this" aponta para esse objeto novo;
+         *   3) as linhas this.cor = a; this.ano = b; ... gravam as propriedades nele;
+         *   4) o objeto pronto é devolvido para quem chamou.
+         * Os parâmetros a, b, c, d são nomes pouco descritivos; nomes melhores seriam cor, ano, portas e modelo.
+         * ATENÇÃO: sem o "new" a função roda "solta" e o "this" não aponta para um objeto novo (em modo normal aponta para window), criando variáveis globais sem querer. Sempre use new com construtoras.
+         * Equivalente moderno (ES6), com a palavra class:
+         *   class Carro {
+         *       constructor(cor, ano, portas, modelo) { this.cor = cor; this.ano = ano; ... }
+         *       passear() { this.ligado = true; ... }
+         *   }
+         */
         function Carro(a, b, c, d){
             this.cor = a;
             this.ano = b;
@@ -20,31 +53,39 @@
             this.ligado = false;
         }
  
-        // Liga o carro e define velocidade inicial.
+        /*
+         * Carro.prototype.passear = function(){...} coloca o método no PROTOTYPE de Carro.
+         * Por que no prototype? Os métodos ficam em um único lugar e são COMPARTILHADOS por todos os carros criados (economiza memória).
+         * Se estivessem dentro do construtor (this.passear = function...), cada objeto teria sua própria cópia da função.
+         * Verificação: veiculo1.hasOwnProperty("passear") é false (o método não é do objeto) e "passear" in veiculo1 é true (o objeto encontra o método na cadeia de protótipos).
+         * Aqui "this" é o objeto que chamou o método (veiculo1.passear() => this é veiculo1).
+         * Efeito: ligado = true e velocidadeAtual = 50; o método ainda devolve 50 (neste arquivo esse retorno não é usado).
+         */
         Carro.prototype.passear = function(){
             this.ligado = true;
             this.velocidadeAtual = 50;
             return this.velocidadeAtual;
         }
  
-        // Para o carro.
+        // Zera a velocidade; o carro continua LIGADO (motor ligado, parado no semáforo).
         Carro.prototype.parar = function(){
             this.velocidadeAtual = 0;
         }
  
-        // Estaciona: para e desliga o carro.
+        // Reaproveita o método parar() chamando this.parar() e depois desliga o motor: um método pode chamar outro do mesmo objeto.
         Carro.prototype.estacionar = function(){
             this.parar();
             this.ligado = false;
         }
  
-        // Aumenta a velocidade em 10 km/h.
+        // Usa += para somar 10 à velocidade atual: a cada chamada o estado do objeto muda (50 vira 60, depois 70).
         Carro.prototype.acelerar = function(){
             this.velocidadeAtual += 10;
         }
  
-        // Retorna um texto com o estado atual do carro.
+        // Método que não altera nada: apenas monta um texto descrevendo o estado do objeto (nome tradicional: "toString" ou "descrever").
         Carro.prototype.informacao = function(){
+            // Escolhe a palavra conforme o estado. Poderia ser escrito com o operador ternário: var motorLigado = this.ligado ? 'ligado' : 'desligado';
             if(this.ligado) 
                 var motorLigado = 'ligado';
             else
@@ -55,10 +96,25 @@
  
         }
  
-        // Cria um objeto a partir da função construtora.
+        /*
+         * new Carro(...) cria um carro com cor 'preto', ano 2017, 5 portas e modelo 'SUV'. Estado inicial: velocidadeAtual = 0 e ligado = false.
+         * Podem existir vários carros independentes, cada um com seu próprio estado:
+         *   var veiculo2 = new Carro('azul', 2020, 3, 'Hatch');   // não interfere no veiculo1, mas usa os mesmos métodos.
+         * Cada instância guarda seus dados e compartilha os métodos do prototype.
+         */
         var veiculo1 = new Carro('preto', 2017, 5, 'SUV');
  
-        // Executa ações e mostra os resultados no console.
+        /*
+         * Trace (o que cada console.log escreve no Console, na ordem):
+         *   1) logo após o new:                       "Velocidade atual = 0 km/h, o meu SUV preto está desligado."
+         *   2) após passear():                        "Velocidade atual = 50 km/h, o meu SUV preto está ligado."
+         *   3) após parar():                          "Velocidade atual = 0 km/h, o meu SUV preto está ligado."     (parou, mas o motor continua ligado)
+         *   4) após passear() de novo:                "Velocidade atual = 50 km/h, o meu SUV preto está ligado."
+         *   5) após estacionar():                     "Velocidade atual = 0 km/h, o meu SUV preto está desligado."
+         *   6) após passear(), acelerar(), acelerar(): "Velocidade atual = 70 km/h, o meu SUV preto está ligado."  (50 + 10 + 10)
+         * Observe que a ORDEM das chamadas muda o resultado: o objeto "lembra" o estado deixado pela chamada anterior.
+         * DICA: console.log escreve no Console do navegador (F12 > Console), e não na página; é a principal ferramenta para depurar.
+         */
         console.log(veiculo1.informacao());
         veiculo1.passear();
  

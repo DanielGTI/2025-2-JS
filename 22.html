@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  AULA 5 - if aninhado com x positivo
+  OBJETIVO: repetir o exemplo de 20.html com outro valor e confirmar que só UM caminho é executado.
+  CONCEITOS-CHAVE: if/else aninhado, teste de todos os ramos.
+  COMO TESTAR: com x = 5 aparece "positivo". Teste também x = -2 e x = 0.
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,7 +14,12 @@
     <body>
         <div>Programação de Interfaces (aula 5)</div>
         <script type="text/javascript">
-            // Valor para classificação (positivo, negativo ou zero).
+            /*
+             * Com x = 5 o primeiro teste (x > 0) é true, então o programa escreve "positivo" e
+             * IGNORA o else inteiro (o segundo if nem é avaliado).
+             * Em um if/else, no máximo UM bloco é executado.
+             * EXERCÍCIO: preencha a tabela ao trocar x:   x = 5 -> positivo | x = -2 -> negativo | x = 0 -> NULO
+             */
             var x = 5;
             
             if (x > 0){

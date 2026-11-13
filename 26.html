@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  AULA 6 - Laço do...while
+  OBJETIVO: mostrar que o do...while executa o bloco PELO MENOS UMA VEZ.
+  CONCEITOS-CHAVE: do...while, teste no final do laço.
+  COMO TESTAR: aparece UMA única linha: "Contagem: 11", mesmo a condição sendo falsa desde o início.
+  VEJA TAMBÉM: 24.html (while com a condição testada antes).
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,10 +15,18 @@
     <body>
         <div>Programação de Interfaces (aula 6)</div>
         <script type="text/javascript">
-            // Valor inicial fora da condição.
+            /*
+             * x = 11 já viola a condição x <= 10. Com while, nada seria escrito; com do...while sai uma linha.
+             */
             var x = 11;
 
-            // O do...while executa pelo menos uma vez.
+            /*
+             * Diferença para o while:  while     -> TESTA e depois executa (pode nunca executar).
+             *                          do...while -> EXECUTA e depois testa (executa no mínimo 1 vez).
+             * Trace:  x = 11 -> escreve "Contagem: 11" -> x = 12 -> 12 <= 10 false -> termina.
+             * USOS: menus e validação de entrada (pedir o dado e repetir enquanto for inválido).
+             * ATENÇÃO: o do...while termina com ponto e vírgula depois do while(condição).
+             */
             do{
                 document.write("<br> Contagem:  " + x);
                 x++;

@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!--
+  AULA 1 - Primeiros passos: variáveis e operadores aritméticos
+  OBJETIVO: declarar variáveis com var, fazer as quatro operações básicas e
+  mostrar os resultados na página com document.write.
+  CONCEITOS-CHAVE: variável (var), operadores + - * /, precedência e parênteses,
+  concatenação com +, document.write.
+  COMO TESTAR: abra no navegador (Live Preview do VSCode). Devem aparecer a linha
+  com a, b e c e depois os resultados: 30, -10, 200, 0.5, 0.25 e 5.
+  DICA: aperte F12 e abra a aba Console para ver mensagens de erro do JavaScript.
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,21 +18,50 @@
     <body>
         <div>Programação de Interfaces (aula 1)</div>
         <script type="text/javascript">
-            // Define valores iniciais.
+            /*
+             * VARIÁVEIS: são "caixinhas" com nome que guardam um valor na memória.
+             * var a = 10;   -> cria a variável a e guarda o número 10.
+             * Podemos declarar várias de uma vez, separadas por vírgula (como abaixo).
+             * Regras de nome: começa com letra, _ ou $; não pode ter espaço nem começar com número;
+             * maiúsculas e minúsculas diferem (nome e Nome são variáveis diferentes).
+             * EXEMPLO: var idade = 18;  var Idade = 30;   // são duas variáveis distintas
+             * DICA: em código moderno usamos let (valor que muda) e const (valor fixo) no lugar de var.
+             * Neste arquivo usamos a forma clássica (var), que é a das primeiras aulas.
+             */
             var a = 10, b = 20, c = 30;
 
-            // Realiza operações matemáticas básicas.
+            /*
+             * OPERADORES ARITMÉTICOS:  +  soma   -  subtração   *  multiplicação   /  divisão
+             * EXEMPLO: 10 + 20  ->  30     10 - 20  ->  -10     10 * 20  ->  200
+             * Em JavaScript 10 / 20 dá 0.5 (não existe divisão inteira automática como em C).
+             * Cada resultado é guardado em uma nova variável para ser exibido depois.
+             */
             var somar = a + b;
             var subtrair = a - b;
             var mult = a * b;
             var dividir = a/b;
 
-            // Exibe os resultados na página.
+            /*
+             * document.write(texto) escreve HTML dentro da página (aqui usamos só para estudar).
+             * O sinal + entre texto e variável faz CONCATENAÇÃO (junta pedaços de texto):
+             * EXEMPLO: "a = " + a   ->   "a = 10"
+             * "<br>" é a tag HTML de quebra de linha, por isso cada resultado fica em uma linha.
+             * DICA: em programas reais prefira console.log(...) para testar e textContent para
+             * mostrar algo na tela. O document.write fica restrito a exemplos didáticos.
+             */
             document.write("<br>a =  " + a + " | b = " + b + " | c = " + c + "<br>");     
             document.write("<br>Somar (a+b) =  " + somar );     
             document.write("<br>Subtrair (a-b) =  " + subtrair );     
             document.write("<br>Multiplicar (a*b) =  " + mult );     
             document.write("<br>Dividir (a/b) =  " + dividir );     
+            /*
+             * PRECEDÊNCIA: multiplicação e divisão são resolvidas antes de soma e subtração.
+             * Parênteses mandam em tudo.
+             * Trace de a/(a+c) com a=10, c=30:  (a+c) = 40  ->  10 / 40  ->  0.25
+             * Trace de (b*a)/(a+c):  (20*10) = 200  ->  200 / 40  ->  5
+             * EXEMPLO: a + b * c  ->  10 + 600 = 610      (a + b) * c  ->  30 * 30 = 900
+             * NA PROVA: esquecer os parênteses muda o resultado da conta.
+             */
             document.write("<br>(a/(a+c)) =  " + a/(a+c) );
             document.write("<br>(b*a) /(a+c) =  " + (b*a)/(a+c) );
         </script>

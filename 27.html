@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  AULA 6 - Laço for (crescente e regressivo)
+  OBJETIVO: usar o for, que reúne valor inicial, condição e atualização em uma única linha.
+  CONCEITOS-CHAVE: for (início; condição; passo), var em laços, intervalos abertos e fechados.
+  COMO TESTAR: primeiro "Contagem: 1" até "Contagem: 9"; depois "Contagem regressiva: 10" até 1.
+  VEJA TAMBÉM: 24.html e 25.html (mesma contagem feita com while).
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,12 +15,26 @@
     <body>
         <div>Programação de Interfaces (aula 6)</div>
         <script type="text/javascript">
-            // Contagem crescente com for.
+            /*
+             * Anatomia:  for (início; condição; passo) { corpo }
+             *   var x = 1   -> executado UMA vez, antes do laço
+             *   x < 10      -> testado antes de cada volta
+             *   x++         -> executado depois de cada volta
+             * Trace: x = 1, 2, 3 ... 9 escreve; x = 10 -> 10 < 10 false -> termina.
+             * ATENÇÃO (erro clássico "off-by-one"): com x < 10 o último valor é 9, e não 10.
+             * Para ir até 10 use x <= 10.
+             * EXEMPLO: for (var i = 0; i < 3; i++) {...}  -> executa 3 vezes (i = 0, 1, 2)
+             * EXEMPLO: passo de 2:  for (var x = 1; x <= 9; x += 2)  ->  1, 3, 5, 7, 9
+             */
             for (var x = 1; x < 10; x++){
                 document.write("<br> Contagem:  " + x);
             }
 
-            // Contagem regressiva com for.
+            /*
+             * Para regredir: comece no maior valor, use > ou >= e decremente (x menos menos).
+             * Aqui: x = 10, 9, ... 1 (para quando x = 0, pois 0 > 0 é false).
+             * Obs.: reutilizar var x é permitido (var não reclama), mas com let x cada for teria o seu x.
+             */
             for (var x = 10; x > 0; x--){
                 document.write("<br> Contagem regressiva:  " + x);
             }

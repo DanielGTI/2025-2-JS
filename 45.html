@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 45.html
+    AULA / TEMA: eventos e DOM - estado do programa com variável "flag" (este arquivo não traz rótulo de aula)
+    OBJETIVO: lembrar o que já aconteceu usando uma variável (magica) e, a partir de um
+              clique, fazer o baú "sumir" para sempre.
+    CONCEITOS-CHAVE: onMouseOver / onMouseOut / onClick, variável global de estado (flag),
+                     if / else if / else, src = "" (sem imagem).
+    COMO TESTAR: passe o mouse (abre) e tire (fecha). Clique no baú: a imagem some.
+                 Depois do clique, passar o mouse não traz o baú de volta (só recarregando a página F5).
+-->
 <html>
     <head>
         <title>Tópico 7</title>
@@ -6,10 +16,27 @@
     </head>
     <body>
         <script type="text/javascript">
-            // Controla se o truque de "sumir" já aconteceu.
+            /*
+              FLAG (bandeira) = variável booleana que guarda uma "memória" do programa.
+              magica = false  ->  o truque ainda NÃO aconteceu (o baú abre e fecha normalmente)
+              magica = true   ->  o baú sumiu, e continua sumido
+              Ela fica FORA das funções (global) para manter o valor entre um evento e outro.
+              Se estivesse dentro da função, seria recriada como false a cada chamada.
+              A flag só vale enquanto a página está aberta; ao recarregar, volta a false.
+            */
             var magica = false;
 
-            // Altera o estado do baú (abrir, fechar ou sumir).
+            /*
+              Parâmetro x:  1 = mouse entrou  |  2 = mouse saiu  |  0 = clique.
+              Tabela de decisão (em ordem):
+                 x == 1 e magica == false   ->  baú aberto
+                 x == 2 e magica == false   ->  baú fechado
+                 qualquer outro caso        ->  (clique, ou a magia já aconteceu) imagem some e magica = true
+              Trace: passar o mouse (x=1) -> aberto | sair (x=2) -> fechado | clicar (x=0) -> some, magica = true
+                     depois disso, até x=1 ou x=2 caem no último caso (magica já é true), e a imagem continua sumida.
+              Estrutura: if { ... } else if { ... } else { ... }, a "escada" de decisões do 20.html e 22.html.
+              Dica de leitura: magica == false pode ser escrito !magica ("não magica").
+            */
             function alterar_Bau(x){
                 var img_bau;
                 if (x == 1 && magica == false)
@@ -18,13 +45,17 @@
                     if (x == 2 && magica == false)
                         img_bau = "bau_fechado.png"
                     else{
-                        // Clique: remove a imagem e ativa o modo mágico.
+                        // src = "" (texto vazio) deixa a imagem sem arquivo para mostrar; ela "some" da tela.
+                        // O elemento img continua na página (o HTML não é apagado), só não tem imagem.
+                        // magica = true "liga" a flag: dali em diante o if/else sempre cai neste bloco.
                         img_bau = "";
                         magica = true;
                     }
                 document.getElementById("bau").src = img_bau;
             }            
         </script>
+    <!-- Três eventos na mesma imagem, chamando a mesma função com argumentos diferentes:
+         onMouseOver => 1 (entrou)  |  onMouseOut => 2 (saiu)  |  onClick => 0 (clicou). -->
     <img src="bau_fechado.png" id="bau" onMouseOver="alterar_Bau(1)" onMouseOut="alterar_Bau(2)" onClick="alterar_Bau(0)">
         
     </body>

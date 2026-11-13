@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  AULA 2 - Onde colocar o JavaScript (2/5): script no FINAL do body
+  OBJETIVO: comparar com 02.html. O mesmo alert, agora depois do conteúdo.
+  CONCEITOS-CHAVE: ordem de execução, script no fim do body.
+  COMO TESTAR: o texto "Programação de Interfaces (aula 2)" aparece primeiro e, em
+  seguida, a caixa "Olá mundo!". Em 02.html a ordem era a inversa.
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -9,7 +16,11 @@
         <div>Programação de Interfaces (aula 2)</div>
  
         <script type="text/javascript">
-            // Exibe um alerta com uma mensagem inicial.
+            /*
+             * Colocar o script no FINAL do body é uma boa prática: quando o código roda, todos os
+             * elementos acima dele já existem e podem ser manipulados (getElementById, etc.).
+             * Regra prática: script que usa elementos da página -> final do body.
+             */
             alert("Olá mundo!");
         </script>
  

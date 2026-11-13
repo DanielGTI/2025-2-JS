@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  AULA 3 - Tipos de dados
+  OBJETIVO: conhecer os tipos primitivos mais usados: texto, número e booleano.
+  CONCEITOS-CHAVE: string, number, boolean, typeof, declaração com var.
+  COMO TESTAR: a página não mostra nada além do título. Abra o Console (F12), digite
+  o nome de uma variável (ex.: nome) e aperte Enter para ver seu valor.
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -8,10 +15,28 @@
     <body>
         <div>Programação de Interfaces (aula 3)</div>
         <script type="text/javascript">
-            // Exemplos de tipos de dados em JavaScript.
+            /*
+             * JavaScript é de tipagem DINÂMICA: o tipo é definido pelo valor guardado, e pode mudar.
+             * Principais tipos:
+             * string    -> texto entre aspas                              "Javascript", 'Oi'
+             * number    -> qualquer número (inteiro ou decimal, com PONTO)  10, 10.50, -3
+             * boolean   -> verdadeiro ou falso                            true, false (sem aspas!)
+             * undefined -> variável criada sem valor;   null -> "vazio" de propósito
+             * EXEMPLOS com typeof (devolve o tipo como texto):
+             * typeof "abc"      ->  "string"
+             * typeof 10.5       ->  "number"
+             * typeof true       ->  "boolean"
+             * typeof undefined  ->  "undefined"
+             * typeof null       ->  "object"   (curiosidade histórica da linguagem)
+             * NA PROVA: "10" (com aspas) é uma STRING, 10 (sem aspas) é um NUMBER.
+             */
+            // string: texto
             var nome = "Javascript";
+            // number decimal: o separador decimal é o ponto (10.50), nunca a vírgula
             var valor = 10.50;
+            // number inteiro (JavaScript usa o mesmo tipo number para inteiros e decimais)
             var idade = 20;
+            // boolean: só aceita true ou false (usado nas condições if/while)
             var verificado = true;      
         </script>
     </body>

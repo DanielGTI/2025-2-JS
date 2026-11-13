@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+<!--
+  TEMA: DOM - selecionando elementos com document.querySelector().
+  OBJETIVO: localizar um elemento da página usando um seletor CSS e alterar seu estilo (cor de fundo) via JavaScript.
+  CONCEITOS-CHAVE:
+    - document.querySelector("seletor") devolve SOMENTE o PRIMEIRO elemento encontrado;
+    - element.style.backgroundColor (CSS em camelCase);
+    - atributo onclick chamando uma função.
+  COMO TESTAR: clique em "alterar o p": só a "Primeira linha." fica verde (os outros 4 parágrafos NÃO mudam).
+  Clique em "alterar a div": o bloco da div fica cinza.
+  VEJA TAMBÉM: 51.html resolve o limite "só o primeiro" usando querySelectorAll.
+-->
 <html>
     <body>
  
@@ -18,17 +29,33 @@
  
         <p>Quinta linha de paragrafo.</p>
  
+        <!--
+          Cada botão chama uma função declarada no <script> no final da página.
+          onclick="alterar()" => ao clicar, o navegador executa alterar().
+          NA PROVA: a função precisa existir no script com o MESMO nome (maiúsculas/minúsculas importam); alterarDIV e alterardiv são nomes diferentes.
+        -->
         <button onclick="alterar()">Clique para alterar o p</button>
  
         <button onclick="alterarDIV()">Clique para alterar a div</button>
  
         <script>
-            // Altera a cor de fundo do primeiro parágrafo.
+            /*
+             * document.querySelector("p") procura no documento o PRIMEIRO elemento que casa com o seletor CSS "p" e devolve só ele.
+             * Por isso apenas "Primeira linha." fica verde; os outros <p> continuam iguais.
+             * Seletores aceitos (mesma sintaxe do CSS):
+             *   "p"                 => o 1º parágrafo;
+             *   "#exemplo"          => elemento com id="exemplo" (equivale a getElementById("exemplo"));
+             *   ".destaque"         => 1º elemento com class="destaque";
+             *   "p:nth-of-type(3)"  => o 3º parágrafo (EXEMPLO: pintaria "Terceira linha.").
+             * Se nenhum elemento casar, querySelector devolve null e acessar .style gera TypeError.
+             * style.backgroundColor é a propriedade CSS background-color escrita em camelCase (sem hífen).
+             * NA PROVA: para alterar TODOS os parágrafos use querySelectorAll (veja 51.html).
+             */
             function alterar() {
                 document.querySelector("p").style.backgroundColor = "green";
             }
  
-            // Altera a cor de fundo da primeira div.
+            // querySelector("div") pega a primeira <div> da página (a única aqui): o fundo cinza cobre todo o bloco de texto.
             function alterarDIV() {
                 document.querySelector("div").style.backgroundColor = "gray";
             }

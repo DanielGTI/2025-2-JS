@@ -1,16 +1,36 @@
 <!DOCTYPE html>
+<!--
+  AULA 2 - Onde colocar o JavaScript (3/5): funções no HEAD + evento onclick
+  OBJETIVO: criar funções e chamá-las a partir de botões (evento onclick), alterando
+  o texto de um parágrafo.
+  CONCEITOS-CHAVE: function, evento onclick, document.getElementById, innerHTML.
+  COMO TESTAR: clique em "Clique aqui" para o texto virar "Alterado." e em
+  "Voltar texto" para retornar a "Inicio...".
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tópico 2</title>
         <script type="text/javascript">
-            // Altera o texto do parágrafo.
+            /*
+             * FUNÇÃO: bloco de código com nome, que só executa quando for "chamada".
+             * Declarar a função no head funciona porque ela só roda DEPOIS do clique,
+             * quando a página já foi toda carregada.
+             * document.getElementById("exemplo") procura na página o elemento cujo id é "exemplo".
+             * .innerHTML = "..." troca o conteúdo HTML de dentro desse elemento.
+             * EXEMPLO: document.getElementById("exemplo").innerHTML = "<b>Oi</b>";  // texto em negrito
+             * NA PROVA: o texto dentro de getElementById tem que ser IDÊNTICO ao id do HTML
+             * (maiúsculas e minúsculas importam). Se errar, o resultado é null e aparece erro no Console.
+             */
             function myFunction() {
                 document.getElementById("exemplo").innerHTML = "Alterado.";
             }
 
-            // Retorna o texto original do parágrafo.
+            /*
+             * Mesma ideia da função anterior, mas devolvendo o texto inicial.
+             * Duas funções diferentes -> dois botões diferentes.
+             */
             function voltar() {
                 document.getElementById("exemplo").innerHTML = "Inicio...";
             }
@@ -19,7 +39,15 @@
  
     <body>
         <h2>JavaScript criado no Head</h2>
+        <!--
+          O atributo id="exemplo" é o "endereço" que o JavaScript usa para achar este parágrafo.
+          Cada id deve ser único na página.
+        -->
         <p id="exemplo">Inicio...</p>
+        <!--
+          onclick="myFunction()": quando o usuário clicar, o navegador executa a função myFunction.
+          Os parênteses () são obrigatórios, pois indicam que a função está sendo chamada.
+        -->
         <button type="button" onclick="myFunction()">Clique aqui</button>
         <br><br>
         <button type="button" onclick="voltar()">Voltar texto</button>

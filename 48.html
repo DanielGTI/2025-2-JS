@@ -1,12 +1,26 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 48.html
+    AULA / TEMA: eventos e DOM - flag de controle e alteração de estilo (este arquivo não traz rótulo de aula)
+    OBJETIVO: mostrar o aviso de foco apenas UMA vez e destacar o campo Endereço
+              mudando sua cor de fundo.
+    CONCEITOS-CHAVE: variável flag (aviso), if, element.style.background, onFocus.
+    COMO TESTAR: ao abrir, aparece "Mensagem inicial!". Clique no campo Nome: aparece o alerta
+                 UMA vez e o campo Endereço fica amarelo. Clique em Nome de novo: nada de alerta
+                 (o amarelo continua). Recarregue a página com F5 para repetir o teste.
+-->
 <html>
     <head>
         <title>Tópico 7</title>
         <meta charset="UTF-8">
     </head>
+    <!-- onLoad: executa ao terminar de carregar a página (veja o 46.html). -->
     <body onLoad="alert('Mensagem inicial!')">
         <script type="text/javascript">
-            // Controla se o aviso já apareceu.
+            /*
+              FLAG de controle (mesma ideia do 45.html): aviso = false significa "ainda não avisei".
+              Fica fora da função (global) para que o valor SOBREVIVA entre uma chamada e outra.
+            */
             var aviso = false;
 
             // Executa quando o botão é pressionado.
@@ -19,7 +33,21 @@
                 alert("Você SOLTOU o botão");
             }
             
-            // Mostra aviso ao focar e destaca o campo de endereço.
+            /*
+              Trace:
+                1ª vez que o campo Nome recebe foco:  aviso == false -> mostra o alert, aviso = true
+                2ª vez em diante:                     aviso == true  -> o if é pulado (nada de alert)
+              Nas duas situações, a linha seguinte (style.background = "yellow") sempre é executada.
+              Observe: quem RECEBE o foco é o campo Nome, mas quem muda de cor é o campo Endereço.
+              Forma curta:  if (!aviso) { ... }    (!aviso lê-se "não aviso")
+
+              element.style.PROPRIEDADE = valor  altera o estilo (CSS) do elemento direto pelo JavaScript.
+                  document.getElementById("endereco").style.background = "yellow";   // pinta de amarelo
+                  document.getElementById("endereco").style.background = "";        // remove o estilo (volta ao normal)
+              Regra dos nomes: propriedades CSS com hífen viram camelCase no JavaScript.
+                  background-color (CSS)  ->  style.backgroundColor (JS)       |    font-size  ->  style.fontSize
+              VEJA TAMBÉM: 50.html e 51.html (style.backgroundColor) e 58.html (style.borderWidth).
+            */
             function focar_Elemento(){
                 if (aviso == false){
                     alert("Você focou um elemento!");
@@ -30,6 +58,7 @@
         </script>
         <form>
             <b>Nome</b>
+            <!-- Ao focar este campo (id="nome"), a função focar_Elemento() é executada. -->
             <input type="text" id="nome" onFocus="focar_Elemento()">
             <b>Endereço</b>
             <input type="text" id="endereco" >

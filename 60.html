@@ -1,44 +1,78 @@
 <!DOCTYPE html>
+<!--
+  TEMA: POO - HERANÇA com função construtora e prototype (Pessoa, Aluno e Funcionario).
+  OBJETIVO: criar tipos "filhos" (Aluno, Funcionario) que reaproveitam dados e métodos do tipo "pai" (Pessoa), e usar polimorfismo.
+  CONCEITOS-CHAVE:
+    - herança: Pessoa.call(this, ...) herda propriedades; prototype herda métodos;
+    - sobrescrita (override): o filho redefine um método do pai e ainda pode chamá-lo;
+    - polimorfismo: o mesmo método (exibirDados) se comporta de forma diferente em cada tipo;
+    - getters e setters (getNome, setNome...);
+    - laço for...of (percorre os VALORES de um array) e constructor.name.
+  COMO TESTAR: abra a página e pressione F12 > Console. As saídas aparecem no Console, não na página.
+  VEJA TAMBÉM: 59.html (função construtora e prototype sem herança).
+-->
 <html>
 <head>
     <title>Tópico 20</title>
     <meta charset="UTF-8">
 </head>
 <body>
+    <!--
+      Links para vídeos explicativos do tema (abrem em outra guia com target="_blank").
+    -->
     <p>Video 01 explicativo: <a href="https://www.youtube.com/watch?v=YEm5aayBn8g" target="_blank" >Video 1</a> </p>
     <p>Video 02 explicativo: <a href="https://www.youtube.com/watch?v=swdouMYu62U" target="_blank" >Video 2</a> </p>
     <p>Video 03 explicativo: <a href="https://www.youtube.com/watch?v=MURr7XdfXHw" target="_blank" >Video 3</a> </p>
     
     <script>
-        // Função construtora base (Pessoa).
+        /*
+         * Classe "pai" (superclasse): define o que TODA pessoa tem: nome e idade.
+         * Fabrica objetos com: new Pessoa('Joao da Silva', 20).
+         */
         function Pessoa(a, b){
             this.nome = a;
             this.idade = b;
         }
  
-        // Função construtora Aluno.
+        /*
+         * Classe "filha" (subclasse): uma Pessoa com dados a mais (ra e curso).
+         * Pessoa.call(this, a, b) executa a construtora do pai tendo "this" = o Aluno que está sendo criado; assim nome e idade são gravados no próprio Aluno.
+         * Equivale ao super(nome, idade) das classes ES6. Sem essa linha o aluno ficaria sem nome e sem idade.
+         */
         function Aluno(a, b, c, d){
             Pessoa.call(this, a, b);
             this.ra = c;
             this.curso = d;   
         }
  
-        // Função construtora Funcionario.
+        // Mesmo padrão de Aluno: reaproveita Pessoa e acrescenta matrícula e setor.
         function Funcionario(a, b, c, d){
             Pessoa.call(this, a, b);
             this.matricula = c;
             this.setor = d;
         }
  
-        // Define herança: Aluno e Funcionario herdam de Pessoa.
-        Aluno.prototype = new Pessoa.prototype.constructor();
+        /*
+         * Conecta as cadeias de protótipos: se o objeto não tem um método, o JS procura em Aluno.prototype e, depois, em Pessoa.prototype.
+         * Object.create(Pessoa.prototype) cria um objeto vazio que "herda" de Pessoa.prototype, sem executar o construtor de Pessoa (forma RECOMENDADA).
+         * Aluno.prototype.constructor = Aluno restaura o "constructor"; sem isso new Aluno(...).constructor.name devolveria "Pessoa" e o teste do aluno mais velho (mais abaixo) falharia.
+         * Forma ANTIGA (comum em códigos velhos): Aluno.prototype = new Pessoa(); ela executa o construtor de Pessoa sem necessidade, criando uma Pessoa vazia só para servir de protótipo.
+         * ATENÇÃO (ordem): atribuir Aluno.prototype = ... APAGA o protótipo anterior. Por isso a herança é declarada ANTES de definir métodos como Aluno.prototype.exibirDados.
+         * Os métodos de Pessoa.prototype podem ser definidos depois, porque a cadeia de protótipos é consultada na hora da chamada.
+         * Equivalente ES6:  class Aluno extends Pessoa { constructor(...) { super(...); ... } }
+         */
+        Aluno.prototype = Object.create(Pessoa.prototype);
         Aluno.prototype.constructor = Aluno;
-        // Outra forma possível: Object.create(Pessoa.prototype).
-        Funcionario.prototype = new Pessoa.prototype.constructor();
+        // Mesma ligação para Funcionario.
+        Funcionario.prototype = Object.create(Pessoa.prototype);
         Funcionario.prototype.constructor = Funcionario;
  
  
-        // Métodos de leitura.
+        /*
+         * GETTERS: métodos que só devolvem o valor de uma propriedade (convenção: getNome, getIdade).
+         * Definidos em Pessoa.prototype, são herdados por Aluno e Funcionario.
+         * EXEMPLO: p2.getNome() => "Pedro" (p2 é Aluno, mas getNome vem de Pessoa).
+         */
         Pessoa.prototype.getNome = function(){
             return this.nome;
         }
@@ -46,7 +80,10 @@
             return this.idade;
         }
  
-        // Métodos de alteração.
+        /*
+         * SETTERS: métodos que alteram o valor de uma propriedade (setNome, setIdade).
+         * Vantagem: um único ponto para validar o dado depois. EXEMPLO: setIdade poderia rejeitar idade negativa.
+         */
         Pessoa.prototype.setNome = function(x){
             this.nome = x;
         }
@@ -54,61 +91,99 @@
             this.idade = x;
         }
  
-        // Retorna um texto com os dados da pessoa.
+        // Usa getNome() e getIdade() (em vez de this.nome) para exemplificar o uso dos métodos de acesso.
         Pessoa.prototype.exibirDados = function(){
             return 'Nome = ' + this.getNome() + ', idade = ' + this.getIdade() + ' anos';
         }
  
-        // Sobrescreve exibirDados para incluir dados do aluno.
+        /*
+         * OVERRIDE (sobrescrita): Aluno redefine exibirDados, que já existia em Pessoa.
+         * Pessoa.prototype.exibirDados.call(this) chama a versão do PAI aplicada ao aluno atual (equivale a super.exibirDados() em ES6) e depois acrescenta RA e curso.
+         * Assim não se repete o código que mostra nome e idade.
+         * RESULTADO para p2: "Nome = Pedro, idade = 19 anos, RA = 123456, curso = Ciência da Computação."
+         */
         Aluno.prototype.exibirDados = function(){
             return Pessoa.prototype.exibirDados.call(this) + 
             ', RA = ' + this.ra + ', curso = ' + this.curso + '.';
         }
  
-        // Sobrescreve exibirDados para incluir dados do funcionário.
+        // Mesma ideia, acrescentando Matricula e Setor ao texto do pai.
         Funcionario.prototype.exibirDados = function(){
             return Pessoa.prototype.exibirDados.call(this) + 
             ', Matricula = ' + this.matricula + ', Setor = ' + this.setor + '.';
         }
  
-        // Cria objetos de cada tipo.
+        /*
+         * Cada new executa a construtora correspondente: p1 é Pessoa; p2 e p3 são Aluno; p4 e p5 são Funcionario.
+         * Teste de tipo: p2 instanceof Aluno => true; p2 instanceof Pessoa => true (todo Aluno também é uma Pessoa); p1 instanceof Aluno => false.
+         */
         var p1 = new Pessoa('Joao da Silva', 20);
-        var p2 = new Aluno('Pedro', 19, '123456', 'Ciênca da Computação');
+        var p2 = new Aluno('Pedro', 19, '123456', 'Ciência da Computação');
         var p3 = new Aluno('Maria da Graça', 34, '456123', 'Tec. em Sistemas para Internet');
         var p4 = new Funcionario('Gustavo Lira', 26, '123', 'Secretaria');
         var p5 = new Funcionario('Roberto Kall', 60, '203', 'TI');
  
-        // Mostra os dados no console.
+        /*
+         * Cada objeto usa a SUA versão de exibirDados (polimorfismo). Saídas esperadas no Console:
+         *   p1: Nome = Joao da Silva, idade = 20 anos
+         *   p2: Nome = Pedro, idade = 19 anos, RA = 123456, curso = Ciência da Computação.
+         *   p3: Nome = Maria da Graça, idade = 34 anos, RA = 456123, curso = Tec. em Sistemas para Internet.
+         *   p4: Nome = Gustavo Lira, idade = 26 anos, Matricula = 123, Setor = Secretaria.
+         *   p5: Nome = Roberto Kall, idade = 60 anos, Matricula = 203, Setor = TI.
+         */
         console.log(p1.exibirDados());
         console.log(p2.exibirDados());
         console.log(p3.exibirDados());
         console.log(p4.exibirDados());
         console.log(p5.exibirDados());
  
-        // Altera alguns dados.
+        // Os setters mudam o estado: p1 passa a ter 21 anos, p2 vira "Pedro Antonio" e p5 passa a ter 45 anos.
         p1.setIdade(21);
         p2.setNome('Pedro Antonio');
         p5.setIdade(45);
  
-        // Agrupa todos os objetos em um array.
+        // Um array pode guardar objetos de tipos diferentes (Pessoa, Aluno, Funcionario), pois todos oferecem exibirDados().
         var universidade = [p1, p2, p3, p4, p5];
  
-        // Reexibe os dados usando loop.
+        /*
+         * for (var cadaPessoa of universidade): o for...of percorre os VALORES do array (cada objeto). Já o for...in (veja 55.html) percorre os índices.
+         * POLIMORFISMO: a mesma chamada cadaPessoa.exibirDados() executa versões diferentes conforme o tipo real do objeto.
+         * Saída: as mesmas 5 linhas de antes, agora com os dados alterados (p1 com 21, "Pedro Antonio" e Roberto Kall com 45 anos).
+         */
         console.log('\n************************************');
-        for(cadaPessoa of universidade){
+        for(var cadaPessoa of universidade){
             console.log(cadaPessoa.exibirDados());
         }
  
-        // Procura o aluno mais velho no array.
-        var maiorIdade = 0; var cadaPessoa;
-        for(cadaPessoa of universidade){
+        /*
+         * Lógica: guardar a maior idade vista até agora e substituir quando aparecer um ALUNO mais velho.
+         * Trace:
+         *   p1 (Pessoa, 21)           => ignorada: não é Aluno;
+         *   p2 (Aluno, 19)            => 19 > 0, é Aluno => maiorIdade = 19, idPessoa = p2;
+         *   p3 (Aluno, 34)            => 34 > 19, é Aluno => maiorIdade = 34, idPessoa = p3;
+         *   p4 e p5 (Funcionario)     => ignorados, mesmo que p5 tenha 45 anos: o teste exige ser Aluno.
+         * cadaPessoa.constructor.name devolve o NOME da construtora ("Aluno", "Funcionario" ou "Pessoa"); só funciona certo porque restauramos o constructor acima.
+         * Alternativa mais direta: cadaPessoa instanceof Aluno (o String(...) é desnecessário, pois name já é texto).
+         * Observação: o primeiro for...of já declarou cadaPessoa com var; declarar de novo no segundo laço é permitido (var reaproveita a mesma variável).
+         * idPessoa começa como null: se não houvesse nenhum Aluno, o if final avisaria "Nenhum aluno encontrado." em vez de dar TypeError (acessar idPessoa.getNome() com idPessoa vazio).
+         */
+        var maiorIdade = 0; var idPessoa = null;
+        for(var cadaPessoa of universidade){
             if( (cadaPessoa.getIdade() > maiorIdade) && (String(cadaPessoa.constructor.name) == "Aluno") ){
                 maiorIdade = cadaPessoa.getIdade();
-                var idPessoa = cadaPessoa;
+                idPessoa = cadaPessoa;
             }
         }
  
-        console.log('\nO aluno mais velho é o ' + idPessoa.getNome() + ', tem ' + idPessoa.getIdade() + ' anos!');
+        /*
+         * RESULTADO esperado: "O aluno mais velho é o Maria da Graça, tem 34 anos!"
+         * O \n no início é uma quebra de linha: deixa uma linha em branco antes da frase no Console.
+         */
+        if (idPessoa !== null) {
+            console.log('\nO aluno mais velho é o ' + idPessoa.getNome() + ', tem ' + idPessoa.getIdade() + ' anos!');
+        } else {
+            console.log('\nNenhum aluno encontrado.');
+        }
         
    </script>
 </body>

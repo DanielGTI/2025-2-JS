@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!--
+    ARQUIVO: 33.html
+    AULA / TEMA: aula 7 - Métodos de array (push, pop, shift, unshift, join, slice, sort, reverse, concat)
+    OBJETIVO: conhecer as operações prontas para adicionar, remover, copiar,
+              ordenar e juntar elementos de um array.
+    CONCEITOS-CHAVE: length, métodos que MODIFICAM o array e métodos que
+                     devolvem um NOVO valor, ordenação (sort) comparando TEXTO.
+    COMO TESTAR: abra a página. Cada "Nova lista N" mostra o array depois de uma
+                 operação. Acompanhe com os comentários do código, passo a passo.
+-->
 <html>
     <head>
         <title>Tópico 7</title>
@@ -7,48 +17,93 @@
     <body>
         <div>Programação de Interfaces (aula 7)</div>
         <script type="text/javascript">
+            /*
+              Resumo dos métodos usados neste arquivo e se MODIFICAM o array original:
+
+                length          -> quantidade de elementos (não é método, não leva parênteses)
+                push(v)         -> acrescenta no FINAL         (modifica)  devolve o novo tamanho
+                pop()           -> remove do FINAL             (modifica)  devolve o item removido
+                shift()         -> remove do INÍCIO            (modifica)  devolve o item removido
+                unshift(v)      -> acrescenta no INÍCIO        (modifica)
+                join(sep)       -> junta tudo em UM TEXTO      (não modifica)
+                slice(ini,fim)  -> copia um pedaço             (não modifica)
+                sort()          -> ordena                      (modifica)
+                reverse()       -> inverte a ordem             (modifica)
+                concat(...)     -> junta arrays/valores        (não modifica; devolve um array NOVO)
+
+              Para memorizar: push/pop mexem no FIM; shift/unshift mexem no INÍCIO.
+            */
             var x = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex"];
+	        // Ao concatenar um array com texto, o JavaScript converte o array em texto,
+	        // separando os itens por vírgula:  "Dom,Seg,Ter,Qua,Qui,Sex"
 	        document.write("<br>Lista Atual = " + x + ". ");
-            // Informa o tamanho de um array
+            // length = quantidade de elementos (aqui, 6). O último índice válido é length - 1.
+            // EXEMPLO:  ["a","b","c"].length  ->  3     |     último item: lista[lista.length - 1]
             document.write("<br>Tamanho = " + x.length + ". ");
 
-            // Adicionar ao final
+            // push: acrescenta no FINAL e MODIFICA o array.   x passa a ser [Dom,...,Sex,Sab] (7 itens)
+            // EXEMPLO:  var v = ["a"];  v.push("b");  ->  v = ["a","b"]   (push devolve 2, o novo tamanho)
             x.push("Sab");                  
             document.write("<br><br>Nova lista 1 = " + x + ". ");
 
-            // Adiciona entre os valores 
+            // join: junta todos os itens em UM TEXTO, usando o separador informado.
+            // NÃO modifica x: o resultado vai para a variável novaLista (um texto, não um array).
+            // EXEMPLO:  ["a","b","c"].join(" - ")  ->  "a - b - c"     (sem argumento, o separador é a vírgula)
             var novaLista = x.join(' - ');  
             document.write("<br>Nova lista 2 = " + novaLista + ". ");
 
-            // Retirar do final
+            // pop: remove o ÚLTIMO item ("Sab") e o devolve. MODIFICA o array: volta a ter 6 itens.
+            // EXEMPLO:  var v = ["a","b"];  var r = v.pop();  ->  r = "b"  e  v = ["a"]
             x.pop();                  
             document.write("<br>Nova lista 3 = " + x + ". ");
 
-            // Retirar do inicio
+            // shift: remove o PRIMEIRO item ("Dom") e o devolve. MODIFICA o array:
+            // x vira [Seg,Ter,Qua,Qui,Sex] e todos os índices "andam" uma casa para trás.
             x.shift();                  
             document.write("<br>Nova lista 4 = " + x + ". ");
 
-            // Adiciona no inicio
+            // unshift: acrescenta no INÍCIO. x vira [Domingo,Seg,Ter,Qua,Qui,Sex].
+            // Trace completo de x até aqui:
+            //   [Dom,Seg,Ter,Qua,Qui,Sex] -> push("Sab") -> [..., Sex,Sab] -> pop() -> [..., Sex]
+            //   -> shift() -> [Seg,Ter,Qua,Qui,Sex] -> unshift("Domingo") -> [Domingo,Seg,Ter,Qua,Qui,Sex]
             x.unshift("Domingo");                  
             document.write("<br>Nova lista 5 = " + x + ". ");
 
-            // Seleciona intervalo
+            // slice(inicio, fim): COPIA um pedaço. O índice "fim" NÃO é incluído e o array x NÃO muda.
+            // Neste ponto x = [Domingo,Seg,Ter,Qua,Qui,Sex]; slice(1,6) pega os índices 1 a 5
+            // e devolve [Seg,Ter,Qua,Qui,Sex].
+            // Obs.: novaLista já existia (era o texto do join). Com var é permitido redeclarar;
+            // agora ela passa a guardar um array.
+            // EXEMPLO:  ["a","b","c","d"].slice(1,3)  ->  ["b","c"]
             var novaLista = x.slice(1,6);                 
             document.write("<br>Nova lista 6 = " + novaLista + ". ");
             
-            // Ordena crescente
+            // sort: ordena e MODIFICA o array original (dias passa a ficar [21,22,...,27]).
+            // ATENÇÃO: sem argumentos, sort() compara os itens como TEXTO, não como número.
+            //   [10, 9, 1, 100].sort()                          ->  [1, 10, 100, 9]   (ordem alfabética!)
+            //   [10, 9, 1, 100].sort(function(a,b){return a-b}) ->  [1, 9, 10, 100]   (ordem numérica correta)
+            // Aqui funciona porque todos os números têm 2 dígitos (21 a 27), então texto e número coincidem.
             var dias = [27,22,25,21,24,23,26];                 
             document.write("<br>Nova lista 7 = " + dias + ". ");
             document.write("<br>Nova lista 8 = " + dias.sort() + ". ");
             
-            // Ordena decrescente
+            // reverse: apenas INVERTE a ordem atual (também modifica o array); ele não ordena.
+            // Aqui deu certo porque o array já estava crescente, então inverter gera [27,...,21].
+            // Forma correta de ordenar de verdade em ordem decrescente:
+            //   dias.sort(function(a,b){ return b - a; });
             document.write("<br>Nova lista 9 = " + dias.reverse() + ". ");
             
-            // Concatenar ou Juntar 
+            // concat: junta valores ou arrays e devolve um array NOVO; o original não muda.
+            // Por isso é preciso guardar o resultado:  dias = dias.concat(...).
+            // NA PROVA: escrever apenas  dias.concat(20);  sem atribuir não altera nada.
+            // EXEMPLO:  [1].concat([2,3], 4)  ->  [1,2,3,4]
+            // Resultado aqui: [27,26,25,24,23,22,21,20,19,18,17,16,15,14] (14 itens)
             dias = dias.concat(20,19,18,17,16,15,14);
             document.write("<br>Nova lista 10 = " + dias + ". ");
             
-            // Exibir com FOR
+            // Reordena (agora os 14 dias ficam de 14 a 27) e percorre com for usando dias.length.
+            // Escrever dias.length no lugar do número fixo faz o laço servir para qualquer tamanho.
+            // Resultado: 14/09 15/09 16/09 ... 27/09
             dias.sort();
             document.write("<br><br>Listar os dias do mes:<br>");
             for (var i = 0; i < dias.length; i++){
